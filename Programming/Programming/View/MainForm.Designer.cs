@@ -33,7 +33,7 @@
             this.GroupBoxSeason = new System.Windows.Forms.GroupBox();
             this.ComboBoxSeason = new System.Windows.Forms.ComboBox();
             this.ButtonSeason = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
+            this.LabelChooseSeason = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.ButtonParse = new System.Windows.Forms.Button();
             this.TextBoxParsing = new System.Windows.Forms.TextBox();
@@ -41,11 +41,11 @@
             this.LabelParsing1 = new System.Windows.Forms.Label();
             this.Enumeration = new System.Windows.Forms.GroupBox();
             this.ValuesListBox = new System.Windows.Forms.ListBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.LabelInt = new System.Windows.Forms.Label();
             this.EnumsListBox = new System.Windows.Forms.ListBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.LabelChooseValue = new System.Windows.Forms.Label();
             this.EnumsTextBox = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.LabelChooseEnum = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.GroupBoMovie = new System.Windows.Forms.GroupBox();
             this.LabelRating = new System.Windows.Forms.Label();
@@ -107,7 +107,7 @@
             // 
             this.GroupBoxSeason.Controls.Add(this.ComboBoxSeason);
             this.GroupBoxSeason.Controls.Add(this.ButtonSeason);
-            this.GroupBoxSeason.Controls.Add(this.label4);
+            this.GroupBoxSeason.Controls.Add(this.LabelChooseSeason);
             this.GroupBoxSeason.Location = new System.Drawing.Point(376, 221);
             this.GroupBoxSeason.Name = "GroupBoxSeason";
             this.GroupBoxSeason.Size = new System.Drawing.Size(377, 140);
@@ -129,18 +129,18 @@
             this.ButtonSeason.Name = "ButtonSeason";
             this.ButtonSeason.Size = new System.Drawing.Size(75, 23);
             this.ButtonSeason.TabIndex = 2;
-            this.ButtonSeason.Text = "button1";
+            this.ButtonSeason.Text = "Go!";
             this.ButtonSeason.UseVisualStyleBackColor = true;
             this.ButtonSeason.Click += new System.EventHandler(this.ButtonSeason_Click);
             // 
-            // label4
+            // LabelChooseSeason
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(17, 30);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 13);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "label4";
+            this.LabelChooseSeason.AutoSize = true;
+            this.LabelChooseSeason.Location = new System.Drawing.Point(17, 30);
+            this.LabelChooseSeason.Name = "LabelChooseSeason";
+            this.LabelChooseSeason.Size = new System.Drawing.Size(83, 13);
+            this.LabelChooseSeason.TabIndex = 0;
+            this.LabelChooseSeason.Text = "Choose season:";
             // 
             // groupBox1
             // 
@@ -193,11 +193,11 @@
             // Enumeration
             // 
             this.Enumeration.Controls.Add(this.ValuesListBox);
-            this.Enumeration.Controls.Add(this.label3);
+            this.Enumeration.Controls.Add(this.LabelInt);
             this.Enumeration.Controls.Add(this.EnumsListBox);
-            this.Enumeration.Controls.Add(this.label2);
+            this.Enumeration.Controls.Add(this.LabelChooseValue);
             this.Enumeration.Controls.Add(this.EnumsTextBox);
-            this.Enumeration.Controls.Add(this.label1);
+            this.Enumeration.Controls.Add(this.LabelChooseEnum);
             this.Enumeration.Location = new System.Drawing.Point(8, 3);
             this.Enumeration.Name = "Enumeration";
             this.Enumeration.Size = new System.Drawing.Size(745, 211);
@@ -214,14 +214,14 @@
             this.ValuesListBox.TabIndex = 1;
             this.ValuesListBox.SelectedIndexChanged += new System.EventHandler(this.ValuesListBox_SelectedIndexChanged);
             // 
-            // label3
+            // LabelInt
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(365, 20);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 13);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "label3";
+            this.LabelInt.AutoSize = true;
+            this.LabelInt.Location = new System.Drawing.Point(365, 20);
+            this.LabelInt.Name = "LabelInt";
+            this.LabelInt.Size = new System.Drawing.Size(51, 13);
+            this.LabelInt.TabIndex = 5;
+            this.LabelInt.Text = "Int value:";
             // 
             // EnumsListBox
             // 
@@ -232,14 +232,14 @@
             this.EnumsListBox.TabIndex = 0;
             this.EnumsListBox.SelectedIndexChanged += new System.EventHandler(this.EnumsListBox_SelectedIndexChanged);
             // 
-            // label2
+            // LabelChooseValue
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(183, 20);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "label2";
+            this.LabelChooseValue.AutoSize = true;
+            this.LabelChooseValue.Location = new System.Drawing.Point(183, 20);
+            this.LabelChooseValue.Name = "LabelChooseValue";
+            this.LabelChooseValue.Size = new System.Drawing.Size(75, 13);
+            this.LabelChooseValue.TabIndex = 4;
+            this.LabelChooseValue.Text = "Choose value:";
             // 
             // EnumsTextBox
             // 
@@ -249,14 +249,14 @@
             this.EnumsTextBox.Size = new System.Drawing.Size(100, 20);
             this.EnumsTextBox.TabIndex = 2;
             // 
-            // label1
+            // LabelChooseEnum
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 20);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "label1";
+            this.LabelChooseEnum.AutoSize = true;
+            this.LabelChooseEnum.Location = new System.Drawing.Point(13, 20);
+            this.LabelChooseEnum.Name = "LabelChooseEnum";
+            this.LabelChooseEnum.Size = new System.Drawing.Size(107, 13);
+            this.LabelChooseEnum.TabIndex = 3;
+            this.LabelChooseEnum.Text = "Choose enumeration:";
             // 
             // tabPage1
             // 
@@ -519,9 +519,9 @@
         private System.Windows.Forms.TextBox EnumsTextBox;
         private System.Windows.Forms.ListBox ValuesListBox;
         private System.Windows.Forms.ListBox EnumsListBox;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label LabelInt;
+        private System.Windows.Forms.Label LabelChooseValue;
+        private System.Windows.Forms.Label LabelChooseEnum;
         private System.Windows.Forms.GroupBox Enumeration;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button ButtonParse;
@@ -531,7 +531,7 @@
         private System.Windows.Forms.GroupBox GroupBoxSeason;
         private System.Windows.Forms.ComboBox ComboBoxSeason;
         private System.Windows.Forms.Button ButtonSeason;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label LabelChooseSeason;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.GroupBox GroupBoxRectangles;
         private System.Windows.Forms.Label LabelColor;
