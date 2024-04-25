@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Programming
 {
@@ -26,6 +27,9 @@ namespace Programming
         private static MyRectangle _currentRectangle = null;
         private static MyMovie[] _movies = null;
         private static MyMovie _currentMovie = null;
+        private static List<MyRectangle> _rectangleR = new List<MyRectangle>();
+        private static MyRectangle _currentRectangleR = null;
+        private static List<Panel> _rectanglePanels = new List<Panel>();
 
         public MainForm()
         {
@@ -93,9 +97,9 @@ namespace Programming
             for (int i = 0; i < size; i++) 
             {
                 myRectangles[i] = new MyRectangle();
-                myRectangles[i].Width = ran.Next(0, 100);
-                myRectangles[i].Length = ran.Next(0, 100);
-                myRectangles[i].Center = new Point2D(ran.Next(0, 100), ran.Next(0, 100));
+                myRectangles[i].Width = ran.Next(10, 200);
+                myRectangles[i].Height = ran.Next(10, 200);
+                myRectangles[i].Center = new Point2D(ran.Next(0, PanelRectangle.Width), ran.Next(0, PanelRectangle.Height));
             }
 
             return myRectangles;
@@ -114,7 +118,7 @@ namespace Programming
             _currentRectangle = _rectangles[ListBoxRectangles.SelectedIndex];
 
             TextBoxWidth.Text = _currentRectangle.Width.ToString();
-            TextBoxLength.Text = _currentRectangle.Length.ToString();
+            TextBoxLength.Text = _currentRectangle.Height.ToString();
             TextBoxColor.Text = _currentRectangle.Color.Name;
             XTextBox.Text = _currentRectangle.Center.X.ToString();
             YTextBox.Text = _currentRectangle.Center.Y.ToString();
@@ -125,7 +129,7 @@ namespace Programming
         {
             try
             {
-                _currentRectangle.Length = int.Parse(TextBoxLength.Text);
+                _currentRectangle.Height = int.Parse(TextBoxLength.Text);
                 TextBoxLength.BackColor = Color.FromKnownColor(KnownColor.Window);
             }
             catch (Exception)
@@ -274,6 +278,163 @@ namespace Programming
         private void ButtonFindMovies_Click(object sender, EventArgs e)
         {
             ListBoxMovies.SelectedIndex = FindMovieWithMaxRating(_movies);
+        }
+
+        private void ButtonAdd_Click(object sender, EventArgs e)
+        {
+            MyRectangle newRectangle = RectangleFactory.Randomize(1, PanelRectangle.Width, PanelRectangle.Height)[0];
+            _rectangleR.Add(newRectangle);
+
+            ListBoxRectangles1.Items.Add($"{newRectangle.Id}. ({newRectangle.Center} W = {newRectangle.Width}; H = {newRectangle.Height})");
+
+            Panel newPanel = new Panel();
+            newPanel.BackColor = Color.FromArgb(127, 127, 255, 127);
+            newPanel.Location = new Point((int)(newRectangle.Center.X - newRectangle.Width / 2), (int)(newRectangle.Center.Y - newRectangle.Height / 2));
+            newPanel.Width = (int)newRectangle.Width;
+            newPanel.Height = (int)newRectangle.Height;
+
+            _rectanglePanels.Add(newPanel);
+            PanelRectangle.Controls.Add(newPanel);
+            CheckCollision();
+        }
+
+        private void ListBoxRectangles1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ListBoxRectangles1.SelectedIndex < 0)
+            {
+                TextBoxWidthRectangle.Text = string.Empty;
+                TextBoxHeightRectangle.Text = string.Empty;
+                TextBoxXRectangle.Text = string.Empty;
+                TextBoxYRectangle.Text = string.Empty;
+                TextBoxIDRectangle.Text = string.Empty;
+            }
+
+            else
+            {
+                _currentRectangleR = _rectangleR[ListBoxRectangles1.SelectedIndex];
+
+                TextBoxWidthRectangle.Text = _currentRectangleR.Width.ToString();
+                TextBoxHeightRectangle.Text = _currentRectangleR.Height.ToString();
+                TextBoxXRectangle.Text = _currentRectangleR.Center.X.ToString();
+                TextBoxYRectangle.Text = _currentRectangleR.Center.Y.ToString();
+                TextBoxIDRectangle.Text = _currentRectangleR.Id.ToString();
+            }
+        }
+
+        private void ButtonDelete_Click(object sender, EventArgs e)
+        {
+            if (ListBoxRectangles1.SelectedIndex < 0) return;
+            _rectangleR.RemoveAt(ListBoxRectangles1.SelectedIndex);
+            _rectanglePanels.RemoveAt(ListBoxRectangles1.SelectedIndex);
+            PanelRectangle.Controls.RemoveAt(ListBoxRectangles1.SelectedIndex);
+            ListBoxRectangles1.Items.RemoveAt(ListBoxRectangles1.SelectedIndex);
+            CheckCollision();
+        }
+
+        private void TextBoxXRectangle_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(TextBoxXRectangle.Text)) return;
+            try
+            {
+                int text = int.Parse(TextBoxXRectangle.Text);
+                _currentRectangleR.Center = new Point2D(text, _currentRectangleR.Center.Y);
+                TextBoxXRectangle.BackColor = Color.FromKnownColor(KnownColor.Window);
+                ChangeTextElemListBoxRectangle();
+
+                _rectanglePanels[ListBoxRectangles1.SelectedIndex].Location = new Point(
+                    text - _rectanglePanels[ListBoxRectangles1.SelectedIndex].Width / 2,
+                    _rectanglePanels[ListBoxRectangles1.SelectedIndex].Location.Y);
+
+                CheckCollision();
+            }
+            catch (Exception)
+            {
+                TextBoxXRectangle.BackColor = Color.LightPink;
+            }
+        }
+
+        private void TextBoxYRectangle_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(TextBoxYRectangle.Text)) return;
+            try
+            {
+                int text = int.Parse(TextBoxYRectangle.Text);
+                _currentRectangleR.Center = new Point2D(_currentRectangleR.Center.X, int.Parse(TextBoxYRectangle.Text));
+                TextBoxYRectangle.BackColor = Color.FromKnownColor(KnownColor.Window);
+                ChangeTextElemListBoxRectangle();
+
+                _rectanglePanels[ListBoxRectangles1.SelectedIndex].Location = new Point(
+                    _rectanglePanels[ListBoxRectangles1.SelectedIndex].Location.X,
+                    text - _rectanglePanels[ListBoxRectangles1.SelectedIndex].Height / 2);
+
+                CheckCollision();
+            }
+            catch (Exception)
+            {
+                TextBoxYRectangle.BackColor = Color.LightPink;
+            }
+        }
+
+        private void TextBoxWidthRectangle_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(TextBoxWidthRectangle.Text)) return;
+            try
+            {
+                int text = int.Parse(TextBoxWidthRectangle.Text);
+                _currentRectangleR.Width = text;
+                TextBoxWidthRectangle.BackColor = Color.FromKnownColor(KnownColor.Window);
+                ChangeTextElemListBoxRectangle();
+
+                _rectanglePanels[ListBoxRectangles1.SelectedIndex].Width = text;
+
+                CheckCollision();
+            }
+            catch (Exception)
+            {
+                TextBoxWidthRectangle.BackColor = Color.LightPink;
+            }
+        }
+
+        private void TextBoxHeightRectangle_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(TextBoxHeightRectangle.Text)) return;
+            try
+            {
+                int text = int.Parse(TextBoxHeightRectangle.Text);
+                _currentRectangleR.Height = text;
+                TextBoxHeightRectangle.BackColor = Color.FromKnownColor(KnownColor.Window);
+                ChangeTextElemListBoxRectangle();
+
+                _rectanglePanels[ListBoxRectangles1.SelectedIndex].Height = text;
+
+                CheckCollision();
+            }
+            catch (Exception)
+            {
+                TextBoxHeightRectangle.BackColor = Color.LightPink;
+            }
+        }
+
+        private void ChangeTextElemListBoxRectangle()
+        {
+            ListBoxRectangles1.Items[ListBoxRectangles1.SelectedIndex] = $"{_rectangleR[ListBoxRectangles1.SelectedIndex].Id}. (" +
+                $"{_rectangleR[ListBoxRectangles1.SelectedIndex].Center} W = {_rectangleR[ListBoxRectangles1.SelectedIndex].Width}; " +
+                $"H = {_rectangleR[ListBoxRectangles1.SelectedIndex].Height})";
+        }
+
+        private void CheckCollision()
+        {
+            for (int i = 0; i < _rectanglePanels.Count; i++)
+            {
+                _rectanglePanels[i].BackColor = Color.FromArgb(127, 127, 255, 127);
+                for (int j = 0; j < _rectanglePanels.Count; j++)
+                {
+                    if (CollisionManager.IsCollision(_rectangleR[i], _rectangleR[j]) && i != j)
+                    {
+                        _rectanglePanels[i].BackColor = Color.FromArgb(127, 255, 127, 127);
+                    }
+                }
+            }
         }
     }
 }

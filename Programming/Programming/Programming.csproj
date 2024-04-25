@@ -46,12 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Geometry\CollisionManager.cs" />
     <Compile Include="Model\Contact.cs" />
     <Compile Include="Model\Flight.cs" />
     <Compile Include="Model\MyMovie.cs" />
-    <Compile Include="Model\MyRectangle.cs" />
-    <Compile Include="Model\Point2D.cs" />
-    <Compile Include="Model\Ring.cs" />
+    <Compile Include="Model\Geometry\MyRectangle.cs" />
+    <Compile Include="Model\Geometry\Point2D.cs" />
+    <Compile Include="Model\Geometry\RectangleFactory.cs" />
+    <Compile Include="Model\Geometry\Ring.cs" />
     <Compile Include="Model\Song.cs" />
     <Compile Include="Model\Subject.cs" />
     <Compile Include="Model\Time.cs" />
@@ -62,12 +64,12 @@
     <Compile Include="View\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Model\ColorList.cs" />
-    <Compile Include="Model\EducationForm.cs" />
+    <Compile Include="Model\Enums\ColorList.cs" />
+    <Compile Include="Model\Enums\EducationForm.cs" />
     <Compile Include="Model\Genre.cs" />
-    <Compile Include="Model\Season.cs" />
-    <Compile Include="Model\Smartphone.cs" />
-    <Compile Include="Model\Weekday.cs" />
+    <Compile Include="Model\Enums\Season.cs" />
+    <Compile Include="Model\Enums\Smartphone.cs" />
+    <Compile Include="Model\Enums\Weekday.cs" />
     <Compile Include="Program.cs" />
     <EmbeddedResource Include="View\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

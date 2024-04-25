@@ -12,12 +12,12 @@ namespace Programming.Model
         private static int _allRectanglesCount;
         private int _id;
 
-        public double Length
+        public double Height
         {
             get { return _length; }
             set 
             {
-                Validator.AssertOnPositiveValue(value, nameof(Length));
+                Validator.AssertOnPositiveValue(value, nameof(Height));
                 _length = value;
             }
         }
@@ -60,7 +60,7 @@ namespace Programming.Model
 
         public MyRectangle(double length, double width, Color color, Point2D center) : this() // вызов конструктора MyRectangle( [параметры this] )
         {
-            Length = length;
+            Height = length;
             Width = width;
             Color = color;
             Center = center;
