@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 
 namespace Programming.Model
 {
@@ -20,15 +21,15 @@ namespace Programming.Model
         {
             get { return _durationMinutes; }
             set {
-                if (value < 0) throw new ArgumentException();
+                Validator.AssertOnPositiveValue(value, nameof(DurationMinutes));
                 _durationMinutes = value; }
         }
 
         public int YearRelease
         {
             get { return _yearRelease; }
-            set {if (value < 1900 || value > DateTime.Now.Year)
-                    throw new ArgumentException();
+            set {
+                Validator.AssertValueInRange(value, 0, DateTime.Now.Year, nameof(YearRelease));
                 _yearRelease = value; }
         }
 

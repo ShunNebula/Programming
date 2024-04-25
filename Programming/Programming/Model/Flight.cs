@@ -24,7 +24,7 @@ namespace Programming.Model
         {
             get { return _flightMinute; }
             set {
-                if (_flightMinute < 0) throw new ArgumentException();
+                Validator.AssertOnPositiveValue(value, nameof(FlightMinute));
                 _flightMinute = value; }
         }
 

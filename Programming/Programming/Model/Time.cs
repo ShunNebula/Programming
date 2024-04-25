@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 
 namespace Programming.Model
 {
@@ -11,24 +12,24 @@ namespace Programming.Model
         public int Hours
         {
             get { return _hours; }
-            set {if (value < 0 || value > 23)
-                    throw new ArgumentException();
+            set {
+                Validator.AssertValueInRange(value, 0, 23, nameof(Hours));
                 _hours = value; }
         }
 
         public int Minutes
         { 
             get { return _minutes; }
-            set {if (value < 0 || value > 60)
-                    throw new ArgumentException();
+            set {
+                Validator.AssertValueInRange(value, 0, 60, nameof(Minutes));
                 _minutes = value; }
         }
 
         public int Seconds
         {
             get { return _seconds; }
-            set {if (value < 0 || value > 60)
-                    throw new ArgumentException();
+            set {
+                Validator.AssertValueInRange(value, 0, 60, nameof(Seconds));
                 _seconds = value; }
         }
 

@@ -50,9 +50,12 @@
     <Compile Include="Model\Flight.cs" />
     <Compile Include="Model\MyMovie.cs" />
     <Compile Include="Model\MyRectangle.cs" />
+    <Compile Include="Model\Point2D.cs" />
+    <Compile Include="Model\Ring.cs" />
     <Compile Include="Model\Song.cs" />
     <Compile Include="Model\Subject.cs" />
     <Compile Include="Model\Time.cs" />
+    <Compile Include="Model\Validator..cs" />
     <Compile Include="View\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

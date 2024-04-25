@@ -16,7 +16,11 @@ namespace Programming.Model
         public string Date
         { get { return _date; } set { _date = value; } }
         public int DurationSeconds
-        { get { return _durationSeconds; } set { if (value < 0) throw new ArgumentException(); _durationSeconds = value; } }
+        { 
+            get { return _durationSeconds; } 
+            set {
+                Validator.AssertOnPositiveValue(value, nameof(DurationSeconds)); 
+                _durationSeconds = value; } }
 
         public Song()
         {

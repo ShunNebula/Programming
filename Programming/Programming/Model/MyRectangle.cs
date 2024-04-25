@@ -8,13 +8,16 @@ namespace Programming.Model
         private double _length;
         private double _width;
         private Color _color = Color.Black;
+        private Point2D _center;
+        private static int _allRectanglesCount;
+        private int _id;
 
         public double Length
         {
             get { return _length; }
             set 
             {
-                if (value < 0) throw new ArgumentException();
+                Validator.AssertOnPositiveValue(value, nameof(Length));
                 _length = value;
             }
         }
@@ -23,7 +26,7 @@ namespace Programming.Model
         { 
             get { return _width; } 
             set {
-                if (value < 0) throw new ArgumentException();
+                Validator.AssertOnPositiveValue(value, nameof(Width));
                 _width = value; } 
         }
 
@@ -32,17 +35,35 @@ namespace Programming.Model
             get { return _color; }
             set { _color = value; }
         }
+        public Point2D Center
+        {
+            get { return _center; } 
+            set { _center = value; }
+        }
+
+        public static int AllRectanglesCount
+        {
+            get { return _allRectanglesCount; }
+            private set { _allRectanglesCount = value; }
+        }
+
+        public int Id
+        {
+            get { return _id; }
+            private set { _id = value; }
+        }
 
         public MyRectangle()
         {
-            
+            Id = _allRectanglesCount++;
         }
 
-        public MyRectangle(double length, double width, Color color)
+        public MyRectangle(double length, double width, Color color, Point2D center) : this() // вызов конструктора MyRectangle( [параметры this] )
         {
             Length = length;
             Width = width;
             Color = color;
+            Center = center;
         }
     }
 }

@@ -56,7 +56,7 @@ namespace Programming
 
         private void ButtonParse_Click(object sender, EventArgs e)
         {
-            if (Enum.TryParse<Weekday>(TextBoxParsing.Text, out Weekday result))
+            if (Enum.TryParse<Weekday>(TextBoxParsing.Text, out Weekday result)  && !int.TryParse(TextBoxParsing.Text, out int i))
             {
                 LabelParsing2.Text = $"«Это день недели ({result} = {(int)result})»";
             }
@@ -95,6 +95,7 @@ namespace Programming
                 myRectangles[i] = new MyRectangle();
                 myRectangles[i].Width = ran.Next(0, 100);
                 myRectangles[i].Length = ran.Next(0, 100);
+                myRectangles[i].Center = new Point2D(ran.Next(0, 100), ran.Next(0, 100));
             }
 
             return myRectangles;
@@ -115,6 +116,9 @@ namespace Programming
             TextBoxWidth.Text = _currentRectangle.Width.ToString();
             TextBoxLength.Text = _currentRectangle.Length.ToString();
             TextBoxColor.Text = _currentRectangle.Color.Name;
+            XTextBox.Text = _currentRectangle.Center.X.ToString();
+            YTextBox.Text = _currentRectangle.Center.Y.ToString();
+            TextBoxId.Text = _currentRectangle.Id.ToString();
         }
 
         private void TextBoxLength_TextChanged(object sender, EventArgs e)
