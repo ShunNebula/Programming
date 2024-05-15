@@ -15,7 +15,7 @@ namespace Programming.Model
         /// <summary>
         /// Возвращает новый прямоугольник.
         /// </summary>
-        /// <param name="size">Размер прямоугольника.</param>
+        /// <param name="size">Количество прямоугольников.</param>
         /// <param name="width">Ширина прямоугольника.</param>
         /// <param name="height">Высота прямоугольника.</param>
         /// <returns>Возвращает, созданный прямоугольник.</returns>

@@ -6,11 +6,23 @@ using System.Windows.Forms;
 
 namespace Programming.View.Panels
 {
+    /// <summary>
+    /// Класс для работы с прямоугольниками.
+    /// </summary>
     public partial class RectanglesControl : UserControl
     {
+        /// <summary>
+        /// Список прямоугольников.
+        /// </summary>
         private static MyRectangle[] _rectangles = null;
+        /// <summary>
+        /// Текущий прямоугольник.
+        /// </summary>
         private static MyRectangle _currentRectangle = null;
 
+        /// <summary>
+        /// Инициализация компонентов.
+        /// </summary>
         public RectanglesControl()
         {
             InitializeComponent();
@@ -19,6 +31,11 @@ namespace Programming.View.Panels
             InitListBoxRectangles(5);
         }
 
+        /// <summary>
+        /// Создание списка, заполненного случайными прямоугольнками.
+        /// </summary>
+        /// <param name="size">Количество прямоугольников.</param>
+        /// <returns>Возвращает список прямоугольников.</returns>
         private MyRectangle[] GetRandomRectangles(int size)
         {
             MyRectangle[] myRectangles = new MyRectangle[size];
@@ -35,6 +52,10 @@ namespace Programming.View.Panels
             return myRectangles;
         }
 
+        /// <summary>
+        /// Заполнение ListBoxRectangles перечислением прямоугольников.
+        /// </summary>
+        /// <param name="count">Количество прямоугольников.</param>
         private void InitListBoxRectangles(int count)
         {
             for (int i = 0; i < count; i++)
@@ -43,31 +64,46 @@ namespace Programming.View.Panels
             }
         }
 
+        /// <summary>
+        /// Заполенение TextBox высоты, ширины, цвета, X, Y и id.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие - ListBoxRectangles.</param>
+        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void ListBoxRectangles_SelectedIndexChanged(object sender, EventArgs e)
         {
             _currentRectangle = _rectangles[ListBoxRectangles.SelectedIndex];
 
             TextBoxWidth.Text = _currentRectangle.Width.ToString();
-            TextBoxLength.Text = _currentRectangle.Height.ToString();
+            TextBoxHeight.Text = _currentRectangle.Height.ToString();
             TextBoxColor.Text = _currentRectangle.Color.Name;
             XTextBox.Text = _currentRectangle.Center.X.ToString();
             YTextBox.Text = _currentRectangle.Center.Y.ToString();
             TextBoxId.Text = _currentRectangle.Id.ToString();
         }
 
-        private void TextBoxLength_TextChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Проверка и изменение высоты.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие - TextBoxHeight.</param>
+        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
+        private void TextBoxHeight_TextChanged(object sender, EventArgs e)
         {
             try
             {
-                _currentRectangle.Height = int.Parse(TextBoxLength.Text);
-                TextBoxLength.BackColor = AppColors.trueText;
+                _currentRectangle.Height = int.Parse(TextBoxHeight.Text);
+                TextBoxHeight.BackColor = AppColors.trueText;
             }
             catch (Exception)
             {
-                TextBoxLength.BackColor = AppColors.falseText;
+                TextBoxHeight.BackColor = AppColors.falseText;
             }
         }
 
+        /// <summary>
+        /// Проверка и изменение ширины.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие - TextBoxWidth.</param>
+        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void TextBoxWidth_TextChanged(object sender, EventArgs e)
         {
             try
@@ -81,6 +117,11 @@ namespace Programming.View.Panels
             }
         }
 
+        /// <summary>
+        /// Проверка и изменение цвета.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие - TextBoxColor.</param>
+        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void TextBoxColor_TextChanged(object sender, EventArgs e)
         {
             Color value = Color.FromName(TextBoxColor.Text);
@@ -93,6 +134,11 @@ namespace Programming.View.Panels
             }
         }
 
+        /// <summary>
+        /// Нахождение индекса прямоугольника с наибольшей шириной.
+        /// </summary>
+        /// <param name="rectangles">Список прямоугольников.</param>
+        /// <returns>Индекс прямоугольника с наибольшей шириной.</returns>
         private int FindRectangleWithMaxWidth(MyRectangle[] rectangles)
         {
             int maxWidthIndex = 0;
@@ -104,6 +150,11 @@ namespace Programming.View.Panels
             return maxWidthIndex;
         }
 
+        /// <summary>
+        /// Поиск Прямоугольника с наибольшей шириной.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие - ButtonFindRectangles.</param>
+        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void ButtonFindRectangles_Click(object sender, EventArgs e)
         {
             ListBoxRectangles.SelectedIndex = FindRectangleWithMaxWidth(_rectangles);

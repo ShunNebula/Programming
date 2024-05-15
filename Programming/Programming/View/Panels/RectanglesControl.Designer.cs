@@ -41,7 +41,7 @@
             this.LabelWidth = new System.Windows.Forms.Label();
             this.TextBoxWidth = new System.Windows.Forms.TextBox();
             this.LabelLength = new System.Windows.Forms.Label();
-            this.TextBoxLength = new System.Windows.Forms.TextBox();
+            this.TextBoxHeight = new System.Windows.Forms.TextBox();
             this.ListBoxRectangles = new System.Windows.Forms.ListBox();
             this.GroupBoxRectangles.SuspendLayout();
             this.SuspendLayout();
@@ -60,7 +60,7 @@
             this.GroupBoxRectangles.Controls.Add(this.LabelWidth);
             this.GroupBoxRectangles.Controls.Add(this.TextBoxWidth);
             this.GroupBoxRectangles.Controls.Add(this.LabelLength);
-            this.GroupBoxRectangles.Controls.Add(this.TextBoxLength);
+            this.GroupBoxRectangles.Controls.Add(this.TextBoxHeight);
             this.GroupBoxRectangles.Controls.Add(this.ListBoxRectangles);
             this.GroupBoxRectangles.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GroupBoxRectangles.Location = new System.Drawing.Point(0, 0);
@@ -177,11 +177,11 @@
             // 
             // TextBoxLength
             // 
-            this.TextBoxLength.Location = new System.Drawing.Point(162, 36);
-            this.TextBoxLength.Name = "TextBoxLength";
-            this.TextBoxLength.Size = new System.Drawing.Size(100, 20);
-            this.TextBoxLength.TabIndex = 1;
-            this.TextBoxLength.TextChanged += new System.EventHandler(this.TextBoxLength_TextChanged);
+            this.TextBoxHeight.Location = new System.Drawing.Point(162, 36);
+            this.TextBoxHeight.Name = "TextBoxLength";
+            this.TextBoxHeight.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxHeight.TabIndex = 1;
+            this.TextBoxHeight.TextChanged += new System.EventHandler(this.TextBoxHeight_TextChanged);
             // 
             // ListBoxRectangles
             // 
@@ -220,7 +220,7 @@
         private System.Windows.Forms.Label LabelWidth;
         private System.Windows.Forms.TextBox TextBoxWidth;
         private System.Windows.Forms.Label LabelLength;
-        private System.Windows.Forms.TextBox TextBoxLength;
+        private System.Windows.Forms.TextBox TextBoxHeight;
         private System.Windows.Forms.ListBox ListBoxRectangles;
     }
 }

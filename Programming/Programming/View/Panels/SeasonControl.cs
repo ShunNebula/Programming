@@ -9,8 +9,14 @@ using System.Windows.Forms;
 
 namespace Programming.View.Panels
 {
+    /// <summary>
+    /// Класс для работы с сезонами.
+    /// </summary>
     public partial class SeasonControl : UserControl
     {
+        /// <summary>
+        /// Инициализация компонентов.
+        /// </summary>
         public SeasonControl()
         {
             InitializeComponent();
@@ -18,6 +24,11 @@ namespace Programming.View.Panels
             this.ComboBoxSeason.Items.AddRange(Enum.GetValues(typeof(Season)).Cast<object>().ToArray());
         }
 
+        /// <summary>
+        /// Выполнение определенного сценария при выборе какого-то сезона.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие - ButtonSeason.</param>
+        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void ButtonSeason_Click(object sender, EventArgs e)
         {
             switch (ComboBoxSeason.SelectedItem)

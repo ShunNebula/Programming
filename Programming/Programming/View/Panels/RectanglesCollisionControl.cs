@@ -7,17 +7,37 @@ using System.Windows.Forms;
 
 namespace Programming.View.Panels
 {
+    /// <summary>
+    /// Класс для работы с коллизией прямоугольников и с выводом на Panel.
+    /// </summary>
     public partial class RectanglesCollisionControl : UserControl
     {
+        /// <summary>
+        /// Список прямоугольников типа List<MyRectangle>.
+        /// </summary>
         private static List<MyRectangle> _rectangle = new List<MyRectangle>();
+        /// <summary>
+        /// Текущий прямоугольник.
+        /// </summary>
         private static MyRectangle _currentRectangle = null;
+        /// <summary>
+        /// Список прямойгольников типа List<Panel>.
+        /// </summary>
         private static List<Panel> _rectanglePanels = new List<Panel>();
 
+        /// <summary>
+        /// Инициализация компонентов.
+        /// </summary>
         public RectanglesCollisionControl()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Проверка и изменение координаты X.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие - TextBoxXRectangle.</param>
+        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void TextBoxXRectangle_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(TextBoxXRectangle.Text)) return;
@@ -40,6 +60,11 @@ namespace Programming.View.Panels
             }
         }
 
+        /// <summary>
+        /// Проверка и изменение координаты Y.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие - TextBoxYRectangle.</param>
+        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void TextBoxYRectangle_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(TextBoxYRectangle.Text)) return;
@@ -62,6 +87,11 @@ namespace Programming.View.Panels
             }
         }
 
+        /// <summary>
+        /// Проверка и изменение ширины прямоугольника.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие - TextBoxWidthRectangle.</param>
+        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void TextBoxWidthRectangle_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(TextBoxWidthRectangle.Text)) return;
@@ -82,6 +112,11 @@ namespace Programming.View.Panels
             }
         }
 
+        /// <summary>
+        /// Проверка и изменение высоты прямоугольника.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие - TextBoxHeightRectangle.</param>
+        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void TextBoxHeightRectangle_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(TextBoxHeightRectangle.Text)) return;
@@ -102,6 +137,11 @@ namespace Programming.View.Panels
             }
         }
 
+        /// <summary>
+        /// Удаление выбранного прямоугольника.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие - ButtonDelete.</param>
+        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void ButtonDelete_Click(object sender, EventArgs e)
         {
             if (ListBoxRectangles.SelectedIndex < 0) return;
@@ -112,6 +152,11 @@ namespace Programming.View.Panels
             CheckCollision();
         }
 
+        /// <summary>
+        /// Добавление случайного прямоугольника.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие - ButtonAdd.</param>
+        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void ButtonAdd_Click(object sender, EventArgs e)
         {
             MyRectangle newRectangle = RectangleFactory.Randomize(1, PanelRectangle.Width, PanelRectangle.Height)[0];
@@ -130,6 +175,11 @@ namespace Programming.View.Panels
             CheckCollision();
         }
 
+        /// <summary>
+        /// Заполнение TextBox X, Y, высоты, ширины и id.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие - ListBoxRectangles.</param>
+        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void ListBoxRectangles_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ListBoxRectangles.SelectedIndex < 0)
@@ -153,6 +203,9 @@ namespace Programming.View.Panels
             }
         }
 
+        /// <summary>
+        /// Добавление в ListBoxRectangles нового прямоугольника.
+        /// </summary>
         private void ChangeTextElemListBoxRectangle()
         {
             ListBoxRectangles.Items[ListBoxRectangles.SelectedIndex] = $"{_rectangle[ListBoxRectangles.SelectedIndex].Id}. (" +
@@ -160,6 +213,9 @@ namespace Programming.View.Panels
                 $"H = {_rectangle[ListBoxRectangles.SelectedIndex].Height})";
         }
 
+        /// <summary>
+        /// Проверка на пересечение прямоугольников.
+        /// </summary>
         private void CheckCollision()
         {
             for (int i = 0; i < _rectanglePanels.Count; i++)

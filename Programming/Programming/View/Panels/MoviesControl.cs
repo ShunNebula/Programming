@@ -5,11 +5,23 @@ using System.Windows.Forms;
 
 namespace Programming.View.Panels
 {
+    /// <summary>
+    /// Класс для работы с фильмами.
+    /// </summary>
     public partial class MoviesControl : UserControl
     {
+        /// <summary>
+        /// Список фильмов.
+        /// </summary>
         private static MyMovie[] _movies = null;
+        /// <summary>
+        /// Текущий фильм.
+        /// </summary>
         private static MyMovie _currentMovie = null;
 
+        /// <summary>
+        /// Инициализация компонентов.
+        /// </summary>
         public MoviesControl()
         {
             InitializeComponent();
@@ -18,6 +30,11 @@ namespace Programming.View.Panels
             InitListBoxMovies(5);
         }
 
+        /// <summary>
+        /// Создание списка случайных фильмов.
+        /// </summary>
+        /// <param name="size">Количество фильмов.</param>
+        /// <returns>Возвращает список фильмов.</returns>
         private MyMovie[] GetRandomMovies(int size)
         {
             MyMovie[] myMovies = new MyMovie[size];
@@ -35,6 +52,10 @@ namespace Programming.View.Panels
             return myMovies;
         }
 
+        /// <summary>
+        /// Заполнение ListBoxMovies перечислением фильмов.
+        /// </summary>
+        /// <param name="count">Количество фильмов.</param>
         private void InitListBoxMovies(int count)
         {
             for (int i = 0; i < count; i++)
@@ -43,6 +64,11 @@ namespace Programming.View.Panels
             }
         }
 
+        /// <summary>
+        /// Заполняет TextBox названия, длительности, даты, жанра и рейтинга.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие - ListBoxMovies.</param>
+        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void ListBoxMovies_SelectedIndexChanged(object sender, EventArgs e)
         {
             _currentMovie = _movies[ListBoxMovies.SelectedIndex];
@@ -54,6 +80,11 @@ namespace Programming.View.Panels
             TextBoxRating.Text = _currentMovie.Rating.ToString();
         }
 
+        /// <summary>
+        /// Проверка и изменение рейтинга.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие - TextBoxRating.</param>
+        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void TextBoxRating_TextChanged(object sender, EventArgs e)
         {
             try
@@ -67,11 +98,21 @@ namespace Programming.View.Panels
             }
         }
 
+        /// <summary>
+        /// Проверка и изменение названия.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие - TextBoxTitle.</param>
+        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void TextBoxTitle_TextChanged(object sender, EventArgs e)
         {
             _currentMovie.Title = TextBoxTitle.Text;
         }
 
+        /// <summary>
+        /// Проверка и изменение длительности.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие - TextBoxDurationMinutes.</param>
+        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void TextBoxDurationMinutes_TextChanged(object sender, EventArgs e)
         {
             try
@@ -85,6 +126,11 @@ namespace Programming.View.Panels
             }
         }
 
+        /// <summary>
+        /// Проверка и изменение года выхода.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие - TextBoxYearRelease.</param>
+        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void TextBoxYearRelease_TextChanged(object sender, EventArgs e)
         {
             try
@@ -98,11 +144,21 @@ namespace Programming.View.Panels
             }
         }
 
+        /// <summary>
+        /// Изменение жанра.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие - TextBoxGenre.</param>
+        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void TextBoxGenre_TextChanged(object sender, EventArgs e)
         {
             _currentMovie.Genre = TextBoxGenre.Text;
         }
 
+        /// <summary>
+        /// Нахождение индекса фильма с наибольшим рейтингом.
+        /// </summary>
+        /// <param name="movies">Список фильмов.</param>
+        /// <returns>Возвращает индекс фильма с наибольшим рейтингом.</returns>
         private int FindMovieWithMaxRating(MyMovie[] movies)
         {
             int maxRatingIndex = 0;
@@ -114,6 +170,11 @@ namespace Programming.View.Panels
             return maxRatingIndex;
         }
 
+        /// <summary>
+        /// Поиск фильма с наибольшим рейтингом.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие - ButtonFindMovies.</param>
+        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void ButtonFindMovies_Click(object sender, EventArgs e)
         {
             ListBoxMovies.SelectedIndex = FindMovieWithMaxRating(_movies);
