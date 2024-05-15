@@ -47,17 +47,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Geometry\CollisionManager.cs" />
-    <Compile Include="Model\Contact.cs" />
-    <Compile Include="Model\Flight.cs" />
-    <Compile Include="Model\MyMovie.cs" />
+    <Compile Include="Resourses\AppColors.cs" />
+    <Compile Include="Resourses\Contact.cs" />
+    <Compile Include="Resourses\Flight.cs" />
+    <Compile Include="Resourses\MyMovie.cs" />
     <Compile Include="Model\Geometry\MyRectangle.cs" />
     <Compile Include="Model\Geometry\Point2D.cs" />
     <Compile Include="Model\Geometry\RectangleFactory.cs" />
     <Compile Include="Model\Geometry\Ring.cs" />
-    <Compile Include="Model\Song.cs" />
-    <Compile Include="Model\Subject.cs" />
-    <Compile Include="Model\Time.cs" />
-    <Compile Include="Model\Validator..cs" />
+    <Compile Include="Resourses\Song.cs" />
+    <Compile Include="Resourses\Subject.cs" />
+    <Compile Include="Resourses\Time.cs" />
+    <Compile Include="Resourses\Validator..cs" />
     <Compile Include="View\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,11 +67,47 @@
     </Compile>
     <Compile Include="Model\Enums\ColorList.cs" />
     <Compile Include="Model\Enums\EducationForm.cs" />
-    <Compile Include="Model\Genre.cs" />
+    <Compile Include="Resourses\Genre.cs" />
     <Compile Include="Model\Enums\Season.cs" />
     <Compile Include="Model\Enums\Smartphone.cs" />
     <Compile Include="Model\Enums\Weekday.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="View\Panels\EnumerationControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Panels\EnumerationControl.Designer.cs">
+      <DependentUpon>EnumerationControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Panels\MoviesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Panels\MoviesControl.Designer.cs">
+      <DependentUpon>MoviesControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Panels\RectanglesCollisionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Panels\RectanglesCollisionControl.Designer.cs">
+      <DependentUpon>RectanglesCollisionControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Panels\RectanglesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Panels\RectanglesControl.Designer.cs">
+      <DependentUpon>RectanglesControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Panels\SeasonControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Panels\SeasonControl.Designer.cs">
+      <DependentUpon>SeasonControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Panels\WeekdayControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Panels\WeekdayControl.Designer.cs">
+      <DependentUpon>WeekdayControl.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="View\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -83,6 +120,24 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="View\Panels\EnumerationControl.resx">
+      <DependentUpon>EnumerationControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Panels\MoviesControl.resx">
+      <DependentUpon>MoviesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Panels\RectanglesCollisionControl.resx">
+      <DependentUpon>RectanglesCollisionControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Panels\RectanglesControl.resx">
+      <DependentUpon>RectanglesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Panels\SeasonControl.resx">
+      <DependentUpon>SeasonControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Panels\WeekdayControl.resx">
+      <DependentUpon>WeekdayControl.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
