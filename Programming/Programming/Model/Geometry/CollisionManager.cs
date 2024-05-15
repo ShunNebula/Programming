@@ -6,8 +6,17 @@ using System.Threading.Tasks;
 
 namespace Programming.Model
 {
+    /// <summary>
+    /// Выполняет проверку о пересечении/столкновении геометрических фигур.
+    /// </summary>
     public static class CollisionManager
     {
+        /// <summary>
+        /// Выполняет проверку о пересечении/столкновении колец.
+        /// </summary>
+        /// <param name="ring1">Первое кольцо.</param>
+        /// <param name="ring2">Второе кольцо.</param>
+        /// <returns>Возвращает true, если кольца сталкиваются.</returns>
         public static bool IsCollision(Ring ring1, Ring ring2)
         {
             double path = Math.Sqrt(
@@ -20,6 +29,12 @@ namespace Programming.Model
                 ring2.RadiusMax + path < ring1.RadiusMin);
         }
 
+        /// <summary>
+        /// Выполняет проверку о пересечении/столкновении прямоугольников.
+        /// </summary>
+        /// <param name="rectangle1">Первый прямоугольник.</param>
+        /// <param name="rectangle2">Второй прямоугольник.</param>
+        /// <returns>Возвращает true, если прямоугольники сталкиваются.</returns>
         public static bool IsCollision(MyRectangle rectangle1, MyRectangle rectangle2)
         {
             Point2D region = new Point2D(

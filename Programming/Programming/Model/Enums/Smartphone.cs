@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Programming.Model
 {
+    /// <summary>
+    /// Хранит перечисление марок телефонов.
+    /// </summary>
     public enum Smartphone
     {
         Apple,
