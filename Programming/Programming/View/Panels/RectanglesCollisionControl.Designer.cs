@@ -168,7 +168,7 @@
             this.ListBoxRectangles.Name = "ListBoxRectangles";
             this.ListBoxRectangles.Size = new System.Drawing.Size(190, 134);
             this.ListBoxRectangles.TabIndex = 18;
-            this.ListBoxRectangles.Click += new System.EventHandler(this.ListBoxRectangles_SelectedIndexChanged);
+            this.ListBoxRectangles.SelectedIndexChanged += new System.EventHandler(this.ListBoxRectangles_SelectedIndexChanged);
             // 
             // label1
             // 
