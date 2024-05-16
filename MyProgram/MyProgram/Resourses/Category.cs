@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace MyProgram.Model
 {
+    /// <summary>
+    /// Хранит перечисление категорий.
+    /// </summary>
     public enum Category
     {
         Club,

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace MyProgram.Model
 {
+    /// <summary>
+    /// Хранит перечисление адрессов.
+    /// </summary>
     public enum Address
     {
         Main_Street,

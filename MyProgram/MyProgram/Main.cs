@@ -9,9 +9,18 @@ namespace MyProgram
 {
     public partial class Main : Form
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private static List<MyInstitution> _institution = new List<MyInstitution>();
+        /// <summary>
+        /// 
+        /// </summary>
         private static MyInstitution _currentInstitution;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Main()
         {
             InitializeComponent();
@@ -19,6 +28,11 @@ namespace MyProgram
             this.ComboBoxCategory.Items.AddRange(Enum.GetValues(typeof(Category)).Cast<object>().ToArray());
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="size"></param>
+        /// <returns></returns>
         private List<MyInstitution> GetRandomInstitution(int size)
         {
             List<MyInstitution> MyInstitutions = new List<MyInstitution>(size);
@@ -37,6 +51,11 @@ namespace MyProgram
             return MyInstitutions;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ListBoxInstitution_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ListBoxInstitution.SelectedIndex < 0)
@@ -67,6 +86,11 @@ namespace MyProgram
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextBoxTitle_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(TextBoxTitle.Text) || TextBoxTitle.Text.Count() > 200)
@@ -77,12 +101,20 @@ namespace MyProgram
             ButtonChange.Enabled = true;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void ChangeTextElemListBoxInstitution()
         {
             ListBoxInstitution.Items[ListBoxInstitution.SelectedIndex] = _institution[ListBoxInstitution.SelectedIndex].Address +
                 " --> " + _institution[ListBoxInstitution.SelectedIndex].Title;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonChange_Click(object sender, EventArgs e)
         {
             _currentInstitution.Title = TextBoxTitle.Text;
@@ -95,6 +127,11 @@ namespace MyProgram
             _institution = Write(_institution);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextBoxAddress_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(TextBoxAddress.Text) || TextBoxAddress.Text.Count() > 100)
@@ -105,6 +142,11 @@ namespace MyProgram
             ButtonChange.Enabled = true;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextBoxRating_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(TextBoxRating.Text))
@@ -123,6 +165,11 @@ namespace MyProgram
             ButtonChange.Enabled = true;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonAdd_Click(object sender, EventArgs e)
         {
             MyInstitution newInstitution = GetRandomInstitution(1)[0];
@@ -131,6 +178,11 @@ namespace MyProgram
             _institution = Write(_institution);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonDelete_Click(object sender, EventArgs e)
         {
             if (ListBoxInstitution.SelectedIndex < 0) return;
@@ -140,6 +192,11 @@ namespace MyProgram
             _institution = Write(_institution);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
         private List<MyInstitution> Write(List<MyInstitution> list)
         {
             ListBoxInstitution.Items.Clear();
@@ -151,6 +208,9 @@ namespace MyProgram
             return list;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void SaveData()
         {
             string path = Environment.CurrentDirectory + @"\data.txt";
@@ -159,6 +219,9 @@ namespace MyProgram
             File.WriteAllText(path, data);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void LoadData()
         {
             string path = Environment.CurrentDirectory + @"\data.txt";
@@ -172,11 +235,21 @@ namespace MyProgram
             _institution = Write(_institution);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Main_Load(object sender, EventArgs e)
         {
             LoadData();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveData();

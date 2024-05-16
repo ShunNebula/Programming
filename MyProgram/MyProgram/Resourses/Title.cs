@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace MyProgram.Model
 {
+    /// <summary>
+    /// Хранит перечисление названий.
+    /// </summary>
     public enum Title
     {
         The_Red_Lantern,
