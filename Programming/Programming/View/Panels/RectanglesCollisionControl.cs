@@ -21,7 +21,7 @@ namespace Programming.View.Panels
         /// </summary>
         private static MyRectangle _currentRectangle = null;
         /// <summary>
-        /// Список прямойгольников типа List<Panel>.
+        /// Список прямоугольников типа List<Panel>.
         /// </summary>
         private static List<Panel> _rectanglePanels = new List<Panel>();
 
