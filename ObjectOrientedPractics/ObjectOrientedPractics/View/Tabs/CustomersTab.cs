@@ -61,10 +61,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void AddButton_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(FullNameTextBox.Text) || string.IsNullOrEmpty(AddressTextBox.Text)) return;
-            Customer newCustomer = new Customer();
-            newCustomer.Fullname = FullNameTextBox.Text;
-            newCustomer.Address = AddressTextBox.Text;
+            Customer newCustomer = CustomerFactory.Randomize(1)[0];
             _customers.Add(newCustomer);
             CustomersListBox.Items.Add(newCustomer.Id.ToString() + ". " + newCustomer.Fullname.ToString());
         }

@@ -23,6 +23,9 @@ namespace ObjectOrientedPractics.Model
             {
                 Customer newCustomer = new Customer();
                 newCustomer.Fullname = "name";
+                newCustomer.Address = "address";
+
+                myCustomer.Add(newCustomer);
             }
             return myCustomer;
         }
