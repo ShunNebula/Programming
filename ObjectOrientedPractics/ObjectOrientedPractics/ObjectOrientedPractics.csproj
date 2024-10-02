@@ -52,6 +52,7 @@
     <Compile Include="Model\CustomerFactory.cs" />
     <Compile Include="Model\Item.cs" />
     <Compile Include="Model\ItemFactory.cs" />
+    <Compile Include="Model\Store.cs" />
     <Compile Include="Services\IdGenerator.cs" />
     <Compile Include="Services\ValueValidator.cs" />
     <Compile Include="View\Controls\AddressControl.cs">

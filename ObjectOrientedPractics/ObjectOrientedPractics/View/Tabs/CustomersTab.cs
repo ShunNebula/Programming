@@ -21,7 +21,21 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <summary>
         /// Список товаров типа List<Customer>
         /// </summary>
-        private static List<Customer> _customers = new List<Customer>();
+        private List<Customer> _customers = new List<Customer>();
+        public List<Customer> Customers
+        { 
+            get { return _customers; } 
+            set 
+            { 
+                _customers = value;
+                UpdateListBox();
+            }
+        }
+        private void UpdateListBox()
+        {
+            CustomersListBox.DataSource = null; // Очищаем
+            CustomersListBox.DataSource = _customers; // Устанавливаем новый источник данных
+        }
         /// <summary>
         /// Текущий покупатель
         /// </summary>
