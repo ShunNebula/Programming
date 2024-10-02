@@ -1,41 +1,37 @@
-﻿using ObjectOrientedPractics.Services;
+﻿using ObjectOrientedPractices.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ObjectOrientedPractics.Model
+namespace ObjectOrientedPractices.Model
 {
     /// <summary>
-    /// 
+    /// Хранит данные о покупателе
     /// </summary>
     public class Customer
     {
         /// <summary>
-        /// 
-        /// </summary>
-        private int _id;
-        /// <summary>
-        /// 
+        /// Полное имя (фио) покупателя
         /// </summary>
         private string _fullname;
         /// <summary>
-        /// 
+        /// Адрес покупателя
         /// </summary>
         private string _address;
 
         /// <summary>
-        /// 
+        /// Возвращает и задаёт уникальный номер покупателя
         /// </summary>
         public int Id 
-        { 
-            get; 
+        {
+            get;
             private set;
         }
 
         /// <summary>
-        /// 
+        /// Возвращает и задаёт полное имя покупателя. Должно быть не длиннее 200 символов.
         /// </summary>
         public string Fullname 
         { 
@@ -48,7 +44,7 @@ namespace ObjectOrientedPractics.Model
         }
 
         /// <summary>
-        /// 
+        /// Возвращает и задаёт адрес покупателя. Должен быть не длиннее 500 символов.
         /// </summary>
         public string Address 
         { 
@@ -59,20 +55,12 @@ namespace ObjectOrientedPractics.Model
                 _address = value; 
             }
         }
-
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="Customer"/>.
+        /// </summary>
         public Customer()
         {
-            Id = IdGenerator.GetNextId();
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="fullname"></param>
-        /// <param name="address"></param>
-        public Customer(string fullname, string address) : this()
-        {
-            Fullname = fullname;
-            Address = address;
+            Id = IdGenerator.GetNextId("Customer");
         }
     }
 }

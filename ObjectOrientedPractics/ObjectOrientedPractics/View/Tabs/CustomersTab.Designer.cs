@@ -1,4 +1,4 @@
-﻿namespace ObjectOrientedPractics.View.Tabs
+﻿namespace ObjectOrientedPractices.View.Tabs
 {
     partial class CustomersTab
     {
@@ -110,6 +110,7 @@
             // 
             // IDTextBox
             // 
+            this.IDTextBox.Cursor = System.Windows.Forms.Cursors.Default;
             this.IDTextBox.Location = new System.Drawing.Point(69, 44);
             this.IDTextBox.Name = "IDTextBox";
             this.IDTextBox.ReadOnly = true;

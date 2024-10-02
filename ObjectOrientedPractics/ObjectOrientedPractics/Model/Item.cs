@@ -1,41 +1,37 @@
-﻿using ObjectOrientedPractics.Services;
+﻿using ObjectOrientedPractices.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ObjectOrientedPractics.Model
+namespace ObjectOrientedPractices.Model
 {
     /// <summary>
-    /// 
+    /// Хранит данные о товаре
     /// </summary>
     public class Item
     {
         /// <summary>
-        /// 
-        /// </summary>
-        private int _id;
-        /// <summary>
-        /// 
+        /// Название товара
         /// </summary>
         private string _name;
         /// <summary>
-        /// 
+        /// Подробности о товаре
         /// </summary>
         private string _info;
         /// <summary>
-        /// 
+        /// Цена товара
         /// </summary>
         private double _cost;
 
         /// <summary>
-        /// 
+        /// Возвращает и задаёт уникальный номер покупателя
         /// </summary>
         public int Id { get; private set; }
 
         /// <summary>
-        /// 
+        /// Возвращает и задаёт название товара. Должно быть не длиннее 200 символов.
         /// </summary>
         public string Name 
         { 
@@ -48,7 +44,7 @@ namespace ObjectOrientedPractics.Model
         }
 
         /// <summary>
-        /// 
+        /// Возвращает и задаёт подробности о товаре. Должно быть не длиннее 1000 символов.
         /// </summary>
         public string Info
         {
@@ -61,7 +57,7 @@ namespace ObjectOrientedPractics.Model
         }
 
         /// <summary>
-        /// 
+        /// Возвращает и задаёт цену товара. Должно быть в диапазоне от 0 до 100000.
         /// </summary>
         public double Cost
         { 
@@ -72,23 +68,12 @@ namespace ObjectOrientedPractics.Model
                 _cost = value; 
             } 
         }
-
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="Item"/>.
+        /// </summary>
         public Item()
         {
-            Id = IdGenerator.GetNextId();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="info"></param>
-        /// <param name="cost"></param>
-        public Item(string name, string info, double cost) : this()
-        {
-            Name = name;
-            Info = info;
-            Cost = cost;
+            Id = IdGenerator.GetNextId("Item");
         }
     }
 }
