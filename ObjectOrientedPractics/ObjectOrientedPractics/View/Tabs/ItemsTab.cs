@@ -30,6 +30,27 @@ namespace ObjectOrientedPractics.View.Tabs
         public ItemsTab()
         {
             InitializeComponent();
+
+            _items = ItemFactory.Randomize(5);
+            InitListBoxRectangles(5);
+        }
+        /// <summary>
+        /// Заполнение ItemsListBox перечислением товаров
+        /// </summary>
+        /// <param name="count"></param>
+        private void InitListBoxRectangles(int count)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                ItemsListBox.Items.Add(_items[i].Id.ToString() + ". " + _items[i].Name.ToString());
+            }
+        }
+        /// <summary>
+        /// Изменение названия в ItemsListBox при изменении имени товара
+        /// </summary>
+        private void ChangeTextItemsElemListBox()
+        {
+            ItemsListBox.Items[ItemsListBox.SelectedIndex] = _items[ItemsListBox.SelectedIndex].Id.ToString() + ". " + _items[ItemsListBox.SelectedIndex].Name.ToString();
         }
         /// <summary>
         /// Проверка и изменение цены товара
@@ -58,6 +79,7 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             if (string.IsNullOrEmpty(NameTextBox.Text) || ItemsListBox.SelectedIndex < 0) return;
             _currentItem.Name = NameTextBox.Text;
+            ChangeTextItemsElemListBox();
         }
         /// <summary>
         /// Проверка и изменение описания товара
@@ -100,21 +122,10 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void AddButton_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(CostTextBox.Text) || string.IsNullOrEmpty(NameTextBox.Text) || string.IsNullOrEmpty(DescriptionTextBox.Text)) return;
-            try
-            {
-                Item newItem = new Item();
-                newItem.Cost = double.Parse(CostTextBox.Text);
-                newItem.Name = NameTextBox.Text;
-                newItem.Info = DescriptionTextBox.Text;
-                _items.Add(newItem);
-                CostTextBox.BackColor = Color.FromKnownColor(KnownColor.Window);
-                ItemsListBox.Items.Add(newItem.Id.ToString() + ". " + newItem.Name.ToString());
-            }
-            catch (Exception ) 
-            {
-                CostTextBox.BackColor = Color.LightPink;
-            }
+            Item newItem = ItemFactory.Randomize(1)[0];
+            _items.Add(newItem);
+
+            ItemsListBox.Items.Add(newItem.Id.ToString() + ". " + newItem.Name.ToString());
         }
         /// <summary>
         /// Удаление товара

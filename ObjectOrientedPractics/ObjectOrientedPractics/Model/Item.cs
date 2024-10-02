@@ -68,6 +68,7 @@ namespace ObjectOrientedPractics.Model
                 _cost = value; 
             } 
         }
+
         /// <summary>
         /// Создаёт экземпляр класса <see cref="Item"/>.
         /// </summary>
