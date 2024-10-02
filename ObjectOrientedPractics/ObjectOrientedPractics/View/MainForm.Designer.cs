@@ -1,4 +1,4 @@
-﻿namespace ObjectOrientedPractices
+﻿namespace ObjectOrientedPractics
 {
     partial class MainForm
     {
@@ -30,9 +30,9 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.itemsTab1 = new ObjectOrientedPractices.View.Tabs.ItemsTab();
+            this.itemsTab1 = new ObjectOrientedPractics.View.Tabs.ItemsTab();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.customersTab1 = new ObjectOrientedPractices.View.Tabs.CustomersTab();
+            this.customersTab1 = new ObjectOrientedPractics.View.Tabs.CustomersTab();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();

@@ -7,10 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ObjectOrientedPractices.Model;
-using ObjectOrientedPractices.Services;
+using ObjectOrientedPractics.Model;
+using ObjectOrientedPractics.Services;
 
-namespace ObjectOrientedPractices.View.Tabs
+namespace ObjectOrientedPractics.View.Tabs
 {
     /// <summary>
     /// Класс для работы с покупателями

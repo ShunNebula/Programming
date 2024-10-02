@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ObjectOrientedPractices.Services
+namespace ObjectOrientedPractics.Services
 {
     /// <summary>
     /// Вспомогательный класс для проверки значений.

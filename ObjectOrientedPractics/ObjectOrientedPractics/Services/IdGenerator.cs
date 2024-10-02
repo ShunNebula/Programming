@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ObjectOrientedPractices.Services
+namespace ObjectOrientedPractics.Services
 {
     /// <summary>
     /// Класс для создания уникального Id для покупателей и товаров.

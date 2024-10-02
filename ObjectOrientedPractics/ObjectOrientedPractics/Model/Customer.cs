@@ -1,11 +1,11 @@
-﻿using ObjectOrientedPractices.Services;
+﻿using ObjectOrientedPractics.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ObjectOrientedPractices.Model
+namespace ObjectOrientedPractics.Model
 {
     /// <summary>
     /// Хранит данные о покупателе
