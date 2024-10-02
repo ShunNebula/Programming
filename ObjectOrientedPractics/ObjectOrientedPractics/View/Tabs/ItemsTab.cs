@@ -31,9 +31,6 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             InitializeComponent();
 
-            CategoryComboBox.DataSource = Enum.GetValues(typeof(Category));
-            CategoryComboBox.SelectedIndex = -1;
-
             _items = ItemFactory.Randomize(5);
             InitListBoxRectangles(5);
         }
@@ -107,7 +104,6 @@ namespace ObjectOrientedPractics.View.Tabs
                 CostTextBox.Text = string.Empty;
                 NameTextBox.Text = string.Empty;
                 DescriptionTextBox.Text = string.Empty;
-                CategoryComboBox.SelectedIndex = -1;
             }
             else
             {
@@ -117,7 +113,6 @@ namespace ObjectOrientedPractics.View.Tabs
                 CostTextBox.Text = _currentItem.Cost.ToString();
                 NameTextBox.Text = _currentItem.Name.ToString();
                 DescriptionTextBox.Text = _currentItem.Info.ToString();
-                CategoryComboBox.Text = _currentItem.Category.ToString();
             }
         }
         /// <summary>
@@ -151,18 +146,6 @@ namespace ObjectOrientedPractics.View.Tabs
         private void ItemsListBox_DoubleClick(object sender, EventArgs e)
         {
             ItemsListBox.SelectedIndex = -1;
-        }
-        /// <summary>
-        /// Изменение категории товара
-        /// </summary>
-        /// <param name="sender">Объект, вызвавший событие - CategoryComboBox</param>
-        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
-        private void CategoryComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (CategoryComboBox.SelectedItem is Category selectedCategory && _currentItem != null)
-            {
-                _currentItem.Category = selectedCategory;
-            }
         }
     }
 }

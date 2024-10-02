@@ -51,8 +51,7 @@ namespace ObjectOrientedPractics.Model
             for (int i = 0; i < size; i++)
             {
                 Item newItem = new Item();
-                int categoryIndex = ran.Next(Enum.GetValues(typeof(Category)).Length);
-                newItem.Category = (Category)categoryIndex;
+                int categoryIndex = ran.Next(5);
                 newItem.Name = names[categoryIndex][ran.Next(names[categoryIndex].Length)];
                 newItem.Cost = ran.NextDouble() * 1000;
                 newItem.Info = infos[categoryIndex][ran.Next(infos[categoryIndex].Length)];

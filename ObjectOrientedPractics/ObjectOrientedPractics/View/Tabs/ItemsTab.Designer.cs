@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.SelecetedItemGroupBox = new System.Windows.Forms.GroupBox();
-            this.CategoryComboBox = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.DescriptionTextBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -51,7 +50,6 @@
             // 
             // SelecetedItemGroupBox
             // 
-            this.SelecetedItemGroupBox.Controls.Add(this.CategoryComboBox);
             this.SelecetedItemGroupBox.Controls.Add(this.label7);
             this.SelecetedItemGroupBox.Controls.Add(this.DescriptionTextBox);
             this.SelecetedItemGroupBox.Controls.Add(this.label6);
@@ -69,23 +67,13 @@
             this.SelecetedItemGroupBox.TabIndex = 0;
             this.SelecetedItemGroupBox.TabStop = false;
             // 
-            // CategoryComboBox
-            // 
-            this.CategoryComboBox.FormattingEnabled = true;
-            this.CategoryComboBox.Location = new System.Drawing.Point(65, 96);
-            this.CategoryComboBox.Name = "CategoryComboBox";
-            this.CategoryComboBox.Size = new System.Drawing.Size(119, 21);
-            this.CategoryComboBox.TabIndex = 10;
-            this.CategoryComboBox.SelectedIndexChanged += new System.EventHandler(this.CategoryComboBox_SelectedIndexChanged);
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(6, 99);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(52, 13);
+            this.label7.Size = new System.Drawing.Size(0, 13);
             this.label7.TabIndex = 9;
-            this.label7.Text = "Category:";
             // 
             // DescriptionTextBox
             // 
@@ -259,7 +247,6 @@
         private System.Windows.Forms.TextBox IDTextBox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox DescriptionTextBox;
-        private System.Windows.Forms.ComboBox CategoryComboBox;
         private System.Windows.Forms.Label label7;
     }
 }
