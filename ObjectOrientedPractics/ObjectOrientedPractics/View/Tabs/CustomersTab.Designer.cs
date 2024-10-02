@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            ObjectOrientedPractics.Model.Address address1 = new ObjectOrientedPractics.Model.Address();
             this.CustomersListBox = new System.Windows.Forms.ListBox();
             this.SelecetedCustomerGroupBox = new System.Windows.Forms.GroupBox();
-            this.AddressTextBox = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.addressControl1 = new ObjectOrientedPractics.View.Controls.AddressControl();
             this.FullNameTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.IDTextBox = new System.Windows.Forms.TextBox();
@@ -60,8 +60,7 @@
             // 
             // SelecetedCustomerGroupBox
             // 
-            this.SelecetedCustomerGroupBox.Controls.Add(this.AddressTextBox);
-            this.SelecetedCustomerGroupBox.Controls.Add(this.label5);
+            this.SelecetedCustomerGroupBox.Controls.Add(this.addressControl1);
             this.SelecetedCustomerGroupBox.Controls.Add(this.FullNameTextBox);
             this.SelecetedCustomerGroupBox.Controls.Add(this.label4);
             this.SelecetedCustomerGroupBox.Controls.Add(this.IDTextBox);
@@ -69,33 +68,29 @@
             this.SelecetedCustomerGroupBox.Controls.Add(this.label2);
             this.SelecetedCustomerGroupBox.Location = new System.Drawing.Point(245, 0);
             this.SelecetedCustomerGroupBox.Name = "SelecetedCustomerGroupBox";
-            this.SelecetedCustomerGroupBox.Size = new System.Drawing.Size(458, 199);
+            this.SelecetedCustomerGroupBox.Size = new System.Drawing.Size(458, 268);
             this.SelecetedCustomerGroupBox.TabIndex = 2;
             this.SelecetedCustomerGroupBox.TabStop = false;
             // 
-            // AddressTextBox
+            // addressControl1
             // 
-            this.AddressTextBox.Location = new System.Drawing.Point(69, 96);
-            this.AddressTextBox.Multiline = true;
-            this.AddressTextBox.Name = "AddressTextBox";
-            this.AddressTextBox.Size = new System.Drawing.Size(386, 96);
-            this.AddressTextBox.TabIndex = 6;
-            this.AddressTextBox.TextChanged += new System.EventHandler(this.AddressTextBox_TextChanged);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 99);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(48, 13);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "Address:";
+            address1.Apartment = "";
+            address1.Building = "";
+            address1.City = "";
+            address1.Country = "";
+            address1.Index = 100000;
+            address1.Street = "";
+            this.addressControl1.Address = address1;
+            this.addressControl1.Location = new System.Drawing.Point(0, 96);
+            this.addressControl1.Name = "addressControl1";
+            this.addressControl1.Size = new System.Drawing.Size(458, 142);
+            this.addressControl1.TabIndex = 5;
             // 
             // FullNameTextBox
             // 
             this.FullNameTextBox.Location = new System.Drawing.Point(69, 70);
             this.FullNameTextBox.Name = "FullNameTextBox";
-            this.FullNameTextBox.Size = new System.Drawing.Size(119, 20);
+            this.FullNameTextBox.Size = new System.Drawing.Size(386, 20);
             this.FullNameTextBox.TabIndex = 4;
             this.FullNameTextBox.TextChanged += new System.EventHandler(this.FullNameTextBox_TextChanged);
             // 
@@ -111,6 +106,7 @@
             // IDTextBox
             // 
             this.IDTextBox.Cursor = System.Windows.Forms.Cursors.Default;
+            this.IDTextBox.Enabled = false;
             this.IDTextBox.Location = new System.Drawing.Point(69, 44);
             this.IDTextBox.Name = "IDTextBox";
             this.IDTextBox.ReadOnly = true;
@@ -183,9 +179,9 @@
             // 
             // CustomerPanel
             // 
-            this.CustomerPanel.Location = new System.Drawing.Point(245, 198);
+            this.CustomerPanel.Location = new System.Drawing.Point(245, 261);
             this.CustomerPanel.Name = "CustomerPanel";
-            this.CustomerPanel.Size = new System.Drawing.Size(455, 301);
+            this.CustomerPanel.Size = new System.Drawing.Size(455, 238);
             this.CustomerPanel.TabIndex = 4;
             // 
             // CustomersTab
@@ -209,8 +205,6 @@
 
         private System.Windows.Forms.ListBox CustomersListBox;
         private System.Windows.Forms.GroupBox SelecetedCustomerGroupBox;
-        private System.Windows.Forms.TextBox AddressTextBox;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox FullNameTextBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox IDTextBox;
@@ -221,5 +215,6 @@
         private System.Windows.Forms.Button AddButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel CustomerPanel;
+        public Controls.AddressControl addressControl1;
     }
 }

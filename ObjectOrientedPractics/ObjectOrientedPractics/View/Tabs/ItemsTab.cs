@@ -33,6 +33,9 @@ namespace ObjectOrientedPractics.View.Tabs
 
             _items = ItemFactory.Randomize(5);
             InitListBoxRectangles(5);
+
+            CategoryComboBox.DataSource = Enum.GetValues(typeof(Category));
+            CategoryComboBox.SelectedIndex = -1;
         }
         /// <summary>
         /// Заполнение ItemsListBox перечислением товаров
@@ -104,6 +107,7 @@ namespace ObjectOrientedPractics.View.Tabs
                 CostTextBox.Text = string.Empty;
                 NameTextBox.Text = string.Empty;
                 DescriptionTextBox.Text = string.Empty;
+                CategoryComboBox.SelectedIndex = -1;
             }
             else
             {
@@ -113,6 +117,7 @@ namespace ObjectOrientedPractics.View.Tabs
                 CostTextBox.Text = _currentItem.Cost.ToString();
                 NameTextBox.Text = _currentItem.Name.ToString();
                 DescriptionTextBox.Text = _currentItem.Info.ToString();
+                CategoryComboBox.Text = _currentItem.Category.ToString();
             }
         }
         /// <summary>
@@ -146,6 +151,14 @@ namespace ObjectOrientedPractics.View.Tabs
         private void ItemsListBox_DoubleClick(object sender, EventArgs e)
         {
             ItemsListBox.SelectedIndex = -1;
+        }
+
+        private void CategoryComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (CategoryComboBox.SelectedItem is Category selectedCategory && _currentItem != null)
+            {
+                _currentItem.Category = selectedCategory;
+            }
         }
     }
 }

@@ -68,6 +68,13 @@ namespace ObjectOrientedPractics.Model
                 _cost = value; 
             } 
         }
+        /// <summary>
+        /// Возвращает и задаёт категорию товара
+        /// </summary>
+        public Category Category
+        {
+            get; set;
+        }
 
         /// <summary>
         /// Создаёт экземпляр класса <see cref="Item"/>.

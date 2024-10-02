@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ObjectOrientedPractics.Model;
 using ObjectOrientedPractics.Services;
+using ObjectOrientedPractics.View.Controls;
 
 namespace ObjectOrientedPractics.View.Tabs
 {
@@ -24,7 +25,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <summary>
         /// Текущий покупатель
         /// </summary>
-        private static Customer _currentCustomer = null;
+        public static Customer _currentCustomer = null;
         /// <summary>
         /// Инициализация компонентов
         /// </summary>
@@ -43,15 +44,14 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 IDTextBox.Text = string.Empty;
                 FullNameTextBox.Text = string.Empty;
-                AddressTextBox.Text = string.Empty;
             }
             else
             {
                 _currentCustomer = _customers[CustomersListBox.SelectedIndex];
-
+                
+                addressControl1.Address = _currentCustomer.Address;
                 IDTextBox.Text = _currentCustomer.Id.ToString();
                 FullNameTextBox.Text = _currentCustomer.Fullname;
-                AddressTextBox.Text = _currentCustomer.Address;
             }
         }
         /// <summary>
@@ -61,10 +61,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void AddButton_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(FullNameTextBox.Text) || string.IsNullOrEmpty(AddressTextBox.Text)) return;
-            Customer newCustomer = new Customer();
-            newCustomer.Fullname = FullNameTextBox.Text;
-            newCustomer.Address = AddressTextBox.Text;
+            Customer newCustomer = CustomerFactory.Randomize(1)[0];
             _customers.Add(newCustomer);
             CustomersListBox.Items.Add(newCustomer.Id.ToString() + ". " + newCustomer.Fullname.ToString());
         }
@@ -88,16 +85,7 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             if (string.IsNullOrEmpty(FullNameTextBox.Text) || CustomersListBox.SelectedIndex < 0) return;
             _currentCustomer.Fullname = FullNameTextBox.Text;
-        }
-        /// <summary>
-        /// Проверка и изменение адреса покупателя
-        /// </summary>
-        /// <param name="sender">Объект, вызвавший событие - AddressTextBox</param>
-        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
-        private void AddressTextBox_TextChanged(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(AddressTextBox.Text) || CustomersListBox.SelectedIndex < 0) return;
-            _currentCustomer.Address = AddressTextBox.Text;
+            CustomersListBox.Items[CustomersListBox.SelectedIndex] = IDTextBox.Text + ". " + FullNameTextBox.Text;
         }
         /// <summary>
         /// Очистка всех TextBox
