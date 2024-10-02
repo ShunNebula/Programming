@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.SelecetedItemGroupBox = new System.Windows.Forms.GroupBox();
+            this.CategoryComboBox = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.DescriptionTextBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.NameTextBox = new System.Windows.Forms.TextBox();
@@ -49,6 +51,8 @@
             // 
             // SelecetedItemGroupBox
             // 
+            this.SelecetedItemGroupBox.Controls.Add(this.CategoryComboBox);
+            this.SelecetedItemGroupBox.Controls.Add(this.label7);
             this.SelecetedItemGroupBox.Controls.Add(this.DescriptionTextBox);
             this.SelecetedItemGroupBox.Controls.Add(this.label6);
             this.SelecetedItemGroupBox.Controls.Add(this.NameTextBox);
@@ -65,9 +69,27 @@
             this.SelecetedItemGroupBox.TabIndex = 0;
             this.SelecetedItemGroupBox.TabStop = false;
             // 
+            // CategoryComboBox
+            // 
+            this.CategoryComboBox.FormattingEnabled = true;
+            this.CategoryComboBox.Location = new System.Drawing.Point(65, 96);
+            this.CategoryComboBox.Name = "CategoryComboBox";
+            this.CategoryComboBox.Size = new System.Drawing.Size(119, 21);
+            this.CategoryComboBox.TabIndex = 10;
+            this.CategoryComboBox.SelectedIndexChanged += new System.EventHandler(this.CategoryComboBox_SelectedIndexChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 99);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(52, 13);
+            this.label7.TabIndex = 9;
+            this.label7.Text = "Category:";
+            // 
             // DescriptionTextBox
             // 
-            this.DescriptionTextBox.Location = new System.Drawing.Point(9, 217);
+            this.DescriptionTextBox.Location = new System.Drawing.Point(9, 257);
             this.DescriptionTextBox.Multiline = true;
             this.DescriptionTextBox.Name = "DescriptionTextBox";
             this.DescriptionTextBox.Size = new System.Drawing.Size(433, 149);
@@ -77,7 +99,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 201);
+            this.label6.Location = new System.Drawing.Point(6, 241);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(63, 13);
             this.label6.TabIndex = 7;
@@ -85,7 +107,7 @@
             // 
             // NameTextBox
             // 
-            this.NameTextBox.Location = new System.Drawing.Point(9, 115);
+            this.NameTextBox.Location = new System.Drawing.Point(9, 161);
             this.NameTextBox.Multiline = true;
             this.NameTextBox.Name = "NameTextBox";
             this.NameTextBox.Size = new System.Drawing.Size(433, 77);
@@ -95,7 +117,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 99);
+            this.label5.Location = new System.Drawing.Point(6, 145);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(38, 13);
             this.label5.TabIndex = 5;
@@ -103,7 +125,7 @@
             // 
             // CostTextBox
             // 
-            this.CostTextBox.Location = new System.Drawing.Point(50, 70);
+            this.CostTextBox.Location = new System.Drawing.Point(65, 70);
             this.CostTextBox.Name = "CostTextBox";
             this.CostTextBox.Size = new System.Drawing.Size(119, 20);
             this.CostTextBox.TabIndex = 4;
@@ -121,7 +143,8 @@
             // IDTextBox
             // 
             this.IDTextBox.Cursor = System.Windows.Forms.Cursors.Default;
-            this.IDTextBox.Location = new System.Drawing.Point(50, 44);
+            this.IDTextBox.Enabled = false;
+            this.IDTextBox.Location = new System.Drawing.Point(65, 44);
             this.IDTextBox.Name = "IDTextBox";
             this.IDTextBox.ReadOnly = true;
             this.IDTextBox.Size = new System.Drawing.Size(119, 20);
@@ -236,5 +259,7 @@
         private System.Windows.Forms.TextBox IDTextBox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox DescriptionTextBox;
+        private System.Windows.Forms.ComboBox CategoryComboBox;
+        private System.Windows.Forms.Label label7;
     }
 }

@@ -30,6 +30,30 @@ namespace ObjectOrientedPractics.View.Tabs
         public ItemsTab()
         {
             InitializeComponent();
+
+            CategoryComboBox.DataSource = Enum.GetValues(typeof(Category));
+            CategoryComboBox.SelectedIndex = -1;
+
+            _items = ItemFactory.Randomize(5);
+            InitListBoxRectangles(5);
+        }
+        /// <summary>
+        /// Заполнение ItemsListBox перечислением товаров
+        /// </summary>
+        /// <param name="count"></param>
+        private void InitListBoxRectangles(int count)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                ItemsListBox.Items.Add(_items[i].Id.ToString() + ". " + _items[i].Name.ToString());
+            }
+        }
+        /// <summary>
+        /// Изменение названия в ItemsListBox при изменении имени товара
+        /// </summary>
+        private void ChangeTextItemsElemListBox()
+        {
+            ItemsListBox.Items[ItemsListBox.SelectedIndex] = _items[ItemsListBox.SelectedIndex].Id.ToString() + ". " + _items[ItemsListBox.SelectedIndex].Name.ToString();
         }
         /// <summary>
         /// Проверка и изменение цены товара
@@ -58,6 +82,7 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             if (string.IsNullOrEmpty(NameTextBox.Text) || ItemsListBox.SelectedIndex < 0) return;
             _currentItem.Name = NameTextBox.Text;
+            ChangeTextItemsElemListBox();
         }
         /// <summary>
         /// Проверка и изменение описания товара
@@ -82,6 +107,7 @@ namespace ObjectOrientedPractics.View.Tabs
                 CostTextBox.Text = string.Empty;
                 NameTextBox.Text = string.Empty;
                 DescriptionTextBox.Text = string.Empty;
+                CategoryComboBox.SelectedIndex = -1;
             }
             else
             {
@@ -91,6 +117,7 @@ namespace ObjectOrientedPractics.View.Tabs
                 CostTextBox.Text = _currentItem.Cost.ToString();
                 NameTextBox.Text = _currentItem.Name.ToString();
                 DescriptionTextBox.Text = _currentItem.Info.ToString();
+                CategoryComboBox.Text = _currentItem.Category.ToString();
             }
         }
         /// <summary>
@@ -100,21 +127,10 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void AddButton_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(CostTextBox.Text) || string.IsNullOrEmpty(NameTextBox.Text) || string.IsNullOrEmpty(DescriptionTextBox.Text)) return;
-            try
-            {
-                Item newItem = new Item();
-                newItem.Cost = double.Parse(CostTextBox.Text);
-                newItem.Name = NameTextBox.Text;
-                newItem.Info = DescriptionTextBox.Text;
-                _items.Add(newItem);
-                CostTextBox.BackColor = Color.FromKnownColor(KnownColor.Window);
-                ItemsListBox.Items.Add(newItem.Id.ToString() + ". " + newItem.Name.ToString());
-            }
-            catch (Exception ) 
-            {
-                CostTextBox.BackColor = Color.LightPink;
-            }
+            Item newItem = ItemFactory.Randomize(1)[0];
+            _items.Add(newItem);
+
+            ItemsListBox.Items.Add(newItem.Id.ToString() + ". " + newItem.Name.ToString());
         }
         /// <summary>
         /// Удаление товара
@@ -135,6 +151,18 @@ namespace ObjectOrientedPractics.View.Tabs
         private void ItemsListBox_DoubleClick(object sender, EventArgs e)
         {
             ItemsListBox.SelectedIndex = -1;
+        }
+        /// <summary>
+        /// Изменение категории товара
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие - CategoryComboBox</param>
+        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
+        private void CategoryComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (CategoryComboBox.SelectedItem is Category selectedCategory && _currentItem != null)
+            {
+                _currentItem.Category = selectedCategory;
+            }
         }
     }
 }
