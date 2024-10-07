@@ -31,10 +31,13 @@ namespace ObjectOrientedPractics.View.Tabs
                 UpdateListBox();
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
         private void UpdateListBox()
         {
-            CustomersListBox.DataSource = null; // Очищаем
-            CustomersListBox.DataSource = _customers; // Устанавливаем новый источник данных
+            CustomersListBox.Items.Clear();
+            CustomersListBox.Items.AddRange(_customers.ToArray());
         }
         /// <summary>
         /// Текущий покупатель

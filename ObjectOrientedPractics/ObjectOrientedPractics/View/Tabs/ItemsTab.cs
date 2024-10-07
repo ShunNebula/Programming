@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ObjectOrientedPractics.Model;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
 namespace ObjectOrientedPractics.View.Tabs
 {
@@ -20,6 +21,9 @@ namespace ObjectOrientedPractics.View.Tabs
         /// Список товаров типа List<Item>
         /// </summary>
         private List<Item> _items = new List<Item>();
+        /// <summary>
+        /// Возвращает и задаёт список товаров
+        /// </summary>
         public List<Item> Items
         {
             get { return _items; }
@@ -29,10 +33,15 @@ namespace ObjectOrientedPractics.View.Tabs
                 UpdateListBox(); 
             }
         }
+        /// <summary>
+        /// Заполнение ListBox
+        /// </summary>
         private void UpdateListBox()
         {
-            ItemsListBox.DataSource = null; // Очищаем
-            ItemsListBox.DataSource = _items; // Устанавливаем новый источник данных
+            for (int i = 0; i < _items.Count; i++)
+            {
+                ItemsListBox.Items.Add(_items[i].Id.ToString() + ". " + _items[i].Name.ToString());
+            }
         }
         /// <summary>
         /// Текущий товар
@@ -45,22 +54,10 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             InitializeComponent();
 
-            _items = ItemFactory.Randomize(5);
-            InitListBoxRectangles(5);
+            UpdateListBox();
 
-            CategoryComboBox.DataSource = Enum.GetValues(typeof(Category));
+            CategoryComboBox.Items.AddRange(Enum.GetValues(typeof(Category)).Cast<object>().ToArray());
             CategoryComboBox.SelectedIndex = -1;
-        }
-        /// <summary>
-        /// Заполнение ItemsListBox перечислением товаров
-        /// </summary>
-        /// <param name="count"></param>
-        private void InitListBoxRectangles(int count)
-        {
-            for (int i = 0; i < count; i++)
-            {
-                ItemsListBox.Items.Add(_items[i].Id.ToString() + ". " + _items[i].Name.ToString());
-            }
         }
         /// <summary>
         /// Изменение названия в ItemsListBox при изменении имени товара
@@ -166,7 +163,11 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             ItemsListBox.SelectedIndex = -1;
         }
-
+        /// <summary>
+        /// Изменение категории товара
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие - CategoryComboBox</param>
+        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void CategoryComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (CategoryComboBox.SelectedItem is Category selectedCategory && _currentItem != null)

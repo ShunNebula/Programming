@@ -13,22 +13,38 @@ namespace ObjectOrientedPractics.Model
     /// </summary>
     public class CustomerFactory
     {
+        /// <summary>
+        /// Представляет экземпляр генератора случайных чисел.
+        /// </summary>
         private static Random _ran = new Random();
 
+        /// <summary>
+        /// Список стран
+        /// </summary>
         private static List<string> countries = new List<string>
         {
             "Russia", "USA", "Canada", "United Kingdom", "France", "Germany", "Australia"
         };
 
+        /// <summary>
+        /// Список городов
+        /// </summary>
         private static List<string> cities = new List<string>
         {
             "Moscow", "New York", "Toronto", "London", "Paris", "Berlin", "Sydney"
         };
 
+        /// <summary>
+        /// Список улиц
+        /// </summary>
         private static List<string> streets = new List<string>
         {
             "Lenin", "Red", "Pushkin", "Pyatnitskaya", "October", "Sadowa"
         };
+        /// <summary>
+        /// Создаёт случайный адрес
+        /// </summary>
+        /// <returns>Новый адрес</returns>
         public static Address GenerateRandomAddress()
         {
             int index = _ran.Next(100000, 999999);

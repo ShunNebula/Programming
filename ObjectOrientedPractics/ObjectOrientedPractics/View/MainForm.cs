@@ -14,15 +14,16 @@ namespace ObjectOrientedPractics
 {
     public partial class MainForm : Form
     {
+        /// <summary>
+        /// Магазин
+        /// </summary>
         private Store _store = new Store();
         public MainForm()
         {
             InitializeComponent();
-            ItemsTab itemsTab = new ItemsTab();
-            itemsTab.Items = _store.Items;
+            itemsTab1.Items = _store.Items;
 
-            CustomersTab customersTab = new CustomersTab();
-            customersTab.Customers = _store.Customers;
+            customersTab1.Customers = _store.Customers;
         }
     }
 }
