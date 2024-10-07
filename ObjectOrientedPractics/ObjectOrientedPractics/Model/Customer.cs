@@ -12,10 +12,12 @@ namespace ObjectOrientedPractics.Model
     /// </summary>
     public class Customer
     {
+
         /// <summary>
         /// Полное имя (фио) покупателя
         /// </summary>
         private string _fullname;
+
         /// <summary>
         /// Адрес покупателя
         /// </summary>

@@ -22,6 +22,10 @@ namespace ObjectOrientedPractics.View.Tabs
         /// Список товаров типа List<Customer>
         /// </summary>
         private List<Customer> _customers = new List<Customer>();
+
+        /// <summary>
+        /// Вызывает и задаёт список товаров
+        /// </summary>
         public List<Customer> Customers
         { 
             get { return _customers; } 
@@ -31,8 +35,9 @@ namespace ObjectOrientedPractics.View.Tabs
                 UpdateListBox();
             }
         }
+
         /// <summary>
-        /// 
+        /// Обновляет ListBox
         /// </summary>
         private void UpdateListBox()
         {
@@ -43,6 +48,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// Текущий покупатель
         /// </summary>
         public static Customer _currentCustomer = null;
+
         /// <summary>
         /// Инициализация компонентов
         /// </summary>
@@ -50,6 +56,7 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             InitializeComponent();
         }
+
         /// <summary>
         /// Заполнение TextBox Id, полного имени и адреса
         /// </summary>
@@ -71,6 +78,7 @@ namespace ObjectOrientedPractics.View.Tabs
                 FullNameTextBox.Text = _currentCustomer.Fullname;
             }
         }
+
         /// <summary>
         /// Добавить покупателя
         /// </summary>
@@ -82,6 +90,7 @@ namespace ObjectOrientedPractics.View.Tabs
             _customers.Add(newCustomer);
             CustomersListBox.Items.Add(newCustomer.Id.ToString() + ". " + newCustomer.Fullname.ToString());
         }
+
         /// <summary>
         /// Удалить покупателя
         /// </summary>
@@ -93,6 +102,7 @@ namespace ObjectOrientedPractics.View.Tabs
             _customers.RemoveAt(CustomersListBox.SelectedIndex);
             CustomersListBox.Items.RemoveAt(CustomersListBox.SelectedIndex);
         }
+
         /// <summary>
         /// Проверка и изменение полного имени
         /// </summary>
@@ -100,10 +110,14 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void FullNameTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(FullNameTextBox.Text) || CustomersListBox.SelectedIndex < 0) return;
+            if (string.IsNullOrEmpty(FullNameTextBox.Text) || CustomersListBox.SelectedIndex < 0)
+            {
+                return;
+            }
             _currentCustomer.Fullname = FullNameTextBox.Text;
             CustomersListBox.Items[CustomersListBox.SelectedIndex] = IDTextBox.Text + ". " + FullNameTextBox.Text;
         }
+
         /// <summary>
         /// Очистка всех TextBox
         /// </summary>

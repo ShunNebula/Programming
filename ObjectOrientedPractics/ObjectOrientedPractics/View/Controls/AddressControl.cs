@@ -4,10 +4,12 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ObjectOrientedPractics.Model;
+using ObjectOrientedPractics.Services;
 
 namespace ObjectOrientedPractics.View.Controls
 {
@@ -71,6 +73,7 @@ namespace ObjectOrientedPractics.View.Controls
             else
             {
                 IndexTextBox.BackColor = Color.LightPink;
+                MessageBox.Show(nameof(_address.Index) + " должен быть 6-значным числом.");
             }
         }
 
@@ -89,6 +92,7 @@ namespace ObjectOrientedPractics.View.Controls
             else
             {
                 CountryTextBox.BackColor = Color.LightPink;
+                ValueValidator.AssertStringOnLength(CountryTextBox.Text, 50, nameof(_address.Country));
             }
         }
 
@@ -107,6 +111,7 @@ namespace ObjectOrientedPractics.View.Controls
             else
             {
                 StreetTextBox.BackColor = Color.LightPink;
+                ValueValidator.AssertStringOnLength(StreetTextBox.Text, 50, nameof(_address.Street));
             }
         }
 
@@ -125,6 +130,7 @@ namespace ObjectOrientedPractics.View.Controls
             else
             {
                 CityTextBox.BackColor = Color.LightPink;
+                ValueValidator.AssertStringOnLength(CityTextBox.Text, 100, nameof(_address.City));
             }
         }
 
@@ -143,6 +149,7 @@ namespace ObjectOrientedPractics.View.Controls
             else
             {
                 BuildingTextBox.BackColor = Color.LightPink;
+                ValueValidator.AssertStringOnLength(BuildingTextBox.Text, 10, nameof(_address.Building));
             }
         }
 
@@ -161,6 +168,7 @@ namespace ObjectOrientedPractics.View.Controls
             else
             {
                 ApartmentTextBox.BackColor = Color.LightPink;
+                ValueValidator.AssertStringOnLength(ApartmentTextBox.Text, 10, nameof(_address.Apartment));
             }
         }
     }

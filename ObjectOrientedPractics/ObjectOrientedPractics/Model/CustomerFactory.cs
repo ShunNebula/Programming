@@ -57,6 +57,7 @@ namespace ObjectOrientedPractics.Model
 
             return new Address(index, country, city, street, building, apartment);
         }
+
         /// <summary>
         /// Возвращает список новых покупателей
         /// </summary>

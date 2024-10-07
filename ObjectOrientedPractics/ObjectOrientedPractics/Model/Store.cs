@@ -14,11 +14,13 @@ namespace ObjectOrientedPractics.Model
         /// <summary>
         /// Список товаров
         /// </summary>
-        List<Item> _items = new List<Item>();
+        private List<Item> _items = new List<Item>();
+
         /// <summary>
         /// Список покупателей
         /// </summary>
-        List<Customer> _customers = new List<Customer>();
+        private List<Customer> _customers = new List<Customer>();
+
         /// <summary>
         /// Возвращает и задаёт список товаров
         /// </summary>
@@ -27,6 +29,7 @@ namespace ObjectOrientedPractics.Model
             get { return _items; } 
             set { _items = value; } 
         }
+
         /// <summary>
         /// Возвращает и задаёт список покупателей
         /// </summary>
@@ -35,6 +38,7 @@ namespace ObjectOrientedPractics.Model
             get { return _customers; } 
             set { _customers = value; } 
         }
+
         /// <summary>
         /// Создаёт экземпляр класса <see cref="Store"/>.
         /// </summary>

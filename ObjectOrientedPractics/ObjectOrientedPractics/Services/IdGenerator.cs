@@ -16,6 +16,7 @@ namespace ObjectOrientedPractics.Services
         /// Счётчик для Item
         /// </summary>
         private static int _counterItem;
+
         /// <summary>
         /// Счётчик для Customer
         /// </summary>

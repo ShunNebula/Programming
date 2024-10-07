@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using ObjectOrientedPractics.Services;
 
 namespace ObjectOrientedPractics.Model
@@ -15,27 +16,33 @@ namespace ObjectOrientedPractics.Model
         /// <summary>
         /// Почтовый индекс
         /// </summary>
-        int _index;
+        private int _index;
+
         /// <summary>
         /// Страна/регион
         /// </summary>
-        string _country;
+        private string _country;
+
         /// <summary>
         /// Город(населённый пункт)
         /// </summary>
-        string _city;
+        private string _city;
+
         /// <summary>
         /// Улица
         /// </summary>
-        string _street;
+        private string _street;
+
         /// <summary>
         /// Номер дома
         /// </summary>
-        string _building;
+        private string _building;
+
         /// <summary>
         /// Номер квартиры/помещения
         /// </summary>
-        string _apartment;
+        private string _apartment;
+
         /// <summary>
         /// Возвращает и задаёт почтовый индекс
         /// </summary>
@@ -44,10 +51,11 @@ namespace ObjectOrientedPractics.Model
             get { return _index; } 
             set 
             {
-                if (value < 100000 || value > 999999) throw new ArgumentOutOfRangeException(nameof(Index) + " должен быть 6-значным числом.");
+                if (value < 100000 || value > 999999) MessageBox.Show(nameof(Index) + " должен быть 6-значным числом.");
                 _index = value; 
             } 
         }
+
         /// <summary>
         /// Возвращает и задаёт страну/регион
         /// </summary>
@@ -60,6 +68,7 @@ namespace ObjectOrientedPractics.Model
                 _country = value; 
             } 
         }
+
         /// <summary>
         /// Возвращает и задаёт название города(населённого пункта)
         /// </summary>
@@ -72,6 +81,7 @@ namespace ObjectOrientedPractics.Model
                 _city = value; 
             }
         }
+
         /// <summary>
         /// Возвращает и задаёт название улицы
         /// </summary>
@@ -84,6 +94,7 @@ namespace ObjectOrientedPractics.Model
                 _street = value; 
             }
         }
+
         /// <summary>
         /// Возвращает и задаёт номер дома
         /// </summary>
@@ -96,6 +107,7 @@ namespace ObjectOrientedPractics.Model
                 _building = value; 
             }
         }
+
         /// <summary>
         /// Возвращает и задаёт номер квартиры/помещения
         /// </summary>
@@ -108,6 +120,7 @@ namespace ObjectOrientedPractics.Model
                 _apartment = value; 
             }
         }
+
         /// <summary>
         /// Создаёт пустой экземпляр класса <see cref="Address"/>.
         /// </summary>
@@ -115,6 +128,7 @@ namespace ObjectOrientedPractics.Model
         {
             Index = 100000;
         }
+
         /// <summary>
         /// Создаёт экземпляр класса <see cref="Address"/>.
         /// </summary>
