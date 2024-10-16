@@ -104,6 +104,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Services\CustomerNames.txt" />
     <Content Include="Services\ItemInfos.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

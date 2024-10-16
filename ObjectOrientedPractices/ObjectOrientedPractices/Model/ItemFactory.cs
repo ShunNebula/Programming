@@ -10,20 +10,14 @@ namespace ObjectOrientedPractices.Model
     public class ItemFactory
     {
         /// <summary>
-        /// Массив с названиями товаров
+        /// Список с названиями товаров
         /// </summary>
-        private static readonly string[] names;
+        private static readonly string[] names = File.ReadAllLines(@"C:\Users\User\source\repos\Programming\ObjectOrientedPractices\ObjectOrientedPractices\Services\ItemNames.txt");
 
         /// <summary>
-        /// Массив с описаниями товаров
+        /// Список с описаниями товаров
         /// </summary>
-        private static readonly string[] infos;
-
-        static ItemFactory()
-        {
-            names = File.ReadAllLines(@"C:\Users\User\source\repos\Programming\ObjectOrientedPractices\ObjectOrientedPractices\Services\ItemNames.txt");
-            infos = File.ReadAllLines(@"C:\Users\User\source\repos\Programming\ObjectOrientedPractices\ObjectOrientedPractices\Services\ItemInfos.txt");
-        }
+        private static readonly string[] infos = File.ReadAllLines(@"C:\Users\User\source\repos\Programming\ObjectOrientedPractices\ObjectOrientedPractices\Services\ItemInfos.txt");
 
         /// <summary>
         /// Возвращает список новых товаров
