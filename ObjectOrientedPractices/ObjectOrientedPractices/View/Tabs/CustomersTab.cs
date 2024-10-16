@@ -13,12 +13,33 @@ namespace ObjectOrientedPractices.View.Tabs
         /// <summary>
         /// Список товаров типа List<Customer>
         /// </summary>
-        private static List<Customer> _customers = new List<Customer>();
+        private List<Customer> _customers = new List<Customer>();
 
+        /// <summary>
+        /// Вызывает и задаёт список товаров
+        /// </summary>
+        public List<Customer> Customers
+        {
+            get { return _customers; }
+            set
+            {
+                _customers = value;
+                UpdateListBox();
+            }
+        }
+
+        /// <summary>
+        /// Обновляет ListBox
+        /// </summary>
+        private void UpdateListBox()
+        {
+            CustomersListBox.Items.Clear();
+            CustomersListBox.Items.AddRange(_customers.ToArray());
+        }
         /// <summary>
         /// Текущий покупатель
         /// </summary>
-        private static Customer _currentCustomer = null;
+        public static Customer _currentCustomer = null;
 
         /// <summary>
         /// Инициализация компонентов
@@ -39,7 +60,6 @@ namespace ObjectOrientedPractices.View.Tabs
             {
                 IDTextBox.Text = string.Empty;
                 FullNameTextBox.Text = string.Empty;
-                AddressTextBox.Text = string.Empty;
             }
             else
             {
@@ -47,7 +67,7 @@ namespace ObjectOrientedPractices.View.Tabs
 
                 IDTextBox.Text = _currentCustomer.Id.ToString();
                 FullNameTextBox.Text = _currentCustomer.FullName;
-                AddressTextBox.Text = _currentCustomer.Address;
+                addressControl1.Address = _currentCustomer.Address;
             }
         }
 
@@ -82,19 +102,12 @@ namespace ObjectOrientedPractices.View.Tabs
         /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void FullNameTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(FullNameTextBox.Text) || CustomersListBox.SelectedIndex < 0) return;
+            if (string.IsNullOrEmpty(FullNameTextBox.Text) || CustomersListBox.SelectedIndex < 0)
+            {
+                return;
+            }
             _currentCustomer.FullName = FullNameTextBox.Text;
-        }
-
-        /// <summary>
-        /// Проверка и изменение адреса покупателя
-        /// </summary>
-        /// <param name="sender">Объект, вызвавший событие - AddressTextBox</param>
-        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
-        private void AddressTextBox_TextChanged(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(AddressTextBox.Text) || CustomersListBox.SelectedIndex < 0) return;
-            _currentCustomer.Address = AddressTextBox.Text;
+            CustomersListBox.Items[CustomersListBox.SelectedIndex] = IDTextBox.Text + ". " + FullNameTextBox.Text;
         }
 
         /// <summary>

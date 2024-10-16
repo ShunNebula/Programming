@@ -21,6 +21,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// Список товаров типа List<Item>
         /// </summary>
         private List<Item> _items = new List<Item>();
+
         /// <summary>
         /// Возвращает и задаёт список товаров
         /// </summary>
@@ -47,6 +48,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// Текущий товар
         /// </summary>
         private static Item _currentItem = null;
+
         /// <summary>
         /// Инициализация компонентов
         /// </summary>
