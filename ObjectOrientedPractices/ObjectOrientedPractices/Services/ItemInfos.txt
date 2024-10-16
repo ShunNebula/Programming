@@ -1,0 +1,7 @@
+﻿Electronics				|High performance device.	|Compact and portable.				|Great for media consumption.	|Noise-cancelling feature.			|Track your fitness accurately.
+Clothing				|Comfortable and stylish.	|Durable and fashionable.			|Perfect for cold weather.		|Cool accessory.					|Trendy footwear.
+Cosmetics				|Long-lasting color.		|Perfect for a natural look.		|Volume-boosting formula.		|Sweet floral scent.				|Vibrant eyeshadow palette.
+Food					|Rich and creamy.			|Perfect for a quick snack.			|A healthy breakfast choice.	|Refreshingly fruity.				|Naturally sweet.
+Toys					|Fun for all ages.			|Collectible figures.				|Great for family game night.	|Challenging and entertaining.		|Perfect for kids.
+Books					|A captivating story.		|Essential knowledge for students.	|Latest news and trends.		|Exciting adventures in comic form.	|Delicious recipes.
+Furniture				|Stylish and comfortable.	|Space-saving design.				|Perfect for family gatherings.	|Elegant and functional.			|Great for organization.
