@@ -5,6 +5,8 @@
     /// </summary>
     public class IdGenerator
     {
+        private static int _counterOrder;
+
         /// <summary>
         /// Счётчик для Item
         /// </summary>
@@ -24,8 +26,10 @@
         {
             if (choice == "Item")
                 return ++_counterItem;
-            else
+            else if (choice == "Customer")
                 return ++_counterCustomer;
+            else
+                return ++_counterOrder;
         }
 
     }

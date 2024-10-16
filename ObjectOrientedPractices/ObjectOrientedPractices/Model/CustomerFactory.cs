@@ -73,7 +73,8 @@ namespace ObjectOrientedPractices.Model
             {
                 Customer newCustomer = new Customer(
                     names[ran.Next(names.Length)], 
-                    GenerateRandomAddress());
+                    GenerateRandomAddress(),
+                    new Cart());
 
                 myCustomer.Add(newCustomer);
             }

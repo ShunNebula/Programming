@@ -17,6 +17,10 @@ namespace ObjectOrientedPractices.Model
         /// </summary>
         private Address _address;
 
+        private Cart _cart;
+
+        private Order _order;
+
         /// <summary>
         /// Возвращает и задаёт уникальный номер покупателя
         /// </summary>
@@ -51,14 +55,28 @@ namespace ObjectOrientedPractices.Model
             }
         }
 
+        public Cart Cart
+        {
+            get { return _cart; }
+            set { _cart = value; }
+        }
+
+        public Order Order
+        {
+            get { return _order; }
+            set { _order = value; }
+        }
+
         /// <summary>
         /// Создаёт экземпляр класса <see cref="Customer"/>.
         /// </summary>
-        public Customer(string fullName, Address address)
+        public Customer(string fullName, Address address, Cart cart)
         {
             Id = IdGenerator.GetNextId("Customer");
             FullName = fullName;
             Address = address;
+            Cart = cart;
+            Order = new Order();
         }
     }
 }

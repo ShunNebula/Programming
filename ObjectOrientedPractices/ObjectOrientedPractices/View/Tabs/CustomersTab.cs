@@ -28,6 +28,7 @@ namespace ObjectOrientedPractices.View.Tabs
             }
         }
 
+
         /// <summary>
         /// Обновляет ListBox
         /// </summary>
