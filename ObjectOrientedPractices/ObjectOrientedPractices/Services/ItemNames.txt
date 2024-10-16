@@ -1,0 +1,7 @@
+﻿Electronics				|Laptop		|Smartphone		|Tablet		|Headphones	|Smartwatch
+Clothing				|T-shirt	|Jeans			|Jacket		|Hat		|Shoes
+Cosmetics				|Lipstick	|Foundation		|Mascara	|Perfume	|Eyeshadow
+Food					|Chocolate	|Snacks			|Cereal		|Juice		|Fruits
+Toys					|Doll		|Action Figure	|Board Game	|Puzzle		|Toy Car
+Books					|Novel		|Textbook		|Magazine	|Comic Book	|Cookbook
+Furniture				|Sofa		|Table			|Chair		|Bed		|Bookshelf
