@@ -40,8 +40,7 @@ namespace ObjectOrientedPractices.Model
         /// </summary>
         public Store()
         {
-            Items = ItemFactory.Randomize(5);
-            Customers = CustomerFactory.Randomize(5);
+
         }
     }
 }

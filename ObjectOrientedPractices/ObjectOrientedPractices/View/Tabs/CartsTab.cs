@@ -124,8 +124,16 @@ namespace ObjectOrientedPractices.View.Tabs
             CurrentCustomer.Order.Address = CurrentCustomer.Address;
             CurrentCustomer.Cart.Items.Clear();
             CartListBox.Items.Clear();
+
             ChangeCart();
         }
 
+        private void ClearCartButton_Click(object sender, EventArgs e)
+        {
+            CurrentCustomer.Cart.Items.Clear();
+            CartListBox.Items.Clear();
+
+            ChangeCart();
+        }
     }
 }
