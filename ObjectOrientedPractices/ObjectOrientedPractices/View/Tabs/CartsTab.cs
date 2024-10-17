@@ -18,6 +18,7 @@ namespace ObjectOrientedPractices.View.Tabs
 
         private List<Customer> _customer = new List<Customer>();
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<Item> Items
         {
             get { return _items; }
@@ -28,6 +29,7 @@ namespace ObjectOrientedPractices.View.Tabs
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<Customer> Customers 
         { 
             get { return _customer; }

@@ -1,6 +1,7 @@
 ﻿using ObjectOrientedPractices.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace ObjectOrientedPractices.View.Tabs
@@ -18,6 +19,7 @@ namespace ObjectOrientedPractices.View.Tabs
         /// <summary>
         /// Вызывает и задаёт список товаров
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<Customer> Customers
         {
             get { return _customers; }
