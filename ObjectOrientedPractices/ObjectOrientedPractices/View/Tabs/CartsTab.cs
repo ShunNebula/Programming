@@ -12,12 +12,24 @@ using ObjectOrientedPractices.Services;
 
 namespace ObjectOrientedPractices.View.Tabs
 {
+    /// <summary>
+    /// Класс для работы с корзиной покупателя
+    /// </summary>
     public partial class CartsTab : UserControl
     {
+        /// <summary>
+        /// Список товаров
+        /// </summary>
         private List<Item> _items = new List<Item>();
 
+        /// <summary>
+        /// Список покупателей
+        /// </summary>
         private List<Customer> _customer = new List<Customer>();
 
+        /// <summary>
+        /// Возвращает и задаёт список товаров
+        /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<Item> Items
         {
@@ -29,6 +41,9 @@ namespace ObjectOrientedPractices.View.Tabs
             }
         }
 
+        /// <summary>
+        /// Возвращает и задаёт список покупателей
+        /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<Customer> Customers 
         { 
@@ -40,16 +55,24 @@ namespace ObjectOrientedPractices.View.Tabs
             }
         }
 
+        /// <summary>
+        /// Текущий покупатель
+        /// </summary>
         public Customer CurrentCustomer { get; set; }
 
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="CartsTab"/>.
+        /// </summary>
         public CartsTab()
         {
             InitializeComponent();
 
-            UpdateListBox();
-            UpdateComboBox();
+            RefreshData();
         }
 
+        /// <summary>
+        /// Обновляет списки покупателей и товаров
+        /// </summary>
         public void RefreshData()
         {
             UpdateListBox();
@@ -57,7 +80,7 @@ namespace ObjectOrientedPractices.View.Tabs
         }
 
         /// <summary>
-        /// Заполнение ListBox
+        /// Заполнение ListBox товарами
         /// </summary>
         private void UpdateListBox()
         {
@@ -68,6 +91,9 @@ namespace ObjectOrientedPractices.View.Tabs
             }
         }
 
+        /// <summary>
+        /// Заполняет ComboBox покупателями
+        /// </summary>
         private void UpdateComboBox()
         {
             CustomerComboBox.Items.Clear();
@@ -77,11 +103,19 @@ namespace ObjectOrientedPractices.View.Tabs
             }
         }
 
+        /// <summary>
+        /// Обновляет стоимость корзины
+        /// </summary>
         private void ChangeCart()
         {
             AmountTextBox.Text = $"{CurrentCustomer.Cart.Amount:n2}";
         }
 
+        /// <summary>
+        /// Заполняет корзину при выборе покупателя
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие - CustomerComboBox</param>
+        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void CustomerComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             CartListBox.Items.Clear();
@@ -94,9 +128,14 @@ namespace ObjectOrientedPractices.View.Tabs
             }
         }
 
+        /// <summary>
+        /// Добавляет выбранный товар в корзину
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие - AddCartButton</param>
+        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void AddCartButton_Click(object sender, EventArgs e)
         {
-            if (ItemsListBox.SelectedIndex > -1)
+            if (ItemsListBox.SelectedIndex > -1 && CustomerComboBox.SelectedIndex > -1)
             {
                 CurrentCustomer.Cart.Items.Add(_items[ItemsListBox.SelectedIndex]);
                 CartListBox.Items.Add(_items[ItemsListBox.SelectedIndex].Name);
@@ -105,6 +144,11 @@ namespace ObjectOrientedPractices.View.Tabs
             }
         }
 
+        /// <summary>
+        /// Удаляет выбранный товар из корзины
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие - RemoveItemButton</param>
+        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void RemoveItemButton_Click(object sender, EventArgs e)
         {
             if (CartListBox.SelectedIndex > -1)
@@ -116,8 +160,14 @@ namespace ObjectOrientedPractices.View.Tabs
             }
         }
 
+        /// <summary>
+        /// Создаёт заказ на основе корзину покупателя
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие - CreateOrderButton</param>
+        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void CreateOrderButton_Click(object sender, EventArgs e)
         {
+            if (CartListBox.Items.Count == 0) return;
             Order currentOrder = new Order();
             currentOrder.Items = new List<Item>(CurrentCustomer.Cart.Items);
             currentOrder.Amount = CurrentCustomer.Cart.Amount;
@@ -130,6 +180,11 @@ namespace ObjectOrientedPractices.View.Tabs
             ChangeCart();
         }
 
+        /// <summary>
+        /// Очищает корзину покупателя
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие - ClearCartButton</param>
+        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void ClearCartButton_Click(object sender, EventArgs e)
         {
             CurrentCustomer.Cart.Items.Clear();

@@ -34,6 +34,9 @@ namespace ObjectOrientedPractices.Model
         /// </summary>
         private double _amount;
 
+        /// <summary>
+        /// Статус заказа
+        /// </summary>
         private OrderStatus _status;
 
         /// <summary>
@@ -57,22 +60,45 @@ namespace ObjectOrientedPractices.Model
         /// <summary>
         /// Возвращает и задаёт адрес доставки
         /// </summary>
-        public Address Address { get { return _address; } set { _address = value; } }
+        public Address Address 
+        { 
+            get { return _address; } 
+            set { _address = value; } 
+        }
 
         /// <summary>
         /// Возвращает и задаёт список товаров
         /// </summary>
-        public List<Item> Items { get { return _items; } set { _items = value; } }
+        public List<Item> Items 
+        { 
+            get { return _items; } 
+            set { _items = value; } 
+        }
 
         /// <summary>
         /// Возвращает и задаёт общую цену товаров из списка
         /// </summary>
-        public double Amount { get { return _amount; } set { _amount = value; } }
+        public double Amount 
+        { 
+            get { return _amount; } 
+            set { _amount = value; } 
+        }
 
-        public OrderStatus Status { get { return _status; } set { _status = value; } }
+        /// <summary>
+        /// Возвращает и задаёт статус заказа
+        /// </summary>
+        public OrderStatus Status 
+        { 
+            get { return _status; } 
+            set { _status = value; } 
+        }
 
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="Order"/>.
+        /// </summary>
         public Order()
         {
+            Id = IdGenerator.GetNextId("Order");
             Date = DateTime.Now;
         }
     }

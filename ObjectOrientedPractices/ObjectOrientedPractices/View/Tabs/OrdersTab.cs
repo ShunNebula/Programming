@@ -11,12 +11,24 @@ using ObjectOrientedPractices.Model;
 
 namespace ObjectOrientedPractices.View.Tabs
 {
+    /// <summary>
+    /// Класс для работы с заказами
+    /// </summary>
     public partial class OrdersTab : UserControl
     {
+        /// <summary>
+        /// Список покупателей
+        /// </summary>
         private List<Customer> _customers = new List<Customer>();
 
+        /// <summary>
+        /// Список всех заказов
+        /// </summary>
         private List<OrderData> _orderData = new List<OrderData>();
 
+        /// <summary>
+        /// Возвращает и задаёт список покупателей
+        /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<Customer> Customers 
         { 
@@ -28,6 +40,9 @@ namespace ObjectOrientedPractices.View.Tabs
             }
         }
 
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="OrdersTab"/>.
+        /// </summary>
         public OrdersTab()
         {
             InitializeComponent();
@@ -35,24 +50,31 @@ namespace ObjectOrientedPractices.View.Tabs
             UpdateOrders();
         }
 
+        /// <summary>
+        /// Обновляет таблицу заказов
+        /// </summary>
         public void RefreshData()
         {
             UpdateOrders();
         }
 
+        /// <summary>
+        /// Заполняет таблицу заказами
+        /// </summary>
         private void UpdateOrders()
         {
+            orderDataBindingSource.Clear();
+            OrdersDataGridView.DataSource = null;
             foreach (var customer in _customers)
             {
-                //_orders.AddRange(customer.Order);
                 foreach (var order in customer.Order)
                 {
                     OrderData orderData = new OrderData();
-                    orderData.Id = order.Id.ToString();
+                    orderData.Id = (order.Id / 2).ToString();
                     orderData.Address = order.Address;
                     orderData.Status = order.Status.ToString();
                     orderData.Date = order.Date.ToString();
-                    orderData.Amount = order.Amount.ToString();
+                    orderData.Amount = $"{order.Amount:n2}";
                     orderData.FullName = customer.FullName;
                     orderData.Order = order;
 
@@ -63,6 +85,11 @@ namespace ObjectOrientedPractices.View.Tabs
             OrdersDataGridView.DataSource = orderDataBindingSource;
         }
 
+        /// <summary>
+        /// Выводит данные о выбранном заказе
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие - OrdersDataGridView</param>
+        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void OrdersDataGridView_SelectionChanged(object sender, EventArgs e)
         {
             OrderItemsListBox.Items.Clear();
