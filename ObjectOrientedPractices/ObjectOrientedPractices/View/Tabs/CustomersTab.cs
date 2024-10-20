@@ -63,6 +63,7 @@ namespace ObjectOrientedPractices.View.Tabs
             {
                 IDTextBox.Text = string.Empty;
                 FullNameTextBox.Text = string.Empty;
+                addressControl1.Address = null;
             }
             else
             {

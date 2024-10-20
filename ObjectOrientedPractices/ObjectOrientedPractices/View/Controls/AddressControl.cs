@@ -1,6 +1,7 @@
 ﻿using ObjectOrientedPractices.Model;
 using ObjectOrientedPractices.Services;
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -19,6 +20,7 @@ namespace ObjectOrientedPractices.View.Controls
         /// <summary>
         /// Возвращает и задаёт адрес покупателя
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Address Address
         {
             get { return _address; }
@@ -43,12 +45,24 @@ namespace ObjectOrientedPractices.View.Controls
         /// </summary>
         private void LoadAddress()
         {
-            IndexTextBox.Text = _address.Index.ToString();
-            CountryTextBox.Text = _address.Country;
-            CityTextBox.Text = _address.City;
-            StreetTextBox.Text = _address.Street;
-            BuildingTextBox.Text = _address.Building;
-            ApartmentTextBox.Text = _address.Apartment;
+            if (this.Address != null)
+            {
+                IndexTextBox.Text = _address.Index.ToString();
+                CountryTextBox.Text = _address.Country;
+                CityTextBox.Text = _address.City;
+                StreetTextBox.Text = _address.Street;
+                BuildingTextBox.Text = _address.Building;
+                ApartmentTextBox.Text = _address.Apartment;
+            }
+            else
+            {
+                IndexTextBox.Text = "100000";
+                CountryTextBox.Text = " ";
+                CityTextBox.Text = " ";
+                StreetTextBox.Text = " ";
+                BuildingTextBox.Text = " ";
+                ApartmentTextBox.Text = " ";
+            }
         }
 
         /// <summary>
@@ -58,6 +72,7 @@ namespace ObjectOrientedPractices.View.Controls
         /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void IndexTextBox_TextChanged(object sender, EventArgs e)
         {
+            if (_address == null) return;
             if (!string.IsNullOrEmpty(IndexTextBox.Text) && int.TryParse(IndexTextBox.Text, out int n) && (n <= 999999 && n >= 100000))
             {
                 IndexTextBox.BackColor = SystemColors.Window;
@@ -77,6 +92,7 @@ namespace ObjectOrientedPractices.View.Controls
         /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void CountryTextBox_TextChanged(object sender, EventArgs e)
         {
+            if (_address == null) return;
             if (!string.IsNullOrEmpty(CountryTextBox.Text) && CountryTextBox.Text.Length <= 50)
             {
                 CountryTextBox.BackColor = SystemColors.Window;
@@ -96,6 +112,7 @@ namespace ObjectOrientedPractices.View.Controls
         /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void StreetTextBox_TextChanged(object sender, EventArgs e)
         {
+            if (_address == null) return;
             if (!string.IsNullOrEmpty(StreetTextBox.Text) && StreetTextBox.Text.Length <= 50)
             {
                 StreetTextBox.BackColor = SystemColors.Window;
@@ -115,6 +132,7 @@ namespace ObjectOrientedPractices.View.Controls
         /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void CityTextBox_TextChanged(object sender, EventArgs e)
         {
+            if (_address == null) return;
             if (!string.IsNullOrEmpty(CityTextBox.Text) && CityTextBox.Text.Length <= 100)
             {
                 CityTextBox.BackColor = SystemColors.Window;
@@ -134,6 +152,7 @@ namespace ObjectOrientedPractices.View.Controls
         /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void BuildingTextBox_TextChanged(object sender, EventArgs e)
         {
+            if (_address == null) return;
             if (!string.IsNullOrEmpty(BuildingTextBox.Text) && BuildingTextBox.Text.Length <= 10)
             {
                 BuildingTextBox.BackColor = SystemColors.Window;
@@ -153,6 +172,7 @@ namespace ObjectOrientedPractices.View.Controls
         /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void ApartmentTextBox_TextChanged(object sender, EventArgs e)
         {
+            if (_address == null) return;
             if (!string.IsNullOrEmpty(ApartmentTextBox.Text) && ApartmentTextBox.Text.Length <= 10)
             {
                 ApartmentTextBox.BackColor = SystemColors.Window;

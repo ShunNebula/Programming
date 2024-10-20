@@ -27,11 +27,14 @@ namespace ObjectOrientedPractices
 
             cartsTab1.Items = _store.Items;
             cartsTab1.Customers = _store.Customers;
+
+            ordersTab1.Customers = _store.Customers;
         }
 
         private void tabControl1_SelectedTabChanged(object sender, EventArgs e)
         {
             cartsTab1.RefreshData();
+            ordersTab1.RefreshData();
         }
     }
 }

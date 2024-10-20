@@ -1,4 +1,5 @@
 ﻿using ObjectOrientedPractices.Services;
+using System.Collections.Generic;
 
 namespace ObjectOrientedPractices.Model
 {
@@ -19,7 +20,7 @@ namespace ObjectOrientedPractices.Model
 
         private Cart _cart;
 
-        private Order _order;
+        private List<Order> _order = new List<Order>();
 
         /// <summary>
         /// Возвращает и задаёт уникальный номер покупателя
@@ -61,7 +62,7 @@ namespace ObjectOrientedPractices.Model
             set { _cart = value; }
         }
 
-        public Order Order
+        public List<Order> Order
         {
             get { return _order; }
             set { _order = value; }
@@ -76,7 +77,6 @@ namespace ObjectOrientedPractices.Model
             FullName = fullName;
             Address = address;
             Cart = cart;
-            Order = new Order();
         }
     }
 }

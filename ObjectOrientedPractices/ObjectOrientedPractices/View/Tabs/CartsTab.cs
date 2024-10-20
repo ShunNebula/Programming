@@ -118,10 +118,12 @@ namespace ObjectOrientedPractices.View.Tabs
 
         private void CreateOrderButton_Click(object sender, EventArgs e)
         {
-            CurrentCustomer.Order.Items = CurrentCustomer.Cart.Items;
-            CurrentCustomer.Order.Amount = CurrentCustomer.Cart.Amount;
-            CurrentCustomer.Order.Status = (OrderStatus)Enum.GetValues(typeof(OrderStatus)).Cast<object>().ToArray()[0];
-            CurrentCustomer.Order.Address = CurrentCustomer.Address;
+            Order currentOrder = new Order();
+            currentOrder.Items = new List<Item>(CurrentCustomer.Cart.Items);
+            currentOrder.Amount = CurrentCustomer.Cart.Amount;
+            currentOrder.Status = (OrderStatus)Enum.GetValues(typeof(OrderStatus)).Cast<object>().ToArray()[0];
+            currentOrder.Address = CurrentCustomer.Address;
+            CurrentCustomer.Order.Add(currentOrder);
             CurrentCustomer.Cart.Items.Clear();
             CartListBox.Items.Clear();
 

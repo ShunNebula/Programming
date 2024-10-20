@@ -17,7 +17,7 @@ namespace ObjectOrientedPractices.Model
         /// <summary>
         /// Дата создания заказа
         /// </summary>
-        private string _date;
+        private DateTime _date;
 
         /// <summary>
         /// Адрес доставки
@@ -48,10 +48,10 @@ namespace ObjectOrientedPractices.Model
         /// <summary>
         /// Возвращает дату создания заказа
         /// </summary>
-        public string Date 
+        public DateTime Date 
         { 
             get { return _date; } 
-            private set { _date = DateTime.Now.ToString(); }
+            private set { _date = value; }
         }
 
         /// <summary>
@@ -70,5 +70,10 @@ namespace ObjectOrientedPractices.Model
         public double Amount { get { return _amount; } set { _amount = value; } }
 
         public OrderStatus Status { get { return _status; } set { _status = value; } }
+
+        public Order()
+        {
+            Date = DateTime.Now;
+        }
     }
 }
