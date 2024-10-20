@@ -142,10 +142,5 @@ namespace ObjectOrientedPractices.Model
             Building = building;
             Apartment = apartment;
         }
-
-        public override string ToString()
-        {
-            return $"{_country}, г.{_city}, ул.{_street}, д.{_building}, кв.{_apartment}";
-        }
     }
 }

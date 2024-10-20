@@ -49,7 +49,7 @@ namespace ObjectOrientedPractices.View.Tabs
         private static Item _currentItem = null;
 
         /// <summary>
-        /// Инициализация компонентов
+        /// Создаёт экземпляр класса <see cref="ItemsTab"/>.
         /// </summary>
         public ItemsTab()
         {
