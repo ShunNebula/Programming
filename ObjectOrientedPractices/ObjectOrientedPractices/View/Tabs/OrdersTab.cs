@@ -27,6 +27,11 @@ namespace ObjectOrientedPractices.View.Tabs
         private List<OrderData> _orderData = new List<OrderData>();
 
         /// <summary>
+        /// Текущий заказ
+        /// </summary>
+        private static OrderData _currentOrder = null;
+
+        /// <summary>
         /// Возвращает и задаёт список покупателей
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -48,6 +53,9 @@ namespace ObjectOrientedPractices.View.Tabs
             InitializeComponent();
 
             UpdateOrders();
+
+            StatusComboBox.Items.AddRange(Enum.GetValues(typeof(OrderStatus)).Cast<object>().ToArray());
+            StatusComboBox.SelectedIndex = -1;
         }
 
         /// <summary>
@@ -103,16 +111,29 @@ namespace ObjectOrientedPractices.View.Tabs
             }
             else
             {
-                OrderData order = _orderData[OrdersDataGridView.SelectedCells[0].RowIndex];
-                IdTextBox.Text = order.Id;
-                DateTextBox.Text = order.Date;
-                StatusComboBox.Text = order.Status;
-                addressControl1.Address = order.Address;
-                for (int i = 0; i < order.Order.Items.Count; i++)
+                _currentOrder = _orderData[OrdersDataGridView.SelectedCells[0].RowIndex];
+                IdTextBox.Text = _currentOrder.Id;
+                DateTextBox.Text = _currentOrder.Date;
+                StatusComboBox.Text = _currentOrder.Status;
+                addressControl1.Address = _currentOrder.Address;
+                for (int i = 0; i < _currentOrder.Order.Items.Count; i++)
                 {
-                    OrderItemsListBox.Items.Add(order.Order.Items[i].Name);
+                    OrderItemsListBox.Items.Add(_currentOrder.Order.Items[i].Name);
                 }
-                AmountTextBox.Text = order.Amount;
+                AmountTextBox.Text = _currentOrder.Amount;
+            }
+        }
+
+        /// <summary>
+        /// Изменение статуса заказа
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие - StatusComboBox</param>
+        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
+        private void StatusComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (StatusComboBox.SelectedItem is OrderStatus selectedStatus && _currentOrder != null)
+            {
+                _currentOrder.Status = selectedStatus.ToString();
             }
         }
     }
