@@ -1,35 +1,28 @@
-﻿namespace ObjectOrientedPractices.Services
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+
+namespace ObjectOrientedPractices.Services
 {
     /// <summary>
     /// Класс для создания уникального Id для покупателей и товаров.
     /// </summary>
     public class IdGenerator
     {
-        private static int _counterOrder;
-
-        /// <summary>
-        /// Счётчик для Item
-        /// </summary>
-        private static int _counterItem;
-
-        /// <summary>
-        /// Счётчик для Customer
-        /// </summary>
-        private static int _counterCustomer;
+        private static Dictionary<Type, int> _counter = new Dictionary<Type, int>();
 
         /// /// <summary>
         /// Возвращает уникальный Id
         /// </summary>
-        /// <param name="choice">Строка с выбором (Item или Customer)</param>
         /// <returns>Уникальный Id</returns>
-        public static int GetNextId(string choice)
+        public static int GetNextId<T>()
         {
-            if (choice == "Item")
-                return ++_counterItem;
-            else if (choice == "Customer")
-                return ++_counterCustomer;
-            else
-                return ++_counterOrder;
+            if (!_counter.ContainsKey(typeof(T)))
+            {
+                _counter[typeof(T)] = 0;
+            }
+
+            return ++_counter[typeof(T)];
         }
 
     }

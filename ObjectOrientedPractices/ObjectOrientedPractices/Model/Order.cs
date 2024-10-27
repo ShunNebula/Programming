@@ -45,7 +45,7 @@ namespace ObjectOrientedPractices.Model
         public int Id 
         { 
             get { return _id; } 
-            private set { _id = IdGenerator.GetNextId("Order"); }
+            private set { _id = value; }
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace ObjectOrientedPractices.Model
         /// </summary>
         public Order()
         {
-            Id = IdGenerator.GetNextId("Order");
+            Id = IdGenerator.GetNextId<Order>();
             Date = DateTime.Now;
         }
     }

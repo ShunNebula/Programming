@@ -91,7 +91,7 @@ namespace ObjectOrientedPractices.View.Tabs
                 foreach (var order in customer.Order)
                 {
                     DataRow row = _orderData.NewRow();
-                    row["Id"] = (order.Id / 2);
+                    row["Id"] = order.Id;
                     row["Date"] = order.Date.ToString();
                     row["FullName"] = customer.FullName;
                     row["Address"] = order.Address.ToString();
@@ -100,8 +100,8 @@ namespace ObjectOrientedPractices.View.Tabs
 
                     _orderData.Rows.Add(row);
 
-                    _addresses[(order.Id / 2).ToString()] = order.Address;
-                    _orders[(order.Id / 2).ToString()] = order;
+                    _addresses[order.Id.ToString()] = order.Address;
+                    _orders[order.Id.ToString()] = order;
                 }
             }
             

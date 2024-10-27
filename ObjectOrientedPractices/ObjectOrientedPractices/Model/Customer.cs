@@ -85,7 +85,7 @@ namespace ObjectOrientedPractices.Model
         /// </summary>
         public Customer(string fullName, Address address, Cart cart)
         {
-            Id = IdGenerator.GetNextId("Customer");
+            Id = IdGenerator.GetNextId<Customer>();
             FullName = fullName;
             Address = address;
             Cart = cart;
