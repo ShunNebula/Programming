@@ -28,15 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.OrdersDataGridView = new System.Windows.Forms.DataGridView();
-            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fullNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.addressDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.amountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.statusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.orderDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -50,10 +42,7 @@
             this.OrderItemsListBox = new System.Windows.Forms.ListBox();
             this.label7 = new System.Windows.Forms.Label();
             this.addressControl1 = new ObjectOrientedPractices.View.Controls.AddressControl();
-            this.orderDataBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.OrdersDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.orderDataBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.orderDataBindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // OrdersDataGridView
@@ -62,16 +51,7 @@
             this.OrdersDataGridView.AllowUserToDeleteRows = false;
             this.OrdersDataGridView.AllowUserToResizeColumns = false;
             this.OrdersDataGridView.AllowUserToResizeRows = false;
-            this.OrdersDataGridView.AutoGenerateColumns = false;
             this.OrdersDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.OrdersDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.idDataGridViewTextBoxColumn,
-            this.dateDataGridViewTextBoxColumn,
-            this.fullNameDataGridViewTextBoxColumn,
-            this.addressDataGridViewTextBoxColumn,
-            this.amountDataGridViewTextBoxColumn,
-            this.statusDataGridViewTextBoxColumn});
-            this.OrdersDataGridView.DataSource = this.orderDataBindingSource;
             this.OrdersDataGridView.Location = new System.Drawing.Point(3, 27);
             this.OrdersDataGridView.MultiSelect = false;
             this.OrdersDataGridView.Name = "OrdersDataGridView";
@@ -79,52 +59,6 @@
             this.OrdersDataGridView.Size = new System.Drawing.Size(338, 445);
             this.OrdersDataGridView.TabIndex = 0;
             this.OrdersDataGridView.SelectionChanged += new System.EventHandler(this.OrdersDataGridView_SelectionChanged);
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
-            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            this.idDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // dateDataGridViewTextBoxColumn
-            // 
-            this.dateDataGridViewTextBoxColumn.DataPropertyName = "Date";
-            this.dateDataGridViewTextBoxColumn.HeaderText = "Date";
-            this.dateDataGridViewTextBoxColumn.Name = "dateDataGridViewTextBoxColumn";
-            this.dateDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // fullNameDataGridViewTextBoxColumn
-            // 
-            this.fullNameDataGridViewTextBoxColumn.DataPropertyName = "FullName";
-            this.fullNameDataGridViewTextBoxColumn.HeaderText = "FullName";
-            this.fullNameDataGridViewTextBoxColumn.Name = "fullNameDataGridViewTextBoxColumn";
-            this.fullNameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // addressDataGridViewTextBoxColumn
-            // 
-            this.addressDataGridViewTextBoxColumn.DataPropertyName = "Address";
-            this.addressDataGridViewTextBoxColumn.HeaderText = "Address";
-            this.addressDataGridViewTextBoxColumn.Name = "addressDataGridViewTextBoxColumn";
-            this.addressDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // amountDataGridViewTextBoxColumn
-            // 
-            this.amountDataGridViewTextBoxColumn.DataPropertyName = "Amount";
-            this.amountDataGridViewTextBoxColumn.HeaderText = "Amount";
-            this.amountDataGridViewTextBoxColumn.Name = "amountDataGridViewTextBoxColumn";
-            this.amountDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // statusDataGridViewTextBoxColumn
-            // 
-            this.statusDataGridViewTextBoxColumn.DataPropertyName = "Status";
-            this.statusDataGridViewTextBoxColumn.HeaderText = "Status";
-            this.statusDataGridViewTextBoxColumn.Name = "statusDataGridViewTextBoxColumn";
-            this.statusDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // orderDataBindingSource
-            // 
-            this.orderDataBindingSource.DataSource = typeof(ObjectOrientedPractices.Model.OrderData);
             // 
             // label1
             // 
@@ -225,7 +159,6 @@
             // 
             this.OrderItemsListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.OrderItemsListBox.Enabled = false;
             this.OrderItemsListBox.FormattingEnabled = true;
             this.OrderItemsListBox.Location = new System.Drawing.Point(355, 276);
             this.OrderItemsListBox.Name = "OrderItemsListBox";
@@ -245,15 +178,10 @@
             // 
             // addressControl1
             // 
-            this.addressControl1.Enabled = false;
             this.addressControl1.Location = new System.Drawing.Point(355, 115);
             this.addressControl1.Name = "addressControl1";
             this.addressControl1.Size = new System.Drawing.Size(450, 142);
             this.addressControl1.TabIndex = 11;
-            // 
-            // orderDataBindingSource1
-            // 
-            this.orderDataBindingSource1.DataSource = typeof(ObjectOrientedPractices.Model.OrderData);
             // 
             // OrdersTab
             // 
@@ -276,8 +204,6 @@
             this.Name = "OrdersTab";
             this.Size = new System.Drawing.Size(808, 475);
             ((System.ComponentModel.ISupportInitialize)(this.OrdersDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.orderDataBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.orderDataBindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -296,16 +222,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private Controls.AddressControl addressControl1;
-        private System.Windows.Forms.BindingSource orderDataBindingSource;
         private System.Windows.Forms.TextBox AmountTextBox;
         private System.Windows.Forms.ListBox OrderItemsListBox;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dateDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fullNameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn addressDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn amountDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn statusDataGridViewTextBoxColumn;
-        private System.Windows.Forms.BindingSource orderDataBindingSource1;
     }
 }

@@ -22,14 +22,18 @@ namespace ObjectOrientedPractices.View.Tabs
         private List<Customer> _customers = new List<Customer>();
 
         /// <summary>
-        /// Список всех заказов
+        /// Таблица всех заказов
         /// </summary>
-        private List<OrderData> _orderData = new List<OrderData>();
+        private DataTable _orderData = new DataTable();
 
         /// <summary>
         /// Текущий заказ
         /// </summary>
-        private static OrderData _currentOrder = null;
+        private static int _currentIndex = -1;
+
+        private static Dictionary<string, Address> _addresses = new Dictionary<string, Address>();
+
+        private static Dictionary<string, Order> _orders = new Dictionary<string, Order>();
 
         /// <summary>
         /// Возвращает и задаёт список покупателей
@@ -52,6 +56,13 @@ namespace ObjectOrientedPractices.View.Tabs
         {
             InitializeComponent();
 
+            _orderData.Columns.Add("Id", typeof(string));
+            _orderData.Columns.Add("Date", typeof(string));
+            _orderData.Columns.Add("FullName", typeof(string));
+            _orderData.Columns.Add("Address", typeof(string));
+            _orderData.Columns.Add("Amount", typeof(string));
+            _orderData.Columns.Add("Status", typeof(string));
+
             UpdateOrders();
 
             StatusComboBox.Items.AddRange(Enum.GetValues(typeof(OrderStatus)).Cast<object>().ToArray());
@@ -71,26 +82,30 @@ namespace ObjectOrientedPractices.View.Tabs
         /// </summary>
         private void UpdateOrders()
         {
-            orderDataBindingSource.Clear();
+            _addresses.Clear();
+            _orders.Clear();
+            _orderData.Clear();
             OrdersDataGridView.DataSource = null;
             foreach (var customer in _customers)
             {
                 foreach (var order in customer.Order)
                 {
-                    OrderData orderData = new OrderData();
-                    orderData.Id = (order.Id / 2).ToString();
-                    orderData.Address = order.Address;
-                    orderData.Status = order.Status.ToString();
-                    orderData.Date = order.Date.ToString();
-                    orderData.Amount = $"{order.Amount:n2}";
-                    orderData.FullName = customer.FullName;
-                    orderData.Order = order;
+                    DataRow row = _orderData.NewRow();
+                    row["Id"] = (order.Id / 2);
+                    row["Date"] = order.Date.ToString();
+                    row["FullName"] = customer.FullName;
+                    row["Address"] = order.Address.ToString();
+                    row["Amount"] = $"{order.Amount:n2}";
+                    row["Status"] = order.Status.ToString();
 
-                    _orderData.Add(orderData);
-                    orderDataBindingSource.Add(orderData);
+                    _orderData.Rows.Add(row);
+
+                    _addresses[(order.Id / 2).ToString()] = order.Address;
+                    _orders[(order.Id / 2).ToString()] = order;
                 }
             }
-            OrdersDataGridView.DataSource = orderDataBindingSource;
+            
+            OrdersDataGridView.DataSource = _orderData;
         }
 
         /// <summary>
@@ -108,19 +123,20 @@ namespace ObjectOrientedPractices.View.Tabs
                 StatusComboBox.Text = string.Empty;
                 addressControl1.Address = null;
                 AmountTextBox.Text = string.Empty;
+                _currentIndex = -1;
             }
             else
             {
-                _currentOrder = _orderData[OrdersDataGridView.SelectedCells[0].RowIndex];
-                IdTextBox.Text = _currentOrder.Id;
-                DateTextBox.Text = _currentOrder.Date;
-                StatusComboBox.Text = _currentOrder.Status;
-                addressControl1.Address = _currentOrder.Address;
-                for (int i = 0; i < _currentOrder.Order.Items.Count; i++)
+                _currentIndex = OrdersDataGridView.SelectedCells[0].RowIndex;
+                IdTextBox.Text = _orderData.Rows[_currentIndex]["Id"].ToString();
+                DateTextBox.Text = _orderData.Rows[_currentIndex]["Date"].ToString();
+                StatusComboBox.Text = _orderData.Rows[_currentIndex]["Status"].ToString();
+                addressControl1.Address = _addresses[_orderData.Rows[_currentIndex]["Id"].ToString()];
+                for (int i = 0; i < _orders[_orderData.Rows[_currentIndex]["Id"].ToString()].Items.Count; i++)
                 {
-                    OrderItemsListBox.Items.Add(_currentOrder.Order.Items[i].Name);
+                    OrderItemsListBox.Items.Add(_orders[_orderData.Rows[_currentIndex]["Id"].ToString()].Items[i].Name);
                 }
-                AmountTextBox.Text = _currentOrder.Amount;
+                AmountTextBox.Text = _orderData.Rows[_currentIndex]["Amount"].ToString();
             }
         }
 
@@ -131,9 +147,9 @@ namespace ObjectOrientedPractices.View.Tabs
         /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void StatusComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (StatusComboBox.SelectedItem is OrderStatus selectedStatus && _currentOrder != null)
+            if (StatusComboBox.SelectedItem is OrderStatus selectedStatus && _currentIndex != -1)
             {
-                _currentOrder.Status = selectedStatus.ToString();
+                _orderData.Rows[_currentIndex]["Status"] = selectedStatus.ToString();
             }
         }
     }
