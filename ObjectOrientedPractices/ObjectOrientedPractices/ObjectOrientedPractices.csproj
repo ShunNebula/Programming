@@ -54,7 +54,6 @@
     <Compile Include="Model\Item.cs" />
     <Compile Include="Model\ItemFactory.cs" />
     <Compile Include="Model\Order.cs" />
-    <Compile Include="Model\OrderData.cs" />
     <Compile Include="Model\OrderStatus.cs" />
     <Compile Include="Model\Store.cs" />
     <Compile Include="Services\IdGenerator.cs" />
