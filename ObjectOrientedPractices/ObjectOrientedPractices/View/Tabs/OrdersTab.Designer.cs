@@ -159,6 +159,7 @@
             // 
             this.OrderItemsListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.OrderItemsListBox.Enabled = false;
             this.OrderItemsListBox.FormattingEnabled = true;
             this.OrderItemsListBox.Location = new System.Drawing.Point(355, 276);
             this.OrderItemsListBox.Name = "OrderItemsListBox";
@@ -178,6 +179,7 @@
             // 
             // addressControl1
             // 
+            this.addressControl1.Enabled = false;
             this.addressControl1.Location = new System.Drawing.Point(355, 115);
             this.addressControl1.Name = "addressControl1";
             this.addressControl1.Size = new System.Drawing.Size(450, 142);
