@@ -59,11 +59,15 @@
             this.OrdersDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.OrdersDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.OrdersDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.OrdersDataGridView.Location = new System.Drawing.Point(3, 27);
             this.OrdersDataGridView.MultiSelect = false;
             this.OrdersDataGridView.Name = "OrdersDataGridView";
             this.OrdersDataGridView.ReadOnly = true;
+            this.OrdersDataGridView.RowHeadersVisible = false;
+            this.OrdersDataGridView.RowHeadersWidth = 4;
+            this.OrdersDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.OrdersDataGridView.Size = new System.Drawing.Size(338, 445);
             this.OrdersDataGridView.TabIndex = 0;
             this.OrdersDataGridView.SelectionChanged += new System.EventHandler(this.OrdersDataGridView_SelectionChanged);

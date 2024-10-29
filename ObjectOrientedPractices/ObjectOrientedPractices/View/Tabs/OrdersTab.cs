@@ -152,15 +152,15 @@ namespace ObjectOrientedPractices.View.Tabs
             else
             {
                 _currentIndex = OrdersDataGridView.SelectedCells[0].RowIndex;
-                IdTextBox.Text = _orderData.Rows[_currentIndex]["Id"].ToString();
-                DateTextBox.Text = _orderData.Rows[_currentIndex]["Date"].ToString();
-                StatusComboBox.Text = _orderData.Rows[_currentIndex]["Status"].ToString();
+                IdTextBox.Text = _orders[_currentIndex].Id.ToString();
+                DateTextBox.Text = _orders[_currentIndex].Date.ToString();
+                StatusComboBox.Text = _orders[_currentIndex].Status.ToString();
                 addressControl1.Address = _orders[_currentIndex].Address;
                 for (int i = 0; i < _orders[_currentIndex].Items.Count; i++)
                 {
                     OrderItemsListBox.Items.Add(_orders[_currentIndex].Items[i].Name);
                 }
-                AmountTextBox.Text = _orderData.Rows[_currentIndex]["Amount"].ToString();
+                AmountTextBox.Text = $"{_orders[_currentIndex].Amount:n2}";
 
                 _selectedOrder = _orders[_currentIndex];
 
@@ -189,6 +189,7 @@ namespace ObjectOrientedPractices.View.Tabs
             if (StatusComboBox.SelectedItem is OrderStatus selectedStatus && _currentIndex != -1)
             {
                 _orderData.Rows[_currentIndex]["Status"] = selectedStatus.ToString();
+                _orders[_currentIndex].Status = selectedStatus;
             }
         }
 
