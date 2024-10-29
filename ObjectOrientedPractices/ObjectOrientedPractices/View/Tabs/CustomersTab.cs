@@ -64,11 +64,12 @@ namespace ObjectOrientedPractices.View.Tabs
                 IDTextBox.Text = string.Empty;
                 FullNameTextBox.Text = string.Empty;
                 addressControl1.Address = null;
+                PriorityCheckBox.Checked = false;
             }
             else
             {
                 _currentCustomer = _customers[CustomersListBox.SelectedIndex];
-
+                PriorityCheckBox.Checked = _currentCustomer.IsPriority;
                 IDTextBox.Text = _currentCustomer.Id.ToString();
                 FullNameTextBox.Text = _currentCustomer.FullName;
                 addressControl1.Address = _currentCustomer.Address;
@@ -122,6 +123,17 @@ namespace ObjectOrientedPractices.View.Tabs
         private void CustomersListBox_DoubleClick(object sender, EventArgs e)
         {
             CustomersListBox.SelectedIndex = -1;
+        }
+
+        /// <summary>
+        /// Задаёт приоритетность выбранного покупателя
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие - PriorityCheckBox</param>
+        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
+        private void PriorityCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CustomersListBox.SelectedIndex < 0) return;
+            _currentCustomer.IsPriority = PriorityCheckBox.Checked;
         }
     }
 }

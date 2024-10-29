@@ -17,6 +17,19 @@ namespace ObjectOrientedPractices.View.Tabs
     public partial class OrdersTab : UserControl
     {
         /// <summary>
+        /// Список допустимых времён доставки
+        /// </summary>
+        private List<string> _acceptableDeliveryTimes = new List<string>()
+        {
+            "09:00 - 11:00",
+            "11:00 - 13:00",
+            "13:00 - 15:00",
+            "15:00 - 17:00",
+            "17:00 - 19:00",
+            "19:00 - 21:00"
+        };
+
+        /// <summary>
         /// Список покупателей
         /// </summary>
         private List<Customer> _customers = new List<Customer>();
@@ -27,13 +40,24 @@ namespace ObjectOrientedPractices.View.Tabs
         private DataTable _orderData = new DataTable();
 
         /// <summary>
+        /// Выбранный заказ
+        /// </summary>
+        private Order _selectedOrder = new Order();
+
+        /// <summary>
+        /// Выбранный приоритетный заказ
+        /// </summary>
+        private PriorityOrder _selectedPriorityOrder = null;
+
+        /// <summary>
         /// Текущий заказ
         /// </summary>
         private static int _currentIndex = -1;
 
-        private static Dictionary<string, Address> _addresses = new Dictionary<string, Address>();
-
-        private static Dictionary<string, Order> _orders = new Dictionary<string, Order>();
+        /// <summary>
+        /// Список заказов
+        /// </summary>
+        private static List<Order> _orders = new List<Order>();
 
         /// <summary>
         /// Возвращает и задаёт список покупателей
@@ -67,6 +91,8 @@ namespace ObjectOrientedPractices.View.Tabs
 
             StatusComboBox.Items.AddRange(Enum.GetValues(typeof(OrderStatus)).Cast<object>().ToArray());
             StatusComboBox.SelectedIndex = -1;
+
+            DeliveryTimeComboBox.Items.AddRange(_acceptableDeliveryTimes.ToArray());
         }
 
         /// <summary>
@@ -82,7 +108,6 @@ namespace ObjectOrientedPractices.View.Tabs
         /// </summary>
         private void UpdateOrders()
         {
-            _addresses.Clear();
             _orders.Clear();
             _orderData.Clear();
             OrdersDataGridView.DataSource = null;
@@ -100,8 +125,7 @@ namespace ObjectOrientedPractices.View.Tabs
 
                     _orderData.Rows.Add(row);
 
-                    _addresses[order.Id.ToString()] = order.Address;
-                    _orders[order.Id.ToString()] = order;
+                    _orders.Add(order);
                 }
             }
             
@@ -131,12 +155,26 @@ namespace ObjectOrientedPractices.View.Tabs
                 IdTextBox.Text = _orderData.Rows[_currentIndex]["Id"].ToString();
                 DateTextBox.Text = _orderData.Rows[_currentIndex]["Date"].ToString();
                 StatusComboBox.Text = _orderData.Rows[_currentIndex]["Status"].ToString();
-                addressControl1.Address = _addresses[_orderData.Rows[_currentIndex]["Id"].ToString()];
-                for (int i = 0; i < _orders[_orderData.Rows[_currentIndex]["Id"].ToString()].Items.Count; i++)
+                addressControl1.Address = _orders[_currentIndex].Address;
+                for (int i = 0; i < _orders[_currentIndex].Items.Count; i++)
                 {
-                    OrderItemsListBox.Items.Add(_orders[_orderData.Rows[_currentIndex]["Id"].ToString()].Items[i].Name);
+                    OrderItemsListBox.Items.Add(_orders[_currentIndex].Items[i].Name);
                 }
                 AmountTextBox.Text = _orderData.Rows[_currentIndex]["Amount"].ToString();
+
+                _selectedOrder = _orders[_currentIndex];
+
+                if (_selectedOrder is PriorityOrder priority)
+                {
+                    _selectedPriorityOrder = priority;
+                    PriorityPanel.Visible = true;
+                    DeliveryTimeComboBox.Text = _selectedPriorityOrder.DesiredDeliveryTime;
+                }
+                else
+                {
+                    _selectedPriorityOrder = null;
+                    PriorityPanel.Visible = false;
+                }
             }
         }
 
@@ -151,6 +189,19 @@ namespace ObjectOrientedPractices.View.Tabs
             if (StatusComboBox.SelectedItem is OrderStatus selectedStatus && _currentIndex != -1)
             {
                 _orderData.Rows[_currentIndex]["Status"] = selectedStatus.ToString();
+            }
+        }
+
+        /// <summary>
+        /// Изменение времени доставки заказа
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие - DeliveryTimeComboBox</param>
+        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
+        private void DeliveryTimeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_acceptableDeliveryTimes.Contains(DeliveryTimeComboBox.SelectedItem))
+            {
+                _selectedPriorityOrder.DesiredDeliveryTime = DeliveryTimeComboBox.Text;
             }
         }
     }

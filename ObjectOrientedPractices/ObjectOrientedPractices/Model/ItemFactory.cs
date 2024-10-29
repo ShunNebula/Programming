@@ -10,14 +10,19 @@ namespace ObjectOrientedPractices.Model
     public class ItemFactory
     {
         /// <summary>
+        /// Путь до папки Texts
+        /// </summary>
+        static string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\Services\Texts");
+
+        /// <summary>
         /// Список с названиями товаров
         /// </summary>
-        private static readonly string[] names = File.ReadAllLines($@"{Environment.CurrentDirectory}\Texts\ItemNames.txt");
+        private static readonly string[] names = File.ReadAllLines($@"{filePath}\ItemNames.txt");
 
         /// <summary>
         /// Список с описаниями товаров
         /// </summary>
-        private static readonly string[] infos = File.ReadAllLines($@"{Environment.CurrentDirectory}\Texts\ItemInfos.txt");
+        private static readonly string[] infos = File.ReadAllLines($@"{filePath}\ItemInfos.txt");
 
         /// <summary>
         /// Возвращает список новых товаров

@@ -27,7 +27,7 @@ namespace ObjectOrientedPractices.Model
         /// <summary>
         /// Список товаров
         /// </summary>
-        private List<Item> _items;
+        private List<Item> _items = new List<Item>();
 
         /// <summary>
         /// Общая цена товаров из списка
@@ -94,12 +94,28 @@ namespace ObjectOrientedPractices.Model
         }
 
         /// <summary>
-        /// Создаёт экземпляр класса <see cref="Order"/>.
+        /// Создаёт пустой экземпляр класса <see cref="Order"/>.
         /// </summary>
         public Order()
         {
+            
+        }
+
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="Order"/>.
+        /// </summary>
+        /// <param name="address">Адрес доставки</param>
+        /// <param name="items">Список товаров</param>
+        /// <param name="amount">Общая цена товаров из списка</param>
+        /// <param name="status">Статус заказа</param>
+        public Order(Address address, List<Item> items, double amount, OrderStatus status)
+        {
             Id = IdGenerator.GetNextId<Order>();
             Date = DateTime.Now;
+            Address = address;
+            Items = items;
+            Amount = amount;
+            Status = status;
         }
     }
 }

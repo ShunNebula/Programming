@@ -10,9 +10,14 @@ namespace ObjectOrientedPractices.Model
     public class CustomerFactory
     {
         /// <summary>
+        /// Путь до файла CustomerNames.txt
+        /// </summary>
+        static string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\Services\Texts\CustomerNames.txt");
+
+        /// <summary>
         /// Список имён
         /// </summary>
-        private static string[] names = File.ReadAllLines($@"{Environment.CurrentDirectory}\Texts\CustomerNames.txt");
+        private static string[] names = File.ReadAllLines(filePath);
 
         /// <summary>
         /// Представляет экземпляр генератора случайных чисел.
