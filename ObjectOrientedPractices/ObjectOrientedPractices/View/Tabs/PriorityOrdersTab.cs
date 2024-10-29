@@ -39,10 +39,13 @@ namespace ObjectOrientedPractices.View.Tabs
             InitializeComponent();
 
             StatusComboBox.Items.AddRange(Enum.GetValues(typeof(OrderStatus)).Cast<object>().ToArray());
-            StatusComboBox.SelectedIndex = 0;
 
             DeliveryTimeComboBox.Items.AddRange(_acceptableDeliveryTimes.ToArray());
-            DeliveryTimeComboBox.SelectedIndex = 0;
+
+            IdTextBox.Text = _priorityOrder.Id.ToString();
+            DateTextBox.Text = _priorityOrder.Date.ToString();
+            addressControl1.Address = _priorityOrder.Address;
+            AmountTextBox.Text = _priorityOrder.Amount.ToString();
         }
 
         /// <summary>
@@ -58,6 +61,8 @@ namespace ObjectOrientedPractices.View.Tabs
             _priorityOrder.Amount += newItem.Cost;
 
             OrderItemsListBox.Items.Add(newItem.Name);
+
+            UpdateAmount();
         }
 
         /// <summary>
@@ -68,6 +73,7 @@ namespace ObjectOrientedPractices.View.Tabs
         private void RemoveItemButton_Click(object sender, EventArgs e)
         {
             if (OrderItemsListBox.SelectedIndex < 0) return;
+            _priorityOrder.Amount -= _priorityOrder.Items[OrderItemsListBox.SelectedIndex].Cost;
             _priorityOrder.Items.RemoveAt(OrderItemsListBox.SelectedIndex);
 
             if (OrderItemsListBox.SelectedIndex != OrderItemsListBox.Items.Count - 1)
@@ -82,6 +88,7 @@ namespace ObjectOrientedPractices.View.Tabs
 
                 OrderItemsListBox.Items.RemoveAt(OrderItemsListBox.SelectedIndex + 1);
             }
+            UpdateAmount();
         }
 
         /// <summary>
@@ -104,6 +111,14 @@ namespace ObjectOrientedPractices.View.Tabs
         private void UpdatePriorityOrder()
         {
             OrderItemsListBox.Items.Clear();
+        }
+
+        /// <summary>
+        /// Обновление общей стоимости заказа
+        /// </summary>
+        private void UpdateAmount()
+        {
+            AmountTextBox.Text = $"{_priorityOrder.Amount:n2}";
         }
     }
 }

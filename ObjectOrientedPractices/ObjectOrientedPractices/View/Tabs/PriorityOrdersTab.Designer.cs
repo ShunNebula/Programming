@@ -215,6 +215,7 @@
             // 
             // addressControl1
             // 
+            this.addressControl1.Enabled = false;
             this.addressControl1.Location = new System.Drawing.Point(12, 111);
             this.addressControl1.Name = "addressControl1";
             this.addressControl1.Size = new System.Drawing.Size(450, 142);
