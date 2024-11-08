@@ -113,7 +113,7 @@ namespace ObjectOrientedPractices.View.Tabs
             OrdersDataGridView.DataSource = null;
             foreach (var customer in _customers)
             {
-                foreach (var order in customer.Order)
+                foreach (var order in customer.Orders)
                 {
                     DataRow row = _orderData.NewRow();
                     row["Id"] = order.Id;

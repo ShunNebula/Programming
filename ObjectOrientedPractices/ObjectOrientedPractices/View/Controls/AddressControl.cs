@@ -101,7 +101,6 @@ namespace ObjectOrientedPractices.View.Controls
             else
             {
                 CountryTextBox.BackColor = Color.LightPink;
-                ValueValidator.AssertStringOnLength(CountryTextBox.Text, 50, nameof(_address.Country));
             }
         }
 
@@ -121,7 +120,6 @@ namespace ObjectOrientedPractices.View.Controls
             else
             {
                 StreetTextBox.BackColor = Color.LightPink;
-                ValueValidator.AssertStringOnLength(StreetTextBox.Text, 50, nameof(_address.Street));
             }
         }
 
@@ -141,7 +139,6 @@ namespace ObjectOrientedPractices.View.Controls
             else
             {
                 CityTextBox.BackColor = Color.LightPink;
-                ValueValidator.AssertStringOnLength(CityTextBox.Text, 100, nameof(_address.City));
             }
         }
 
@@ -161,7 +158,6 @@ namespace ObjectOrientedPractices.View.Controls
             else
             {
                 BuildingTextBox.BackColor = Color.LightPink;
-                ValueValidator.AssertStringOnLength(BuildingTextBox.Text, 10, nameof(_address.Building));
             }
         }
 
@@ -181,7 +177,6 @@ namespace ObjectOrientedPractices.View.Controls
             else
             {
                 ApartmentTextBox.BackColor = Color.LightPink;
-                ValueValidator.AssertStringOnLength(ApartmentTextBox.Text, 10, nameof(_address.Apartment));
             }
         }
     }
