@@ -12,12 +12,12 @@ namespace ObjectOrientedPractices.Model
         /// <summary>
         /// Путь до файла CustomerNames.txt
         /// </summary>
-        static string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\Services\Texts\CustomerNames.txt");
+        private static string _filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\Services\Texts\CustomerNames.txt");
 
         /// <summary>
         /// Список имён
         /// </summary>
-        private static string[] names = File.ReadAllLines(filePath);
+        private static string[] _names = File.ReadAllLines(_filePath);
 
         /// <summary>
         /// Представляет экземпляр генератора случайных чисел.
@@ -27,7 +27,7 @@ namespace ObjectOrientedPractices.Model
         /// <summary>
         /// Список стран
         /// </summary>
-        private static List<string> countries = new List<string>
+        private static List<string> _countries = new List<string>
         {
             "Russia", "USA", "Canada", "United Kingdom", "France", "Germany", "Australia"
         };
@@ -35,7 +35,7 @@ namespace ObjectOrientedPractices.Model
         /// <summary>
         /// Список городов
         /// </summary>
-        private static List<string> cities = new List<string>
+        private static List<string> _cities = new List<string>
         {
             "Moscow", "New York", "Toronto", "London", "Paris", "Berlin", "Sydney"
         };
@@ -43,7 +43,7 @@ namespace ObjectOrientedPractices.Model
         /// <summary>
         /// Список улиц
         /// </summary>
-        private static List<string> streets = new List<string>
+        private static List<string> _streets = new List<string>
         {
             "Lenin", "Red", "Pushkin", "Pyatnitskaya", "October", "Sadowa"
         };
@@ -54,9 +54,9 @@ namespace ObjectOrientedPractices.Model
         public static Address GenerateRandomAddress()
         {
             int index = _ran.Next(100000, 999999);
-            string country = countries[_ran.Next(countries.Count)];
-            string city = cities[_ran.Next(cities.Count)];
-            string street = streets[_ran.Next(streets.Count)];
+            string country = _countries[_ran.Next(_countries.Count)];
+            string city = _cities[_ran.Next(_cities.Count)];
+            string street = _streets[_ran.Next(_streets.Count)];
             string building = _ran.Next(1, 100).ToString();
             string apartment = _ran.Next(1, 50).ToString();
 
@@ -77,7 +77,7 @@ namespace ObjectOrientedPractices.Model
             for (int i = 0; i < size; i++)
             {
                 Customer newCustomer = new Customer(
-                    names[ran.Next(names.Length)], 
+                    _names[ran.Next(_names.Length)], 
                     GenerateRandomAddress(),
                     new Cart());
 

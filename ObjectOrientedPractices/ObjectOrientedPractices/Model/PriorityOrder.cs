@@ -14,11 +14,6 @@ namespace ObjectOrientedPractices.Model
     public class PriorityOrder : Order
     {
         /// <summary>
-        /// Возвращает и задаёт желаемую дату доставки
-        /// </summary>
-        public DateTime DesiredDeliveryDate { get; set; }
-
-        /// <summary>
         /// Желаемое время доставки
         /// </summary>
         private string _desiredDeliveryTime;
@@ -60,6 +55,11 @@ namespace ObjectOrientedPractices.Model
                 }
             }
         }
+
+        /// <summary>
+        /// Возвращает и задаёт желаемую дату доставки
+        /// </summary>
+        public DateTime DesiredDeliveryDate { get; set; }
 
         /// <summary>
         /// Создаёт пустой экземпляр класса <see cref="PriorityOrder"/>.

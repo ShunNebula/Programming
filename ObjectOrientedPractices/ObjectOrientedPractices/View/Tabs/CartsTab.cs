@@ -179,7 +179,7 @@ namespace ObjectOrientedPractices.View.Tabs
                     "09:00 - 11:00"
                     );
 
-                _currentCustomer.Order.Add(currentOrder);
+                _currentCustomer.Orders.Add(currentOrder);
             }
             else
             {
@@ -190,7 +190,7 @@ namespace ObjectOrientedPractices.View.Tabs
                     (OrderStatus)Enum.GetValues(typeof(OrderStatus)).Cast<object>().ToArray()[0]
                     );
 
-                _currentCustomer.Order.Add(currentOrder);
+                _currentCustomer.Orders.Add(currentOrder);
             }
             _currentCustomer.Cart.Items.Clear();
             CartListBox.Items.Clear();

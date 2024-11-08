@@ -1,4 +1,5 @@
 ﻿using ObjectOrientedPractices.Services;
+using System;
 using System.Windows.Forms;
 
 namespace ObjectOrientedPractices.Model
@@ -46,8 +47,15 @@ namespace ObjectOrientedPractices.Model
             get { return _index; }
             set
             {
-                if (value < 100000 || value > 999999) MessageBox.Show(nameof(Index) + " должен быть 6-значным числом.");
-                _index = value;
+                try
+                {
+                    ValueValidator.AssertIndex(value, nameof(Index));
+                    _index = value;
+                }
+                catch (ArgumentOutOfRangeException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 
@@ -59,8 +67,15 @@ namespace ObjectOrientedPractices.Model
             get { return _country; }
             set
             {
-                ValueValidator.AssertStringOnLength(value, 50, nameof(Country));
-                _country = value;
+                try
+                { 
+                    ValueValidator.AssertStringOnLength(value, 50, nameof(Country));
+                    _country = value;
+                }
+                catch (ArgumentNullException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 
@@ -72,8 +87,15 @@ namespace ObjectOrientedPractices.Model
             get { return _city; }
             set
             {
-                ValueValidator.AssertStringOnLength(value, 50, nameof(City));
-                _city = value;
+                try
+                { 
+                    ValueValidator.AssertStringOnLength(value, 50, nameof(City));
+                    _city = value;
+                }
+                catch (ArgumentNullException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 
@@ -85,8 +107,15 @@ namespace ObjectOrientedPractices.Model
             get { return _street; }
             set
             {
-                ValueValidator.AssertStringOnLength(value, 100, nameof(Street));
-                _street = value;
+                try
+                { 
+                    ValueValidator.AssertStringOnLength(value, 100, nameof(Street));
+                    _street = value;
+                }
+                catch (ArgumentNullException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 
@@ -98,8 +127,15 @@ namespace ObjectOrientedPractices.Model
             get { return _building; }
             set
             {
-                ValueValidator.AssertStringOnLength(value, 10, nameof(Building));
-                _building = value;
+                try
+                { 
+                    ValueValidator.AssertStringOnLength(value, 10, nameof(Building));
+                    _building = value;
+                }
+                catch (ArgumentNullException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 
@@ -111,8 +147,15 @@ namespace ObjectOrientedPractices.Model
             get { return _apartment; }
             set
             {
-                ValueValidator.AssertStringOnLength(value, 10, nameof(Apartment));
-                _apartment = value;
+                try
+                {
+                    ValueValidator.AssertStringOnLength(value, 10, nameof(Apartment));
+                    _apartment = value;
+                }
+                catch (ArgumentNullException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 

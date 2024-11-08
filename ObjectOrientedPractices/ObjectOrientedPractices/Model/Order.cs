@@ -96,10 +96,7 @@ namespace ObjectOrientedPractices.Model
         /// <summary>
         /// Создаёт пустой экземпляр класса <see cref="Order"/>.
         /// </summary>
-        public Order()
-        {
-            
-        }
+        public Order() { }
 
         /// <summary>
         /// Создаёт экземпляр класса <see cref="Order"/>.
