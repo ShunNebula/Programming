@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ObjectOrientedPractices.Model;
 using ObjectOrientedPractices.Services;
+using ObjectOrientedPractices.Model.Enums;
+using ObjectOrientedPractices.Model.Orders;
+using ObjectOrientedPractices.Model.Discounts;
 
 namespace ObjectOrientedPractices.View.Tabs
 {
@@ -25,7 +28,7 @@ namespace ObjectOrientedPractices.View.Tabs
         /// <summary>
         /// Список покупателей
         /// </summary>
-        private List<Customer> _customer = new List<Customer>();
+        private List<Customer> _customers = new List<Customer>();
 
         /// <summary>
         /// Возвращает и задаёт список товаров
@@ -37,7 +40,7 @@ namespace ObjectOrientedPractices.View.Tabs
             set 
             { 
                 _items = value;
-                UpdateListBox(); 
+                UpdateItemsListBox(); 
             }
         }
 
@@ -47,11 +50,11 @@ namespace ObjectOrientedPractices.View.Tabs
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<Customer> Customers 
         { 
-            get { return _customer; }
+            get { return _customers; }
             set 
             { 
-                _customer = value; 
-                UpdateComboBox(); 
+                _customers = value; 
+                UpdateCustomersComboBox(); 
             }
         }
 
@@ -75,40 +78,89 @@ namespace ObjectOrientedPractices.View.Tabs
         /// </summary>
         public void RefreshData()
         {
-            UpdateListBox();
-            UpdateComboBox();
+            UpdateItemsListBox();
+            UpdateCustomersComboBox();
         }
 
         /// <summary>
         /// Заполнение ListBox товарами
         /// </summary>
-        private void UpdateListBox()
+        private void UpdateItemsListBox()
         {
             ItemsListBox.Items.Clear();
-            for (int i = 0; i < Items.Count; i++)
+
+            if (_items != null)
             {
-                ItemsListBox.Items.Add(Items[i].Id.ToString() + ". " + Items[i].Name.ToString());
+                foreach (Item item in _items)
+                {
+                    ItemsListBox.Items.Add($"{item.Id}. {item.Name}");
+                }
             }
         }
 
         /// <summary>
         /// Заполняет ComboBox покупателями
         /// </summary>
-        private void UpdateComboBox()
+        private void UpdateCustomersComboBox()
         {
             CustomerComboBox.Items.Clear();
-            for (int i = 0; i < Customers.Count; i++)
+
+            if (_customers != null)
             {
-                CustomerComboBox.Items.Add(Customers[i].FullName);
+                foreach (var customer in _customers)
+                {
+                    CustomerComboBox.Items.Add(customer.FullName);
+                }
             }
         }
 
-        /// <summary>
-        /// Обновляет стоимость корзины
-        /// </summary>
-        private void ChangeCart()
+        private void UpdateDiscountsCheckedListBox()
         {
-            AmountTextBox.Text = $"{_currentCustomer.Cart.Amount:n2}";
+            DiscountsCheckedListBox.Items.Clear();
+
+            if (_currentCustomer != null)
+            {
+                foreach (var discount in _currentCustomer.Discounts)
+                {
+                    DiscountsCheckedListBox.Items.Add(discount.Info, true);
+                }
+            }
+            RefreshTotalAmountLabel();
+        }
+
+        private void UpdateCartListBox()
+        {
+            CartListBox.Items.Clear();
+            foreach (var item in _currentCustomer.Cart.Items)
+            {
+                CartListBox.Items.Add(item.Name);
+            }
+            UpdateAmountLabel();
+            RefreshTotalAmountLabel();
+        }
+
+        private void UpdateAmountLabel()
+        {
+            AmountLabel.Text = _currentCustomer?.Cart?.Amount.ToString("C") ?? "0.00";
+        }
+
+        private void RefreshTotalAmountLabel()
+        {
+            double discountAmount = CalculateDiscount();
+            double totalAmount = _currentCustomer.Cart.Amount - discountAmount;
+            LabelDiscountAmount.Text = discountAmount.ToString("C");
+            TotalAmountLabel.Text = totalAmount.ToString("C");
+        }
+
+        private double CalculateDiscount()
+        {
+            double discountAmount = 0;
+            foreach (int index in DiscountsCheckedListBox.CheckedIndices)
+            {
+                discountAmount += _currentCustomer.Discounts[index].Calculate(_currentCustomer.Cart.Items);
+            }
+
+            return discountAmount;
         }
 
         /// <summary>
@@ -119,13 +171,16 @@ namespace ObjectOrientedPractices.View.Tabs
         private void CustomerComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             CartListBox.Items.Clear();
+            DiscountsCheckedListBox.Items.Clear();
 
             _currentCustomer = Customers[CustomerComboBox.SelectedIndex];
             for (int i = 0; i < _currentCustomer.Cart.Items.Count; i++)
             {
                 CartListBox.Items.Add(_currentCustomer.Cart.Items[i].Name);
-                ChangeCart();
+                UpdateCartListBox();
             }
+            UpdateDiscountsCheckedListBox();
+            UpdateAmountLabel();
         }
 
         /// <summary>
@@ -138,9 +193,8 @@ namespace ObjectOrientedPractices.View.Tabs
             if (ItemsListBox.SelectedIndex > -1 && CustomerComboBox.SelectedIndex > -1)
             {
                 _currentCustomer.Cart.Items.Add(_items[ItemsListBox.SelectedIndex]);
-                CartListBox.Items.Add(_items[ItemsListBox.SelectedIndex].Name);
-
-                ChangeCart();
+                
+                UpdateCartListBox();
             }
         }
 
@@ -154,9 +208,8 @@ namespace ObjectOrientedPractices.View.Tabs
             if (CartListBox.SelectedIndex > -1)
             {
                 _currentCustomer.Cart.Items.RemoveAt(CartListBox.SelectedIndex);
-                CartListBox.Items.RemoveAt(CartListBox.SelectedIndex);
 
-                ChangeCart();
+                UpdateCartListBox();
             }
         }
 
@@ -168,6 +221,17 @@ namespace ObjectOrientedPractices.View.Tabs
         private void CreateOrderButton_Click(object sender, EventArgs e)
         {
             if (CartListBox.Items.Count == 0) return;
+
+            double discountAmount = 0;
+            List<IDiscount> selectedDiscounts = new List<IDiscount>(); // Список выбранных скидок
+
+            foreach (int index in DiscountsCheckedListBox.CheckedIndices)
+            {
+                var discount = _currentCustomer.Discounts[index];
+                discountAmount += discount.Apply(_currentCustomer.Cart.Items);
+                selectedDiscounts.Add(discount); // Добавляем в список выбранных
+            }
+
             if (_currentCustomer.IsPriority)
             {
                 PriorityOrder currentOrder = new PriorityOrder(
@@ -175,6 +239,7 @@ namespace ObjectOrientedPractices.View.Tabs
                     new List<Item>(_currentCustomer.Cart.Items),
                     _currentCustomer.Cart.Amount,
                     (OrderStatus)Enum.GetValues(typeof(OrderStatus)).Cast<object>().ToArray()[0],
+                    discountAmount,
                     DateTime.Now.Date.AddDays(3),
                     "09:00 - 11:00"
                     );
@@ -187,15 +252,24 @@ namespace ObjectOrientedPractices.View.Tabs
                     _currentCustomer.Address,
                     new List<Item>(_currentCustomer.Cart.Items),
                     _currentCustomer.Cart.Amount,
-                    (OrderStatus)Enum.GetValues(typeof(OrderStatus)).Cast<object>().ToArray()[0]
+                    (OrderStatus)Enum.GetValues(typeof(OrderStatus)).Cast<object>().ToArray()[0],
+                    discountAmount
                     );
 
                 _currentCustomer.Orders.Add(currentOrder);
             }
+
+            foreach (var discount in _currentCustomer.Discounts)
+            {
+                discount.Update(_currentCustomer.Cart.Items);
+            }
+
+            UpdateDiscountsCheckedListBox();
+
             _currentCustomer.Cart.Items.Clear();
             CartListBox.Items.Clear();
 
-            ChangeCart();
+            UpdateCartListBox();
         }
 
         /// <summary>
@@ -208,7 +282,12 @@ namespace ObjectOrientedPractices.View.Tabs
             _currentCustomer.Cart.Items.Clear();
             CartListBox.Items.Clear();
 
-            ChangeCart();
+            UpdateCartListBox();
+        }
+
+        private void DiscountsCheckedListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RefreshTotalAmountLabel();
         }
     }
 }

@@ -36,7 +36,7 @@ namespace ObjectOrientedPractices.Services
         {
             if (num < min || num > max)
             {
-                throw new ArgumentOutOfRangeException(propertyName + "должен быть от" + min.ToString() + " и до " + max.ToString());
+                throw new ArgumentOutOfRangeException(propertyName + " должен быть от " + min.ToString() + " и до " + max.ToString());
             }
         }
 

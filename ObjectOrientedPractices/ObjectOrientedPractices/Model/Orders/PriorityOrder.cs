@@ -5,8 +5,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ObjectOrientedPractices.Model.Enums;
 
-namespace ObjectOrientedPractices.Model
+namespace ObjectOrientedPractices.Model.Orders
 {
     /// <summary>
     /// Хранит данные о заказе приоритетного обслуживания
@@ -78,8 +79,8 @@ namespace ObjectOrientedPractices.Model
         /// <param name="status">Статус заказа</param>
         /// <param name="desiredDeliveryDate">Желаемая дата доставки</param>
         /// <param name="desiredDeliveryTime">Желаемое время доставки</param>
-        public PriorityOrder(Address address, List<Item> items, double amount, OrderStatus status, DateTime desiredDeliveryDate, string desiredDeliveryTime)
-            :base(address, items, amount, status)
+        public PriorityOrder(Address address, List<Item> items, double amount, OrderStatus status, double discountAmount, DateTime desiredDeliveryDate, string desiredDeliveryTime)
+            :base(address, items, amount, status, discountAmount)
         {
             DesiredDeliveryDate = desiredDeliveryDate;
             DesiredDeliveryTime = desiredDeliveryTime;

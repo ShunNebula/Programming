@@ -1,8 +1,10 @@
 ﻿using ObjectOrientedPractices.Model;
+using ObjectOrientedPractices.Model.Discounts;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
+using ObjectOrientedPractices.Model.Enums;
 
 namespace ObjectOrientedPractices.View.Tabs
 {
@@ -65,6 +67,7 @@ namespace ObjectOrientedPractices.View.Tabs
                 FullNameTextBox.Text = string.Empty;
                 addressControl1.Address = null;
                 PriorityCheckBox.Checked = false;
+                ListBoxDiscounts.Items.Clear();
             }
             else
             {
@@ -73,6 +76,8 @@ namespace ObjectOrientedPractices.View.Tabs
                 IDTextBox.Text = _currentCustomer.Id.ToString();
                 FullNameTextBox.Text = _currentCustomer.FullName;
                 addressControl1.Address = _currentCustomer.Address;
+
+                RefreshDiscountsListBox();
             }
         }
 
@@ -134,6 +139,50 @@ namespace ObjectOrientedPractices.View.Tabs
         {
             if (CustomersListBox.SelectedIndex < 0) return;
             _currentCustomer.IsPriority = PriorityCheckBox.Checked;
+        }
+
+        private void ButtonAddDiscounts_Click(object sender, EventArgs e)
+        {
+            if (CustomersListBox.SelectedIndex < 0) return;
+
+            using (AddDiscountForm addDiscountForm = new AddDiscountForm())
+            {
+                if (addDiscountForm.ShowDialog() == DialogResult.OK)
+                {
+                    Category selectedCategory = addDiscountForm.SelectedCategory;
+
+                    foreach (IDiscount discount in _currentCustomer.Discounts)
+                    {
+                        if (discount is PercentDiscount percentDiscount && percentDiscount.Category == selectedCategory)
+                        {
+                            MessageBox.Show("Скидка для этой категории уже существует.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                    }
+
+                    PercentDiscount newDiscount = new PercentDiscount(selectedCategory);
+                    _currentCustomer.Discounts.Add(newDiscount);
+
+                    RefreshDiscountsListBox();
+                }
+            }
+        }
+
+        private void RefreshDiscountsListBox()
+        {
+            ListBoxDiscounts.Items.Clear();
+            foreach (IDiscount discount in _currentCustomer.Discounts)
+            {
+                ListBoxDiscounts.Items.Add(discount.Info);
+            }
+        }
+
+        private void ButtonRemoveDiscounts_Click(object sender, EventArgs e)
+        {
+            if (CustomersListBox.SelectedIndex < 0 || ListBoxDiscounts.SelectedIndex < 1) return;
+
+            _currentCustomer.Discounts.RemoveAt(ListBoxDiscounts.SelectedIndex);
+            ListBoxDiscounts.Items.RemoveAt(ListBoxDiscounts.SelectedIndex);
         }
     }
 }
