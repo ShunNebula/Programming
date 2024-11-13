@@ -83,7 +83,7 @@ namespace ObjectOrientedPractices.View.Tabs
         }
 
         /// <summary>
-        /// Заполнение ListBox товарами
+        /// Обновляет ItemsListBox
         /// </summary>
         private void UpdateItemsListBox()
         {
@@ -99,7 +99,7 @@ namespace ObjectOrientedPractices.View.Tabs
         }
 
         /// <summary>
-        /// Заполняет ComboBox покупателями
+        /// Обновляет CustomersComboBox
         /// </summary>
         private void UpdateCustomersComboBox()
         {
@@ -114,6 +114,9 @@ namespace ObjectOrientedPractices.View.Tabs
             }
         }
 
+        /// <summary>
+        /// Обновляет DiscountsCheckedListBox
+        /// </summary>
         private void UpdateDiscountsCheckedListBox()
         {
             DiscountsCheckedListBox.Items.Clear();
@@ -125,9 +128,12 @@ namespace ObjectOrientedPractices.View.Tabs
                     DiscountsCheckedListBox.Items.Add(discount.Info, true);
                 }
             }
-            RefreshTotalAmountLabel();
+            UpdateTotalAmountLabel();
         }
 
+        /// <summary>
+        /// Обновляет CartListBox
+        /// </summary>
         private void UpdateCartListBox()
         {
             CartListBox.Items.Clear();
@@ -136,15 +142,21 @@ namespace ObjectOrientedPractices.View.Tabs
                 CartListBox.Items.Add(item.Name);
             }
             UpdateAmountLabel();
-            RefreshTotalAmountLabel();
+            UpdateTotalAmountLabel();
         }
 
+        /// <summary>
+        /// Обновляет AmountLabel
+        /// </summary>
         private void UpdateAmountLabel()
         {
             AmountLabel.Text = _currentCustomer?.Cart?.Amount.ToString("C") ?? "0.00";
         }
 
-        private void RefreshTotalAmountLabel()
+        /// <summary>
+        /// Обновляет TotalAmountLabel
+        /// </summary>
+        private void UpdateTotalAmountLabel()
         {
             double discountAmount = CalculateDiscount();
             double totalAmount = _currentCustomer.Cart.Amount - discountAmount;
@@ -152,6 +164,10 @@ namespace ObjectOrientedPractices.View.Tabs
             TotalAmountLabel.Text = totalAmount.ToString("C");
         }
 
+        /// <summary>
+        /// Высчитывает размер скидки
+        /// </summary>
+        /// <returns>Размер скидки</returns>
         private double CalculateDiscount()
         {
             double discountAmount = 0;
@@ -285,9 +301,14 @@ namespace ObjectOrientedPractices.View.Tabs
             UpdateCartListBox();
         }
 
+        /// <summary>
+        /// Выбор скидок
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие - DiscountsCheckedListBox</param>
+        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void DiscountsCheckedListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            RefreshTotalAmountLabel();
+            UpdateTotalAmountLabel();
         }
     }
 }

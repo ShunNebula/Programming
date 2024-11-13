@@ -77,6 +77,7 @@ namespace ObjectOrientedPractices.Model.Orders
         /// <param name="items">Список товаров</param>
         /// <param name="amount">Общая цена товаров из списка</param>
         /// <param name="status">Статус заказа</param>
+        /// <param name="discountAmount">Сумма скидки</param>
         /// <param name="desiredDeliveryDate">Желаемая дата доставки</param>
         /// <param name="desiredDeliveryTime">Желаемое время доставки</param>
         public PriorityOrder(Address address, List<Item> items, double amount, OrderStatus status, double discountAmount, DateTime desiredDeliveryDate, string desiredDeliveryTime)

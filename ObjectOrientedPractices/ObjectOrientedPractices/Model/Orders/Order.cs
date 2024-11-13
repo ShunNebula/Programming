@@ -119,6 +119,7 @@ namespace ObjectOrientedPractices.Model.Orders
         /// <param name="items">Список товаров</param>
         /// <param name="amount">Общая цена товаров из списка</param>
         /// <param name="status">Статус заказа</param>
+        /// <param name="discountAmount">Сумма скидки</param>
         public Order(Address address, List<Item> items, double amount, OrderStatus status, double discountAmount)
         {
             Id = IdGenerator.GetNextId<Order>();

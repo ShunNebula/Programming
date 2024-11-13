@@ -93,6 +93,9 @@ namespace ObjectOrientedPractices.Model
         /// </summary>
         public bool IsPriority { get; set; } = false;
 
+        /// <summary>
+        /// Список скидок
+        /// </summary>
         public List<IDiscount> Discounts { get; set; } = new List<IDiscount>();
 
         /// <summary>
