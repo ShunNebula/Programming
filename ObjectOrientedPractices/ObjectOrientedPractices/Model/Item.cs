@@ -79,7 +79,7 @@ namespace ObjectOrientedPractices.Model
         /// </summary>
         public Item(string name, string info, double cost, Category category)
         {
-            Id = IdGenerator.GetNextId("Item");
+            Id = IdGenerator.GetNextId<Item>();
             Name = name;
             Info = info;
             Cost = cost;

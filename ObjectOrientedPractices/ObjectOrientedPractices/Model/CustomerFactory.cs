@@ -12,7 +12,7 @@ namespace ObjectOrientedPractices.Model
         /// <summary>
         /// Список имён
         /// </summary>
-        private static string[] names = File.ReadAllLines(@"C:\Users\User\source\repos\Programming\ObjectOrientedPractices\ObjectOrientedPractices\Services\CustomerNames.txt");
+        private static string[] names = File.ReadAllLines($@"{Environment.CurrentDirectory}\Services\CustomerNames.txt");
 
         /// <summary>
         /// Представляет экземпляр генератора случайных чисел.
@@ -73,7 +73,8 @@ namespace ObjectOrientedPractices.Model
             {
                 Customer newCustomer = new Customer(
                     names[ran.Next(names.Length)], 
-                    GenerateRandomAddress());
+                    GenerateRandomAddress(),
+                    new Cart());
 
                 myCustomer.Add(newCustomer);
             }
