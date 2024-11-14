@@ -1,4 +1,6 @@
-﻿using ObjectOrientedPractices.Services;
+﻿using ObjectOrientedPractices.Model.Discounts;
+using ObjectOrientedPractices.Model.Orders;
+using ObjectOrientedPractices.Services;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -92,6 +94,11 @@ namespace ObjectOrientedPractices.Model
         public bool IsPriority { get; set; } = false;
 
         /// <summary>
+        /// Список скидок
+        /// </summary>
+        public List<IDiscount> Discounts { get; set; } = new List<IDiscount>();
+
+        /// <summary>
         /// Создаёт экземпляр класса <see cref="Customer"/>.
         /// </summary>
         public Customer(string fullName, Address address, Cart cart)
@@ -100,6 +107,7 @@ namespace ObjectOrientedPractices.Model
             FullName = fullName;
             Address = address;
             Cart = cart;
+            Discounts.Add(new PointsDiscount());
         }
     }
 }

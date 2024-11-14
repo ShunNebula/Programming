@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ObjectOrientedPractices.Model;
+using ObjectOrientedPractices.Model.Orders;
+using ObjectOrientedPractices.Model.Enums;
 
 namespace ObjectOrientedPractices.View.Tabs
 {
@@ -86,6 +88,7 @@ namespace ObjectOrientedPractices.View.Tabs
             _orderData.Columns.Add("Address", typeof(string));
             _orderData.Columns.Add("Amount", typeof(string));
             _orderData.Columns.Add("Status", typeof(string));
+            _orderData.Columns.Add("Total", typeof(string));
 
             UpdateOrders();
 
@@ -122,6 +125,7 @@ namespace ObjectOrientedPractices.View.Tabs
                     row["Address"] = order.Address.ToString();
                     row["Amount"] = $"{order.Amount:n2}";
                     row["Status"] = order.Status.ToString();
+                    row["Total"] = $"{order.Total:n2}";
 
                     _orderData.Rows.Add(row);
 
@@ -160,7 +164,7 @@ namespace ObjectOrientedPractices.View.Tabs
                 {
                     OrderItemsListBox.Items.Add(_orders[_currentIndex].Items[i].Name);
                 }
-                AmountTextBox.Text = $"{_orders[_currentIndex].Amount:n2}";
+                AmountTextBox.Text = $"{_orders[_currentIndex].Total:n2}";
 
                 _selectedOrder = _orders[_currentIndex];
 

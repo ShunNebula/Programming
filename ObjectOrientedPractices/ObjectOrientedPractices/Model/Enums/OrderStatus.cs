@@ -1,4 +1,4 @@
-﻿namespace ObjectOrientedPractices.Model
+﻿namespace ObjectOrientedPractices.Model.Enums
 {
     /// <summary>
     /// Перечисление, описывающее состояние заказа в процессе его выполнения.
