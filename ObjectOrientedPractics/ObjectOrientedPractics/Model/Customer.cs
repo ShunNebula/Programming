@@ -12,14 +12,16 @@ namespace ObjectOrientedPractics.Model
     /// </summary>
     public class Customer
     {
+
         /// <summary>
         /// Полное имя (фио) покупателя
         /// </summary>
         private string _fullname;
+
         /// <summary>
         /// Адрес покупателя
         /// </summary>
-        private string _address;
+        private Address _address;
 
         /// <summary>
         /// Возвращает и задаёт уникальный номер покупателя
@@ -44,14 +46,13 @@ namespace ObjectOrientedPractics.Model
         }
 
         /// <summary>
-        /// Возвращает и задаёт адрес покупателя. Должен быть не длиннее 500 символов.
+        /// Возвращает и задаёт адрес покупателя.
         /// </summary>
-        public string Address 
+        public Address Address 
         { 
             get { return _address; }
             set 
             {
-                ValueValidator.AssertStringOnLength(value, 500, nameof(Address));
                 _address = value; 
             }
         }

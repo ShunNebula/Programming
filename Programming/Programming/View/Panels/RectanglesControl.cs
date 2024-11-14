@@ -65,7 +65,7 @@ namespace Programming.View.Panels
         }
 
         /// <summary>
-        /// Заполенение TextBox высоты, ширины, цвета, X, Y и id.
+        /// Заполнение TextBox высоты, ширины, цвета, X, Y и id.
         /// </summary>
         /// <param name="sender">Объект, вызвавший событие - ListBoxRectangles.</param>
         /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>

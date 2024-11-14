@@ -28,10 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            ObjectOrientedPractices.Model.Address address1 = new ObjectOrientedPractices.Model.Address();
             this.CustomersListBox = new System.Windows.Forms.ListBox();
-            this.SelecetedCustomerGroupBox = new System.Windows.Forms.GroupBox();
-            this.AddressTextBox = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.SelectedCustomerGroupBox = new System.Windows.Forms.GroupBox();
             this.FullNameTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.IDTextBox = new System.Windows.Forms.TextBox();
@@ -41,6 +40,7 @@
             this.AddButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.CustomerPanel = new System.Windows.Forms.Panel();
+            this.addressControl1 = new ObjectOrientedPractices.View.Controls.AddressControl();
             this.SuspendLayout();
             // 
             // CustomersListBox
@@ -55,31 +55,13 @@
             this.CustomersListBox.SelectedIndexChanged += new System.EventHandler(this.CustomersListBox_SelectedIndexChanged);
             this.CustomersListBox.DoubleClick += new System.EventHandler(this.CustomersListBox_DoubleClick);
             // 
-            // SelecetedCustomerGroupBox
+            // SelectedCustomerGroupBox
             // 
-            this.SelecetedCustomerGroupBox.Location = new System.Drawing.Point(240, 0);
-            this.SelecetedCustomerGroupBox.Name = "SelecetedCustomerGroupBox";
-            this.SelecetedCustomerGroupBox.Size = new System.Drawing.Size(0, 0);
-            this.SelecetedCustomerGroupBox.TabIndex = 5;
-            this.SelecetedCustomerGroupBox.TabStop = false;
-            // 
-            // AddressTextBox
-            // 
-            this.AddressTextBox.Location = new System.Drawing.Point(313, 90);
-            this.AddressTextBox.Multiline = true;
-            this.AddressTextBox.Name = "AddressTextBox";
-            this.AddressTextBox.Size = new System.Drawing.Size(384, 96);
-            this.AddressTextBox.TabIndex = 6;
-            this.AddressTextBox.TextChanged += new System.EventHandler(this.AddressTextBox_TextChanged);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(250, 93);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(48, 13);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "Address:";
+            this.SelectedCustomerGroupBox.Location = new System.Drawing.Point(240, 0);
+            this.SelectedCustomerGroupBox.Name = "SelectedCustomerGroupBox";
+            this.SelectedCustomerGroupBox.Size = new System.Drawing.Size(0, 0);
+            this.SelectedCustomerGroupBox.TabIndex = 5;
+            this.SelectedCustomerGroupBox.TabStop = false;
             // 
             // FullNameTextBox
             // 
@@ -165,17 +147,30 @@
             this.CustomerPanel.Size = new System.Drawing.Size(0, 0);
             this.CustomerPanel.TabIndex = 7;
             // 
+            // addressControl1
+            // 
+            address1.Apartment = "";
+            address1.Building = "";
+            address1.City = "";
+            address1.Country = "";
+            address1.Index = 100000;
+            address1.Street = "";
+            this.addressControl1.Address = address1;
+            this.addressControl1.Location = new System.Drawing.Point(242, 90);
+            this.addressControl1.Name = "addressControl1";
+            this.addressControl1.Size = new System.Drawing.Size(458, 142);
+            this.addressControl1.TabIndex = 8;
+            // 
             // CustomersTab
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.addressControl1);
             this.Controls.Add(this.RemoveButton);
-            this.Controls.Add(this.AddressTextBox);
             this.Controls.Add(this.AddButton);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.CustomersListBox);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.SelecetedCustomerGroupBox);
+            this.Controls.Add(this.SelectedCustomerGroupBox);
             this.Controls.Add(this.FullNameTextBox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.CustomerPanel);
@@ -192,9 +187,7 @@
         #endregion
 
         private System.Windows.Forms.ListBox CustomersListBox;
-        private System.Windows.Forms.GroupBox SelecetedCustomerGroupBox;
-        private System.Windows.Forms.TextBox AddressTextBox;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.GroupBox SelectedCustomerGroupBox;
         private System.Windows.Forms.TextBox FullNameTextBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox IDTextBox;
@@ -204,5 +197,6 @@
         private System.Windows.Forms.Button AddButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel CustomerPanel;
+        private Controls.AddressControl addressControl1;
     }
 }

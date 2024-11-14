@@ -31,14 +31,15 @@ namespace ObjectOrientedPractices.Model
 
             for (int i = 0; i < size; i++)
             {
-                int categoryIndex = ran.Next(5);
+                int categoryIndex = ran.Next(Enum.GetValues(typeof(Category)).Length);
                 string[] name = names[categoryIndex].Split('|');
                 string[] info = infos[categoryIndex].Split('|');
 
                 Item newItem = new Item(
                     name[ran.Next(name.Length)].Trim(),
                     info[ran.Next(info.Length)].Trim(),
-                    ran.NextDouble() * 10000 );
+                    ran.NextDouble() * 10000,
+                    (Category)categoryIndex);
                 
                 myItems.Add(newItem);
             }
