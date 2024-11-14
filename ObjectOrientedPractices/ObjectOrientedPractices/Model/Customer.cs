@@ -1,5 +1,7 @@
 ﻿using ObjectOrientedPractices.Services;
+using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace ObjectOrientedPractices.Model
 {
@@ -26,7 +28,7 @@ namespace ObjectOrientedPractices.Model
         /// <summary>
         /// Список заказов покупателя
         /// </summary>
-        private List<Order> _order = new List<Order>();
+        private List<Order> _orders = new List<Order>();
 
         /// <summary>
         /// Возвращает и задаёт уникальный номер покупателя
@@ -45,8 +47,15 @@ namespace ObjectOrientedPractices.Model
             get { return _fullName; }
             set
             {
-                ValueValidator.AssertStringOnLength(value, 200, nameof(FullName));
-                _fullName = value;
+                try
+                { 
+                    ValueValidator.AssertStringOnLength(value, 200, nameof(FullName));
+                    _fullName = value;
+                }
+                catch (ArgumentNullException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 
@@ -56,10 +65,7 @@ namespace ObjectOrientedPractices.Model
         public Address Address
         {
             get { return _address; }
-            set
-            {
-                _address = value;
-            }
+            set { _address = value; }
         }
 
         /// <summary>
@@ -74,11 +80,16 @@ namespace ObjectOrientedPractices.Model
         /// <summary>
         /// Возвращает и задаёт список заказов
         /// </summary>
-        public List<Order> Order
+        public List<Order> Orders
         {
-            get { return _order; }
-            set { _order = value; }
+            get { return _orders; }
+            set { _orders = value; }
         }
+
+        /// <summary>
+        /// Возвращает и задаёт приоритетность покупателя
+        /// </summary>
+        public bool IsPriority { get; set; } = false;
 
         /// <summary>
         /// Создаёт экземпляр класса <see cref="Customer"/>.
