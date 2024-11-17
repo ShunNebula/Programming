@@ -10,14 +10,19 @@ namespace ObjectOrientedPractices.Model
     public class ItemFactory
     {
         /// <summary>
+        /// Путь до папки Texts
+        /// </summary>
+        private static string _filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\Services\Texts");
+
+        /// <summary>
         /// Список с названиями товаров
         /// </summary>
-        private static readonly string[] names = File.ReadAllLines($@"{Environment.CurrentDirectory}\Services\ItemNames.txt");
+        private static readonly string[] _names = File.ReadAllLines($@"{_filePath}\ItemNames.txt");
 
         /// <summary>
         /// Список с описаниями товаров
         /// </summary>
-        private static readonly string[] infos = File.ReadAllLines($@"{Environment.CurrentDirectory}\Services\ItemInfos.txt");
+        private static readonly string[] _infos = File.ReadAllLines($@"{_filePath}\ItemInfos.txt");
 
         /// <summary>
         /// Возвращает список новых товаров
@@ -32,8 +37,8 @@ namespace ObjectOrientedPractices.Model
             for (int i = 0; i < size; i++)
             {
                 int categoryIndex = ran.Next(Enum.GetValues(typeof(Category)).Length);
-                string[] name = names[categoryIndex].Split('|');
-                string[] info = infos[categoryIndex].Split('|');
+                string[] name = _names[categoryIndex].Split('|');
+                string[] info = _infos[categoryIndex].Split('|');
 
                 Item newItem = new Item(
                     name[ran.Next(name.Length)].Trim(),

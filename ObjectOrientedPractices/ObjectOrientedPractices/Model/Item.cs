@@ -1,4 +1,6 @@
 ﻿using ObjectOrientedPractices.Services;
+using System.Windows.Forms;
+using System;
 
 namespace ObjectOrientedPractices.Model
 {
@@ -35,8 +37,15 @@ namespace ObjectOrientedPractices.Model
             get { return _name; }
             set
             {
-                ValueValidator.AssertStringOnLength(value, 200, nameof(Name));
-                _name = value;
+                try
+                { 
+                    ValueValidator.AssertStringOnLength(value, 200, nameof(Name));
+                    _name = value;
+                }
+                catch (ArgumentNullException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 
@@ -48,8 +57,15 @@ namespace ObjectOrientedPractices.Model
             get { return _info; }
             set
             {
-                ValueValidator.AssertStringOnLength(value, 1000, nameof(Info));
-                _info = value;
+                try
+                { 
+                    ValueValidator.AssertStringOnLength(value, 1000, nameof(Info));
+                    _info = value;
+                }
+                catch (ArgumentNullException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 
@@ -61,18 +77,22 @@ namespace ObjectOrientedPractices.Model
             get { return _cost; }
             set
             {
-                ValueValidator.AssertValueInRange(value, 0, 100000, nameof(Cost));
-                _cost = value;
+                try
+                {
+                    ValueValidator.AssertValueInRange(value, 0, 100000, nameof(Cost));
+                    _cost = value;
+                }
+                catch (ArgumentOutOfRangeException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 
         /// <summary>
         /// Возвращает и задаёт категорию товара
         /// </summary>
-        public Category Category
-        {
-            get; set;
-        }
+        public Category Category { get; set; }
 
         /// <summary>
         /// Создаёт экземпляр класса <see cref="Item"/>.

@@ -58,7 +58,7 @@ namespace ObjectOrientedPractices.View.Tabs
         /// <summary>
         /// Текущий покупатель
         /// </summary>
-        public Customer CurrentCustomer { get; set; }
+        private Customer _currentCustomer;
 
         /// <summary>
         /// Создаёт экземпляр класса <see cref="CartsTab"/>.
@@ -108,7 +108,7 @@ namespace ObjectOrientedPractices.View.Tabs
         /// </summary>
         private void ChangeCart()
         {
-            AmountTextBox.Text = $"{CurrentCustomer.Cart.Amount:n2}";
+            AmountTextBox.Text = $"{_currentCustomer.Cart.Amount:n2}";
         }
 
         /// <summary>
@@ -120,10 +120,10 @@ namespace ObjectOrientedPractices.View.Tabs
         {
             CartListBox.Items.Clear();
 
-            CurrentCustomer = Customers[CustomerComboBox.SelectedIndex];
-            for (int i = 0; i < CurrentCustomer.Cart.Items.Count; i++)
+            _currentCustomer = Customers[CustomerComboBox.SelectedIndex];
+            for (int i = 0; i < _currentCustomer.Cart.Items.Count; i++)
             {
-                CartListBox.Items.Add(CurrentCustomer.Cart.Items[i].Name);
+                CartListBox.Items.Add(_currentCustomer.Cart.Items[i].Name);
                 ChangeCart();
             }
         }
@@ -137,7 +137,7 @@ namespace ObjectOrientedPractices.View.Tabs
         {
             if (ItemsListBox.SelectedIndex > -1 && CustomerComboBox.SelectedIndex > -1)
             {
-                CurrentCustomer.Cart.Items.Add(_items[ItemsListBox.SelectedIndex]);
+                _currentCustomer.Cart.Items.Add(_items[ItemsListBox.SelectedIndex]);
                 CartListBox.Items.Add(_items[ItemsListBox.SelectedIndex].Name);
 
                 ChangeCart();
@@ -153,7 +153,7 @@ namespace ObjectOrientedPractices.View.Tabs
         {
             if (CartListBox.SelectedIndex > -1)
             {
-                CurrentCustomer.Cart.Items.RemoveAt(CartListBox.SelectedIndex);
+                _currentCustomer.Cart.Items.RemoveAt(CartListBox.SelectedIndex);
                 CartListBox.Items.RemoveAt(CartListBox.SelectedIndex);
 
                 ChangeCart();
@@ -168,13 +168,31 @@ namespace ObjectOrientedPractices.View.Tabs
         private void CreateOrderButton_Click(object sender, EventArgs e)
         {
             if (CartListBox.Items.Count == 0) return;
-            Order currentOrder = new Order();
-            currentOrder.Items = new List<Item>(CurrentCustomer.Cart.Items);
-            currentOrder.Amount = CurrentCustomer.Cart.Amount;
-            currentOrder.Status = (OrderStatus)Enum.GetValues(typeof(OrderStatus)).Cast<object>().ToArray()[0];
-            currentOrder.Address = CurrentCustomer.Address;
-            CurrentCustomer.Order.Add(currentOrder);
-            CurrentCustomer.Cart.Items.Clear();
+            if (_currentCustomer.IsPriority)
+            {
+                PriorityOrder currentOrder = new PriorityOrder(
+                    _currentCustomer.Address,
+                    new List<Item>(_currentCustomer.Cart.Items),
+                    _currentCustomer.Cart.Amount,
+                    (OrderStatus)Enum.GetValues(typeof(OrderStatus)).Cast<object>().ToArray()[0],
+                    DateTime.Now.Date.AddDays(3),
+                    "09:00 - 11:00"
+                    );
+
+                _currentCustomer.Orders.Add(currentOrder);
+            }
+            else
+            {
+                Order currentOrder = new Order(
+                    _currentCustomer.Address,
+                    new List<Item>(_currentCustomer.Cart.Items),
+                    _currentCustomer.Cart.Amount,
+                    (OrderStatus)Enum.GetValues(typeof(OrderStatus)).Cast<object>().ToArray()[0]
+                    );
+
+                _currentCustomer.Orders.Add(currentOrder);
+            }
+            _currentCustomer.Cart.Items.Clear();
             CartListBox.Items.Clear();
 
             ChangeCart();
@@ -187,7 +205,7 @@ namespace ObjectOrientedPractices.View.Tabs
         /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void ClearCartButton_Click(object sender, EventArgs e)
         {
-            CurrentCustomer.Cart.Items.Clear();
+            _currentCustomer.Cart.Items.Clear();
             CartListBox.Items.Clear();
 
             ChangeCart();

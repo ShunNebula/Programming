@@ -10,10 +10,11 @@ namespace ObjectOrientedPractices.Services
     public class IdGenerator
     {
         private static Dictionary<Type, int> _counter = new Dictionary<Type, int>();
-
-        /// /// <summary>
+        
+        /// <summary>
         /// Возвращает уникальный Id
         /// </summary>
+        /// <typeparam name="T">Тип объекта</typeparam>
         /// <returns>Уникальный Id</returns>
         public static int GetNextId<T>()
         {
