@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ObjectOrientedPractices.Model
 {
     /// <summary>
     /// Хранит данные о корзине покупателя
     /// </summary>
-    public class Cart
+    public class Cart : ICloneable
     {
         /// <summary>
         /// Список товаров
@@ -38,6 +39,29 @@ namespace ObjectOrientedPractices.Model
                 }
                 return totalCost;
             }
+        }
+
+        /// <summary>
+        /// Создаёт пустой экземпляр класса <see cref="Cart"/>.
+        /// </summary>
+        public Cart()
+        {
+
+        }
+
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="Cart"/>.
+        /// </summary>
+        /// <param name="items">Список товаров в корзине</param>
+        public Cart(List<Item> items)
+        {
+            Items = items;
+        }
+
+        /// <inheritdoc/>
+        public object Clone()
+        {
+            return new Cart( this.Items );
         }
     }
 }

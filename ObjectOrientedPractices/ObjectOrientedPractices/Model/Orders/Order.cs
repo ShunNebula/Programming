@@ -8,7 +8,7 @@ namespace ObjectOrientedPractices.Model.Orders
     /// <summary>
     /// Хранит данные о заказе
     /// </summary>
-    public class Order
+    public class Order : IEquatable<Order>
     {
         /// <summary>
         /// Уникальный id
@@ -129,6 +129,29 @@ namespace ObjectOrientedPractices.Model.Orders
             Amount = amount;
             Status = status;
             DiscountAmount = discountAmount;
+        }
+
+        /// <inheritdoc/>
+        public bool Equals(Order other)
+        {
+            if (other is null) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Id == other.Id;
+        }
+
+        /// <inheritdoc/>
+        public override bool Equals(object other)
+        {
+            if (other is null) return false;
+            if (ReferenceEquals(this, other)) return true;
+            if (other.GetType() != this.GetType()) return false;
+            return Equals((Order)other);
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

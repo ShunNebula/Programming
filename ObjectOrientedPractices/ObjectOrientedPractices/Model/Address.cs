@@ -7,7 +7,7 @@ namespace ObjectOrientedPractices.Model
     /// <summary>
     /// Хранит данные о полном адресе
     /// </summary>
-    public class Address
+    public class Address : ICloneable, IEquatable<Address> 
     {
         /// <summary>
         /// Почтовый индекс
@@ -186,9 +186,44 @@ namespace ObjectOrientedPractices.Model
             Apartment = apartment;
         }
 
+        /// <inheritdoc/>
         public override string ToString()
         {
             return $"стр.{_country}, г.{_city}, ул.{_street}, д.{_building}, кв.{_apartment}";
+        }
+
+        /// <inheritdoc/>
+        public object Clone()
+        {
+            return new Address(Index, Country, City, Street, Building, Apartment);
+        }
+
+        /// <inheritdoc/>
+        public bool Equals(Address other)
+        {
+            if (other is null) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return (Index == other.Index &&
+                Country == other.Country &&
+                City == other.City &&
+                Street == other.Street &&
+                Building == other.Building &&
+                Apartment == other.Apartment);
+        }
+
+        /// <inheritdoc/>
+        public override bool Equals(object other)
+        {
+            if (other is null) return false;
+            if (ReferenceEquals(this, other)) return true;
+            if (other.GetType() != this.GetType()) return false;
+            return Equals((Address)other);
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }
