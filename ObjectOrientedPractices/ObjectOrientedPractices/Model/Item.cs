@@ -8,7 +8,7 @@ namespace ObjectOrientedPractices.Model
     /// <summary>
     /// Хранит данные о товаре
     /// </summary>
-    public class Item
+    public class Item : ICloneable, IEquatable<Item>, IComparable<Item>
     {
         /// <summary>
         /// Название товара
@@ -98,6 +98,10 @@ namespace ObjectOrientedPractices.Model
         /// <summary>
         /// Создаёт экземпляр класса <see cref="Item"/>.
         /// </summary>
+        /// <param name="name">Название товара</param>
+        /// <param name="info">Информация о товаре</param>
+        /// <param name="cost">Цена товара</param>
+        /// <param name="category">Категория товара</param>
         public Item(string name, string info, double cost, Category category)
         {
             Id = IdGenerator.GetNextId<Item>();
@@ -105,6 +109,41 @@ namespace ObjectOrientedPractices.Model
             Info = info;
             Cost = cost;
             Category = category;
+        }
+
+        /// <inheritdoc/>
+        public object Clone()
+        {
+            return new Item(Name, Info, Cost, Category);
+        }
+
+        /// <inheritdoc/>
+        public bool Equals(Item other)
+        {
+            if (other is null) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Id == other.Id;
+        }
+
+        /// <inheritdoc/>
+        public override bool Equals(object other)
+        {
+            if (other is null) return false;
+            if (ReferenceEquals(this, other)) return true;
+            if (other.GetType() != this.GetType()) return false;
+            return Equals((Item)other);
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        /// <inheritdoc/>
+        public int CompareTo(Item other)
+        {
+            return Cost.CompareTo(other.Cost);
         }
     }
 }

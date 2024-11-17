@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ObjectOrientedPractices.Model.Discounts
 {
-    public class PointsDiscount : IDiscount
+    public class PointsDiscount : IDiscount, IComparable<PointsDiscount>
     {
         /// <summary>
         /// Количество баллов
@@ -82,6 +82,12 @@ namespace ObjectOrientedPractices.Model.Discounts
             foreach (Item item in items)
                 totalCost += item.Cost;
             Points += (int)Math.Ceiling(totalCost * 0.1);
+        }
+
+        /// <inheritdoc/>
+        public int CompareTo(PointsDiscount other)
+        {
+            return Points.CompareTo(other.Points);
         }
     }
 }

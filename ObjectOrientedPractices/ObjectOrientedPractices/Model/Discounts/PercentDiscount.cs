@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ObjectOrientedPractices.Model.Discounts
 {
-    public class PercentDiscount : IDiscount
+    public class PercentDiscount : IDiscount, IComparable<PercentDiscount>
     {
         /// <summary>
         /// Текущая скидка в процентах
@@ -120,6 +120,12 @@ namespace ObjectOrientedPractices.Model.Discounts
                 else
                     Percent = (int)CategoryAmount / 1000;
             }
+        }
+
+        /// <inheritdoc/>
+        public int CompareTo(PercentDiscount other)
+        {
+            return Percent.CompareTo(other.Percent);
         }
     }
 }
