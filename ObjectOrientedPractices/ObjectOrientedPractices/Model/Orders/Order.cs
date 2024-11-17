@@ -1,8 +1,9 @@
 ﻿using ObjectOrientedPractices.Services;
+using ObjectOrientedPractices.Model.Enums;
 using System;
 using System.Collections.Generic;
 
-namespace ObjectOrientedPractices.Model
+namespace ObjectOrientedPractices.Model.Orders
 {
     /// <summary>
     /// Хранит данные о заказе
@@ -94,6 +95,19 @@ namespace ObjectOrientedPractices.Model
         }
 
         /// <summary>
+        /// Возвращает и задаёт размер примененной скидки
+        /// </summary>
+        public double DiscountAmount { get; set; }
+
+        /// <summary>
+        /// Возвращает конечную стоимость заказа
+        /// </summary>
+        public double Total 
+        { 
+            get { return Amount - DiscountAmount; } 
+        }
+
+        /// <summary>
         /// Создаёт пустой экземпляр класса <see cref="Order"/>.
         /// </summary>
         public Order() { }
@@ -105,7 +119,8 @@ namespace ObjectOrientedPractices.Model
         /// <param name="items">Список товаров</param>
         /// <param name="amount">Общая цена товаров из списка</param>
         /// <param name="status">Статус заказа</param>
-        public Order(Address address, List<Item> items, double amount, OrderStatus status)
+        /// <param name="discountAmount">Сумма скидки</param>
+        public Order(Address address, List<Item> items, double amount, OrderStatus status, double discountAmount)
         {
             Id = IdGenerator.GetNextId<Order>();
             Date = DateTime.Now;
@@ -113,6 +128,7 @@ namespace ObjectOrientedPractices.Model
             Items = items;
             Amount = amount;
             Status = status;
+            DiscountAmount = discountAmount;
         }
     }
 }

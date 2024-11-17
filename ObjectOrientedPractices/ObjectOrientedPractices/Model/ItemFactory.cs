@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using ObjectOrientedPractices.Model.Enums;
 
 namespace ObjectOrientedPractices.Model
 {
