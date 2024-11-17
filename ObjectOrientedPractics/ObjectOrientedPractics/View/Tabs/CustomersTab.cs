@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ObjectOrientedPractics.Model;
 using ObjectOrientedPractics.Services;
+using ObjectOrientedPractics.View.Controls;
 
 namespace ObjectOrientedPractics.View.Tabs
 {
@@ -20,11 +21,34 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <summary>
         /// Список товаров типа List<Customer>
         /// </summary>
-        private static List<Customer> _customers = new List<Customer>();
+        private List<Customer> _customers = new List<Customer>();
+
+        /// <summary>
+        /// Вызывает и задаёт список товаров
+        /// </summary>
+        public List<Customer> Customers
+        { 
+            get { return _customers; } 
+            set 
+            { 
+                _customers = value;
+                UpdateListBox();
+            }
+        }
+
+        /// <summary>
+        /// Обновляет ListBox
+        /// </summary>
+        private void UpdateListBox()
+        {
+            CustomersListBox.Items.Clear();
+            CustomersListBox.Items.AddRange(_customers.ToArray());
+        }
         /// <summary>
         /// Текущий покупатель
         /// </summary>
-        private static Customer _currentCustomer = null;
+        public static Customer _currentCustomer = null;
+
         /// <summary>
         /// Инициализация компонентов
         /// </summary>
@@ -32,6 +56,7 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             InitializeComponent();
         }
+
         /// <summary>
         /// Заполнение TextBox Id, полного имени и адреса
         /// </summary>
@@ -43,17 +68,17 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 IDTextBox.Text = string.Empty;
                 FullNameTextBox.Text = string.Empty;
-                AddressTextBox.Text = string.Empty;
             }
             else
             {
                 _currentCustomer = _customers[CustomersListBox.SelectedIndex];
-
+                
+                addressControl1.Address = _currentCustomer.Address;
                 IDTextBox.Text = _currentCustomer.Id.ToString();
                 FullNameTextBox.Text = _currentCustomer.Fullname;
-                AddressTextBox.Text = _currentCustomer.Address;
             }
         }
+
         /// <summary>
         /// Добавить покупателя
         /// </summary>
@@ -65,6 +90,7 @@ namespace ObjectOrientedPractics.View.Tabs
             _customers.Add(newCustomer);
             CustomersListBox.Items.Add(newCustomer.Id.ToString() + ". " + newCustomer.Fullname.ToString());
         }
+
         /// <summary>
         /// Удалить покупателя
         /// </summary>
@@ -76,6 +102,7 @@ namespace ObjectOrientedPractics.View.Tabs
             _customers.RemoveAt(CustomersListBox.SelectedIndex);
             CustomersListBox.Items.RemoveAt(CustomersListBox.SelectedIndex);
         }
+
         /// <summary>
         /// Проверка и изменение полного имени
         /// </summary>
@@ -83,19 +110,14 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void FullNameTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(FullNameTextBox.Text) || CustomersListBox.SelectedIndex < 0) return;
+            if (string.IsNullOrEmpty(FullNameTextBox.Text) || CustomersListBox.SelectedIndex < 0)
+            {
+                return;
+            }
             _currentCustomer.Fullname = FullNameTextBox.Text;
+            CustomersListBox.Items[CustomersListBox.SelectedIndex] = IDTextBox.Text + ". " + FullNameTextBox.Text;
         }
-        /// <summary>
-        /// Проверка и изменение адреса покупателя
-        /// </summary>
-        /// <param name="sender">Объект, вызвавший событие - AddressTextBox</param>
-        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
-        private void AddressTextBox_TextChanged(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(AddressTextBox.Text) || CustomersListBox.SelectedIndex < 0) return;
-            _currentCustomer.Address = AddressTextBox.Text;
-        }
+
         /// <summary>
         /// Очистка всех TextBox
         /// </summary>

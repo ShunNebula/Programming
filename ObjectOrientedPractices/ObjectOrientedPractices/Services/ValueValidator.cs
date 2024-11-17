@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 
 namespace ObjectOrientedPractices.Services
 {
@@ -16,7 +17,11 @@ namespace ObjectOrientedPractices.Services
         /// <exception cref="ArgumentNullException">Выбрасывает исключение типа ArgumentException, Если длина строки больше заданной максимальной границы</exception>
         public static void AssertStringOnLength(string value, int maxLength, string propertyName)
         {
-            if (value.Length > maxLength) throw new ArgumentNullException(propertyName + "должен быть меньше" + maxLength.ToString());
+            if (value.Length > maxLength)
+            {
+                MessageBox.Show(propertyName + " должен быть меньше " + maxLength.ToString());
+                throw new ArgumentNullException(propertyName + "должен быть меньше" + maxLength.ToString());
+            }
         }
 
         /// <summary>
@@ -29,7 +34,11 @@ namespace ObjectOrientedPractices.Services
         /// <exception cref="ArgumentOutOfRangeException">Выбрасывает исключение типа ArgumentException, если число меньше минимального значения или больше заданного максимального значения</exception>
         public static void AssertValueInRange(double num, double min, double max, string propertyName)
         {
-            if (num < min || num > max) throw new ArgumentOutOfRangeException(propertyName + "должен быть от" + min.ToString() + " и до " + max.ToString());
+            if (num < min || num > max)
+            {
+                MessageBox.Show(propertyName + " должен быть от " + min.ToString() + " и до " + max.ToString());
+                throw new ArgumentOutOfRangeException(propertyName + "должен быть от" + min.ToString() + " и до " + max.ToString());
+            }
         }
     }
 }
