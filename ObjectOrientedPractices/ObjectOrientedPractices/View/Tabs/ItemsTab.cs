@@ -6,6 +6,11 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using ObjectOrientedPractices.Model.Enums;
+using ObjectOrientedPractices.Services;
+using System.Data.SqlTypes;
+using System.Data;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace ObjectOrientedPractices.View.Tabs
 {
@@ -17,7 +22,9 @@ namespace ObjectOrientedPractices.View.Tabs
         /// <summary>
         /// Список товаров типа List<Item>
         /// </summary>
-        private static List<Item> _items = new List<Item>();
+        private static List<Item> _items;
+
+        private List<Item> _displayedItems;
 
         /// <summary>
         /// Возвращает и задаёт список товаров
@@ -25,22 +32,11 @@ namespace ObjectOrientedPractices.View.Tabs
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<Item> Items
         {
-            get { return _items; }
+            get => _items;
             set
             {
                 _items = value;
-                UpdateListBox();
-            }
-        }
-
-        /// <summary>
-        /// Заполнение ListBox
-        /// </summary>
-        private void UpdateListBox()
-        {
-            for (int i = 0; i < _items.Count; i++)
-            {
-                ItemsListBox.Items.Add(_items[i].Id.ToString() + ". " + _items[i].Name.ToString());
+                FindAndSortItems();
             }
         }
 
@@ -56,7 +52,10 @@ namespace ObjectOrientedPractices.View.Tabs
         {
             InitializeComponent();
 
-            UpdateListBox();
+            OrderByComboBox.Items.AddRange(new string[] { "Name", "Cost (Ascending)", "Cost (Descending)" });
+            OrderByComboBox.SelectedIndex = 0;
+
+            FindAndSortItems();
 
             CategoryComboBox.Items.AddRange(Enum.GetValues(typeof(Category)).Cast<object>().ToArray());
             CategoryComboBox.SelectedIndex = -1;
@@ -90,7 +89,6 @@ namespace ObjectOrientedPractices.View.Tabs
         {
             if (string.IsNullOrEmpty(NameTextBox.Text) || ItemsListBox.SelectedIndex < 0) return;
             _currentItem.Name = NameTextBox.Text;
-            ItemsListBox.Items[ItemsListBox.SelectedIndex] = _items[ItemsListBox.SelectedIndex].Id.ToString() + ". " + _items[ItemsListBox.SelectedIndex].Name.ToString();
         }
 
         /// <summary>
@@ -111,8 +109,9 @@ namespace ObjectOrientedPractices.View.Tabs
         /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void ItemsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ItemsListBox.SelectedIndex < 0)
+            if (ItemsListBox.SelectedIndex == -1)
             {
+                _currentItem = null;
                 IDTextBox.Text = string.Empty;
                 CostTextBox.Text = string.Empty;
                 NameTextBox.Text = string.Empty;
@@ -121,7 +120,7 @@ namespace ObjectOrientedPractices.View.Tabs
             }
             else
             {
-                _currentItem = _items[ItemsListBox.SelectedIndex];
+                _currentItem = (Item)ItemsListBox.SelectedItem;
 
                 IDTextBox.Text = _currentItem.Id.ToString();
                 CostTextBox.Text = $"{ _currentItem.Cost:n2}";
@@ -141,7 +140,7 @@ namespace ObjectOrientedPractices.View.Tabs
             Item newItem = ItemFactory.Randomize(1)[0];
             _items.Add(newItem);
 
-            ItemsListBox.Items.Add(newItem.Id.ToString() + ". " + newItem.Name.ToString());
+            FindAndSortItems();
         }
 
         /// <summary>
@@ -152,8 +151,10 @@ namespace ObjectOrientedPractices.View.Tabs
         private void RemoveButton_Click(object sender, EventArgs e)
         {
             if (ItemsListBox.SelectedIndex < 0) return;
-            _items.RemoveAt(ItemsListBox.SelectedIndex);
-            ItemsListBox.Items.RemoveAt(ItemsListBox.SelectedIndex);
+            Item selectedItem = (Item)ItemsListBox.SelectedItem;
+            _items.Remove(selectedItem);
+
+            FindAndSortItems();
         }
 
         /// <summary>
@@ -173,10 +174,67 @@ namespace ObjectOrientedPractices.View.Tabs
         /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
         private void CategoryComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (CategoryComboBox.SelectedItem is Category selectedCategory && _currentItem != null)
+            if (ItemsListBox.SelectedIndex != -1 && CategoryComboBox.SelectedItem is Category selectedCategory)
             {
+                _currentItem = (Item)ItemsListBox.SelectedItem;
                 _currentItem.Category = selectedCategory;
             }
+        }
+
+        /// <summary>
+        /// Поиск и сортировка ItemsListBox
+        /// </summary>
+        private void FindAndSortItems()
+        {
+            if (_items == null) return;
+
+            string searchText = SearchStringTextBox.Text;
+            string selectedOrder = OrderByComboBox.SelectedItem.ToString();
+
+            _displayedItems = DataTools.Filter(_items, item =>
+                 item.Name.Contains(searchText)
+                 );
+
+            switch (selectedOrder)
+            {
+                case "Name":
+                    _displayedItems = DataTools.Sort(_displayedItems, DataTools.CompareByName);
+
+                    break;
+                case "Cost (Ascending)":
+
+                    _displayedItems = DataTools.Sort(_displayedItems, DataTools.CompareByCostAscending);
+
+                    break;
+                case "Cost (Descending)":
+
+                    _displayedItems = DataTools.Sort(_displayedItems, DataTools.CompareByCostDescending);
+
+                    break;
+            }
+
+            ItemsListBox.DataSource = null;
+            ItemsListBox.DataSource = _displayedItems;
+        }
+
+        /// <summary>
+        /// Поиск подстрок в списке
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие - SearchStringTextBox</param>
+        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
+        private void SearchStringTextBox_TextChanged(object sender, EventArgs e)
+        {
+            FindAndSortItems();
+        }
+
+        /// <summary>
+        /// Сортировка списка
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие - OrderByComboBox</param>
+        /// <param name="e">Передает объект, относящийся к обрабатываемому событию.</param>
+        private void OrderByComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FindAndSortItems();
         }
     }
 }

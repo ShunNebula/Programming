@@ -42,10 +42,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.ItemsGroupBox = new System.Windows.Forms.GroupBox();
+            this.SearchStringTextBox = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.RemoveButton = new System.Windows.Forms.Button();
             this.AddButton = new System.Windows.Forms.Button();
             this.ItemsListBox = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.OrderByComboBox = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.SelectedItemGroupBox.SuspendLayout();
             this.ItemsGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -181,6 +185,10 @@
             // 
             // ItemsGroupBox
             // 
+            this.ItemsGroupBox.Controls.Add(this.label10);
+            this.ItemsGroupBox.Controls.Add(this.OrderByComboBox);
+            this.ItemsGroupBox.Controls.Add(this.SearchStringTextBox);
+            this.ItemsGroupBox.Controls.Add(this.label9);
             this.ItemsGroupBox.Controls.Add(this.RemoveButton);
             this.ItemsGroupBox.Controls.Add(this.AddButton);
             this.ItemsGroupBox.Controls.Add(this.ItemsListBox);
@@ -191,6 +199,23 @@
             this.ItemsGroupBox.Size = new System.Drawing.Size(239, 475);
             this.ItemsGroupBox.TabIndex = 3;
             this.ItemsGroupBox.TabStop = false;
+            // 
+            // SearchStringTextBox
+            // 
+            this.SearchStringTextBox.Location = new System.Drawing.Point(39, 32);
+            this.SearchStringTextBox.Name = "SearchStringTextBox";
+            this.SearchStringTextBox.Size = new System.Drawing.Size(194, 20);
+            this.SearchStringTextBox.TabIndex = 3;
+            this.SearchStringTextBox.TextChanged += new System.EventHandler(this.SearchStringTextBox_TextChanged);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(3, 35);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(30, 13);
+            this.label9.TabIndex = 2;
+            this.label9.Text = "Find:";
             // 
             // RemoveButton
             // 
@@ -219,9 +244,9 @@
             this.ItemsListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.ItemsListBox.FormattingEnabled = true;
-            this.ItemsListBox.Location = new System.Drawing.Point(2, 32);
+            this.ItemsListBox.Location = new System.Drawing.Point(2, 58);
             this.ItemsListBox.Name = "ItemsListBox";
-            this.ItemsListBox.Size = new System.Drawing.Size(231, 381);
+            this.ItemsListBox.Size = new System.Drawing.Size(231, 342);
             this.ItemsListBox.TabIndex = 1;
             this.ItemsListBox.SelectedIndexChanged += new System.EventHandler(this.ItemsListBox_SelectedIndexChanged);
             this.ItemsListBox.DoubleClick += new System.EventHandler(this.ItemsListBox_DoubleClick);
@@ -235,6 +260,24 @@
             this.label1.Size = new System.Drawing.Size(37, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Items";
+            // 
+            // OrderByComboBox
+            // 
+            this.OrderByComboBox.FormattingEnabled = true;
+            this.OrderByComboBox.Location = new System.Drawing.Point(63, 404);
+            this.OrderByComboBox.Name = "OrderByComboBox";
+            this.OrderByComboBox.Size = new System.Drawing.Size(170, 21);
+            this.OrderByComboBox.TabIndex = 4;
+            this.OrderByComboBox.SelectedIndexChanged += new System.EventHandler(this.OrderByComboBox_SelectedIndexChanged);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(7, 407);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(50, 13);
+            this.label10.TabIndex = 5;
+            this.label10.Text = "Order by:";
             // 
             // ItemsTab
             // 
@@ -272,5 +315,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox CategoryComboBox;
+        private System.Windows.Forms.TextBox SearchStringTextBox;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ComboBox OrderByComboBox;
     }
 }

@@ -145,5 +145,10 @@ namespace ObjectOrientedPractices.Model
         {
             return Cost.CompareTo(other.Cost);
         }
+
+        public override string ToString()
+        {
+            return $"{Id}. {Name}";
+        }
     }
 }
