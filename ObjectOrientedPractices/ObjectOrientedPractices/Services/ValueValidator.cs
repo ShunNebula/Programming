@@ -20,7 +20,7 @@ namespace ObjectOrientedPractices.Services
             if (value.Length > maxLength)
             {
                 MessageBox.Show(propertyName + " должен быть меньше " + maxLength.ToString());
-                throw new ArgumentNullException(propertyName + "должен быть меньше" + maxLength.ToString());
+                throw new ArgumentNullException(propertyName + " должен быть меньше " + maxLength.ToString());
             }
         }
 

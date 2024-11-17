@@ -1,4 +1,5 @@
 ﻿using ObjectOrientedPractices.Services;
+using System.Collections.Generic;
 
 namespace ObjectOrientedPractices.Model
 {
@@ -16,6 +17,16 @@ namespace ObjectOrientedPractices.Model
         /// Адрес покупателя
         /// </summary>
         private Address _address;
+
+        /// <summary>
+        /// Корзина покупателя
+        /// </summary>
+        private Cart _cart;
+
+        /// <summary>
+        /// Список заказов покупателя
+        /// </summary>
+        private List<Order> _order = new List<Order>();
 
         /// <summary>
         /// Возвращает и задаёт уникальный номер покупателя
@@ -52,13 +63,32 @@ namespace ObjectOrientedPractices.Model
         }
 
         /// <summary>
+        /// Возвращает и задаёт корзину покупателя
+        /// </summary>
+        public Cart Cart
+        {
+            get { return _cart; }
+            set { _cart = value; }
+        }
+
+        /// <summary>
+        /// Возвращает и задаёт список заказов
+        /// </summary>
+        public List<Order> Order
+        {
+            get { return _order; }
+            set { _order = value; }
+        }
+
+        /// <summary>
         /// Создаёт экземпляр класса <see cref="Customer"/>.
         /// </summary>
-        public Customer(string fullName, Address address)
+        public Customer(string fullName, Address address, Cart cart)
         {
-            Id = IdGenerator.GetNextId("Customer");
+            Id = IdGenerator.GetNextId<Customer>();
             FullName = fullName;
             Address = address;
+            Cart = cart;
         }
     }
 }

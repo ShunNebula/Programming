@@ -1,6 +1,7 @@
 ﻿using ObjectOrientedPractices.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace ObjectOrientedPractices.View.Tabs
@@ -11,13 +12,14 @@ namespace ObjectOrientedPractices.View.Tabs
     public partial class CustomersTab : UserControl
     {
         /// <summary>
-        /// Список товаров типа List<Customer>
+        /// Список покупателей типа List<Customer>
         /// </summary>
         private List<Customer> _customers = new List<Customer>();
 
         /// <summary>
-        /// Вызывает и задаёт список товаров
+        /// Вызывает и задаёт список покупателей
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<Customer> Customers
         {
             get { return _customers; }
@@ -36,13 +38,14 @@ namespace ObjectOrientedPractices.View.Tabs
             CustomersListBox.Items.Clear();
             CustomersListBox.Items.AddRange(_customers.ToArray());
         }
+
         /// <summary>
         /// Текущий покупатель
         /// </summary>
         public static Customer _currentCustomer = null;
 
         /// <summary>
-        /// Инициализация компонентов
+        /// Создаёт экземпляр класса <see cref="CustomersTab"/>.
         /// </summary>
         public CustomersTab()
         {
@@ -60,6 +63,7 @@ namespace ObjectOrientedPractices.View.Tabs
             {
                 IDTextBox.Text = string.Empty;
                 FullNameTextBox.Text = string.Empty;
+                addressControl1.Address = null;
             }
             else
             {

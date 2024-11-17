@@ -1,6 +1,6 @@
 ﻿using ObjectOrientedPractices.Model;
 using System;
-using System.Collections.Generic;
+using ObjectOrientedPractices.View.Tabs;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -24,6 +24,17 @@ namespace ObjectOrientedPractices
             itemsTab1.Items = _store.Items;
 
             customersTab1.Customers = _store.Customers;
+
+            cartsTab1.Items = _store.Items;
+            cartsTab1.Customers = _store.Customers;
+
+            ordersTab1.Customers = _store.Customers;
+        }
+
+        private void tabControl1_SelectedTabChanged(object sender, EventArgs e)
+        {
+            cartsTab1.RefreshData();
+            ordersTab1.RefreshData();
         }
     }
 }

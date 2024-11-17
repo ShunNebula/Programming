@@ -1,6 +1,7 @@
 ﻿using ObjectOrientedPractices.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -20,6 +21,7 @@ namespace ObjectOrientedPractices.View.Tabs
         /// <summary>
         /// Возвращает и задаёт список товаров
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<Item> Items
         {
             get { return _items; }
@@ -47,7 +49,7 @@ namespace ObjectOrientedPractices.View.Tabs
         private static Item _currentItem = null;
 
         /// <summary>
-        /// Инициализация компонентов
+        /// Создаёт экземпляр класса <see cref="ItemsTab"/>.
         /// </summary>
         public ItemsTab()
         {
