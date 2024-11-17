@@ -12,12 +12,12 @@ namespace ObjectOrientedPractices.Model
         /// <summary>
         /// Список с названиями товаров
         /// </summary>
-        private static readonly string[] names = File.ReadAllLines(@"C:\Users\User\source\repos\Programming\ObjectOrientedPractices\ObjectOrientedPractices\Services\ItemNames.txt");
+        private static readonly string[] names = File.ReadAllLines($@"{Environment.CurrentDirectory}\Services\ItemNames.txt");
 
         /// <summary>
         /// Список с описаниями товаров
         /// </summary>
-        private static readonly string[] infos = File.ReadAllLines(@"C:\Users\User\source\repos\Programming\ObjectOrientedPractices\ObjectOrientedPractices\Services\ItemInfos.txt");
+        private static readonly string[] infos = File.ReadAllLines($@"{Environment.CurrentDirectory}\Services\ItemInfos.txt");
 
         /// <summary>
         /// Возвращает список новых товаров

@@ -72,7 +72,7 @@ namespace ObjectOrientedPractices.Model
             for (int i = 0; i < size; i++)
             {
                 Customer newCustomer = new Customer(
-                    names[ran.Next(names.Length)], 
+                    names[ran.Next(names.Length)],
                     GenerateRandomAddress());
 
                 myCustomer.Add(newCustomer);
