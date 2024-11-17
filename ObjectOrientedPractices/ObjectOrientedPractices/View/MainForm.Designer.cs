@@ -37,17 +37,11 @@
             this.cartsTab1 = new ObjectOrientedPractices.View.Tabs.CartsTab();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.ordersTab1 = new ObjectOrientedPractices.View.Tabs.OrdersTab();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.discountsTab1 = new ObjectOrientedPractices.View.Tabs.DiscountsTab();
-            this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.percentDiscountTab1 = new ObjectOrientedPractices.View.Tabs.PercentDiscountTab();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
-            this.tabPage5.SuspendLayout();
-            this.tabPage6.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -56,8 +50,6 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Controls.Add(this.tabPage5);
-            this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -142,42 +134,6 @@
             this.ordersTab1.Size = new System.Drawing.Size(812, 475);
             this.ordersTab1.TabIndex = 0;
             // 
-            // tabPage5
-            // 
-            this.tabPage5.Controls.Add(this.discountsTab1);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(818, 481);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "Discounts";
-            this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // discountsTab1
-            // 
-            this.discountsTab1.Location = new System.Drawing.Point(9, 7);
-            this.discountsTab1.Name = "discountsTab1";
-            this.discountsTab1.Size = new System.Drawing.Size(515, 165);
-            this.discountsTab1.TabIndex = 0;
-            // 
-            // tabPage6
-            // 
-            this.tabPage6.Controls.Add(this.percentDiscountTab1);
-            this.tabPage6.Location = new System.Drawing.Point(4, 22);
-            this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(818, 481);
-            this.tabPage6.TabIndex = 5;
-            this.tabPage6.Text = "Percent";
-            this.tabPage6.UseVisualStyleBackColor = true;
-            // 
-            // percentDiscountTab1
-            // 
-            this.percentDiscountTab1.Location = new System.Drawing.Point(4, 7);
-            this.percentDiscountTab1.Name = "percentDiscountTab1";
-            this.percentDiscountTab1.Size = new System.Drawing.Size(508, 115);
-            this.percentDiscountTab1.TabIndex = 0;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -191,8 +147,6 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
-            this.tabPage5.ResumeLayout(false);
-            this.tabPage6.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -208,10 +162,6 @@
         private View.Tabs.CartsTab cartsTab1;
         private System.Windows.Forms.TabPage tabPage4;
         private View.Tabs.OrdersTab ordersTab1;
-        private System.Windows.Forms.TabPage tabPage5;
-        private View.Tabs.DiscountsTab discountsTab1;
-        private System.Windows.Forms.TabPage tabPage6;
-        private View.Tabs.PercentDiscountTab percentDiscountTab1;
     }
 }
 
