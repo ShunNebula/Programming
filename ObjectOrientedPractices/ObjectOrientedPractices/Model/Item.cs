@@ -11,6 +11,21 @@ namespace ObjectOrientedPractices.Model
     public class Item : ICloneable, IEquatable<Item>, IComparable<Item>
     {
         /// <summary>
+        /// Событие для изменения названия товара
+        /// </summary>
+        public event EventHandler NameChanged;
+
+        /// <summary>
+        /// Событие для изменения цены товара
+        /// </summary>
+        public event EventHandler CostChanged;
+
+        /// <summary>
+        /// Событие для изменения информации товара
+        /// </summary>
+        public event EventHandler InfoChanged;
+
+        /// <summary>
         /// Название товара
         /// </summary>
         private string _name;
@@ -41,7 +56,11 @@ namespace ObjectOrientedPractices.Model
                 try
                 { 
                     ValueValidator.AssertStringOnLength(value, 200, nameof(Name));
-                    _name = value;
+                    if (_name != value)
+                    {
+                        _name = value;
+                        NameChanged?.Invoke(this, EventArgs.Empty);
+                    }
                 }
                 catch (ArgumentNullException ex)
                 {
@@ -61,7 +80,11 @@ namespace ObjectOrientedPractices.Model
                 try
                 { 
                     ValueValidator.AssertStringOnLength(value, 1000, nameof(Info));
-                    _info = value;
+                    if (_info != value)
+                    {
+                        _info = value;
+                        InfoChanged?.Invoke(this, EventArgs.Empty);
+                    }
                 }
                 catch (ArgumentNullException ex)
                 {
@@ -81,7 +104,11 @@ namespace ObjectOrientedPractices.Model
                 try
                 {
                     ValueValidator.AssertValueInRange(value, 0, 100000, nameof(Cost));
-                    _cost = value;
+                    if (_cost != value)
+                    {
+                        _cost = value;
+                        CostChanged?.Invoke(this, EventArgs.Empty);
+                    }
                 }
                 catch (ArgumentOutOfRangeException ex)
                 {

@@ -19,6 +19,8 @@ namespace ObjectOrientedPractices.View.Tabs
     /// </summary>
     public partial class ItemsTab : UserControl
     {
+        public event EventHandler ItemsChanged;
+
         /// <summary>
         /// Список товаров типа List<Item>
         /// </summary>
@@ -62,6 +64,14 @@ namespace ObjectOrientedPractices.View.Tabs
         }
 
         /// <summary>
+        /// Обновление данных
+        /// </summary>
+        public void RefreshData()
+        {
+            FindAndSortItems();
+        }
+
+        /// <summary>
         /// Проверка и изменение цены товара
         /// </summary>
         /// <param name="sender">Объект, вызвавший событие - CostTextBox</param>
@@ -73,6 +83,8 @@ namespace ObjectOrientedPractices.View.Tabs
             {
                 _currentItem.Cost = double.Parse(CostTextBox.Text);
                 CostTextBox.BackColor = Color.FromKnownColor(KnownColor.Window);
+
+                ItemsChanged?.Invoke(this, EventArgs.Empty);
             }
             catch (Exception)
             {
@@ -89,6 +101,8 @@ namespace ObjectOrientedPractices.View.Tabs
         {
             if (string.IsNullOrEmpty(NameTextBox.Text) || ItemsListBox.SelectedIndex < 0) return;
             _currentItem.Name = NameTextBox.Text;
+
+            ItemsChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -100,6 +114,8 @@ namespace ObjectOrientedPractices.View.Tabs
         {
             if (string.IsNullOrEmpty(DescriptionTextBox.Text) || ItemsListBox.SelectedIndex < 0) return;
             _currentItem.Info = DescriptionTextBox.Text;
+
+            ItemsChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -141,6 +157,8 @@ namespace ObjectOrientedPractices.View.Tabs
             _items.Add(newItem);
 
             FindAndSortItems();
+
+            ItemsChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -155,6 +173,8 @@ namespace ObjectOrientedPractices.View.Tabs
             _items.Remove(selectedItem);
 
             FindAndSortItems();
+
+            ItemsChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -178,6 +198,8 @@ namespace ObjectOrientedPractices.View.Tabs
             {
                 _currentItem = (Item)ItemsListBox.SelectedItem;
                 _currentItem.Category = selectedCategory;
+
+                ItemsChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 

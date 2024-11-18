@@ -8,15 +8,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ObjectOrientedPractices.Model.Orders;
 
 namespace ObjectOrientedPractices
 {
+    /// <summary>
+    /// Главная форма
+    /// </summary>
     public partial class MainForm : Form
     {
         /// <summary>
         /// Магазин
         /// </summary>
         private Store _store = new Store();
+
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="MainForm"/>.
+        /// </summary>
         public MainForm()
         {
             InitializeComponent();
@@ -31,8 +39,35 @@ namespace ObjectOrientedPractices
             ordersTab1.Customers = _store.Customers;
         }
 
-        private void tabControl1_SelectedTabChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Переключение между вкладками
+        /// </summary>
+        /// <param name="sender">Ссылка на объект, зажигающий событие</param>
+        /// <param name="e">Данные о событие</param>
+        private void TabControl1_SelectedTabChanged(object sender, EventArgs e)
         {
+            cartsTab1.RefreshData();
+            ordersTab1.RefreshData();
+        }
+
+        /// <summary>
+        /// Загрузка главного окна
+        /// </summary>
+        /// <param name="sender">Ссылка на объект, зажигающий событие</param>
+        /// <param name="e">Данные о событие</param>
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            itemsTab1.ItemsChanged += Tabs_DataChanges;
+        }
+
+        /// <summary>
+        /// Событие для обновления данных
+        /// </summary>
+        /// <param name="sender">Ссылка на объект, зажигающий событие</param>
+        /// <param name="e">Данные о событие</param>
+        private void Tabs_DataChanges(object sender, EventArgs e)
+        {
+            itemsTab1.RefreshData();
             cartsTab1.RefreshData();
             ordersTab1.RefreshData();
         }

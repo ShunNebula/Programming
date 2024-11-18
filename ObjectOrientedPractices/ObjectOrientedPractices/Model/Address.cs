@@ -10,6 +10,11 @@ namespace ObjectOrientedPractices.Model
     public class Address : ICloneable, IEquatable<Address> 
     {
         /// <summary>
+        /// Событие для изменения адреса
+        /// </summary>
+        public event EventHandler AddressChanged;
+
+        /// <summary>
         /// Почтовый индекс
         /// </summary>
         private int _index;
@@ -50,7 +55,11 @@ namespace ObjectOrientedPractices.Model
                 try
                 {
                     ValueValidator.AssertIndex(value, nameof(Index));
-                    _index = value;
+                    if (_index != value)
+                    {
+                        _index = value;
+                        OnAddressChanged();
+                    }
                 }
                 catch (ArgumentOutOfRangeException ex)
                 {
@@ -70,7 +79,11 @@ namespace ObjectOrientedPractices.Model
                 try
                 { 
                     ValueValidator.AssertStringOnLength(value, 50, nameof(Country));
-                    _country = value;
+                    if (_country != value)
+                    {
+                        _country = value;
+                        OnAddressChanged();
+                    }
                 }
                 catch (ArgumentNullException ex)
                 {
@@ -90,7 +103,11 @@ namespace ObjectOrientedPractices.Model
                 try
                 { 
                     ValueValidator.AssertStringOnLength(value, 50, nameof(City));
-                    _city = value;
+                    if (_city != value)
+                    {
+                        _city = value;
+                        OnAddressChanged();
+                    }
                 }
                 catch (ArgumentNullException ex)
                 {
@@ -110,7 +127,11 @@ namespace ObjectOrientedPractices.Model
                 try
                 { 
                     ValueValidator.AssertStringOnLength(value, 100, nameof(Street));
-                    _street = value;
+                    if (_street != value)
+                    {
+                        _street = value;
+                        OnAddressChanged();
+                    }
                 }
                 catch (ArgumentNullException ex)
                 {
@@ -130,7 +151,11 @@ namespace ObjectOrientedPractices.Model
                 try
                 { 
                     ValueValidator.AssertStringOnLength(value, 10, nameof(Building));
-                    _building = value;
+                    if (_building != value)
+                    {
+                        _building = value;
+                        OnAddressChanged();
+                    }
                 }
                 catch (ArgumentNullException ex)
                 {
@@ -150,7 +175,11 @@ namespace ObjectOrientedPractices.Model
                 try
                 {
                     ValueValidator.AssertStringOnLength(value, 10, nameof(Apartment));
-                    _apartment = value;
+                    if (_apartment != value)
+                    {
+                        _apartment = value;
+                        OnAddressChanged();
+                    }
                 }
                 catch (ArgumentNullException ex)
                 {
@@ -224,6 +253,14 @@ namespace ObjectOrientedPractices.Model
         public override int GetHashCode()
         {
             return base.GetHashCode();
+        }
+
+        /// <summary>
+        /// Проверка на null и зажигание события
+        /// </summary>
+        private void OnAddressChanged()
+        {
+            AddressChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }
