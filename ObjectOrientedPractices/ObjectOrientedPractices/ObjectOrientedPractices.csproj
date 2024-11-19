@@ -74,6 +74,12 @@
     <Compile Include="View\AddDiscountForm.Designer.cs">
       <DependentUpon>AddDiscountForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Check.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Check.Designer.cs">
+      <DependentUpon>Check.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\Controls\AddressControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -123,6 +129,9 @@
     </Compile>
     <EmbeddedResource Include="View\AddDiscountForm.resx">
       <DependentUpon>AddDiscountForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Check.resx">
+      <DependentUpon>Check.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Controls\AddressControl.resx">
       <DependentUpon>AddressControl.cs</DependentUpon>

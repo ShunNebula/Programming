@@ -29,17 +29,12 @@ namespace ObjectOrientedPractices
             cartsTab1.Customers = _store.Customers;
 
             ordersTab1.Customers = _store.Customers;
-
-            discountsTab1.Items = _store.Items;
-            percentDiscountTab1.Items = _store.Items;
         }
 
         private void tabControl1_SelectedTabChanged(object sender, EventArgs e)
         {
             cartsTab1.RefreshData();
             ordersTab1.RefreshData();
-            discountsTab1.UpdateLabel();
-            percentDiscountTab1.UpdateLabel();
         }
     }
 }

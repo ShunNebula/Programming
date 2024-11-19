@@ -46,12 +46,14 @@
             this.AddButton = new System.Windows.Forms.Button();
             this.ItemsListBox = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.CheckButton = new System.Windows.Forms.Button();
             this.SelectedItemGroupBox.SuspendLayout();
             this.ItemsGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // SelectedItemGroupBox
             // 
+            this.SelectedItemGroupBox.Controls.Add(this.CheckButton);
             this.SelectedItemGroupBox.Controls.Add(this.label8);
             this.SelectedItemGroupBox.Controls.Add(this.CategoryComboBox);
             this.SelectedItemGroupBox.Controls.Add(this.label7);
@@ -236,6 +238,16 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Items";
             // 
+            // CheckButton
+            // 
+            this.CheckButton.Location = new System.Drawing.Point(288, 412);
+            this.CheckButton.Name = "CheckButton";
+            this.CheckButton.Size = new System.Drawing.Size(154, 57);
+            this.CheckButton.TabIndex = 4;
+            this.CheckButton.Text = "Check";
+            this.CheckButton.UseVisualStyleBackColor = true;
+            this.CheckButton.Click += new System.EventHandler(this.CheckButton_Click);
+            // 
             // ItemsTab
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -272,5 +284,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox CategoryComboBox;
+        private System.Windows.Forms.Button CheckButton;
     }
 }

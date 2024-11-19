@@ -178,5 +178,14 @@ namespace ObjectOrientedPractices.View.Tabs
                 _currentItem.Category = selectedCategory;
             }
         }
+
+        private void CheckButton_Click(object sender, EventArgs e)
+        {
+            if (_items.Count > 1)
+            {
+                Check check = new Check(_items);
+                check.Show();
+            }
+        }
     }
 }
