@@ -1,23 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace View.Model
+﻿namespace View.Model
 {
+    /// <summary>
+    /// Представляет контактную информацию.
+    /// </summary>
     public class Contact
     {
-        private string _name;
-        private string _phoneNumber;
-        private string _email;
+        /// <summary>
+        /// Получает или задаёт ФИО контакта.
+        /// </summary>
+        public string Name { get; set; }
 
-        public string Name { get { return _name; } set { _name = value; } }
-        public string PhoneNumber { get { return _phoneNumber; } set { _phoneNumber = value; } }
-        public string Email { get { return _email; } set { _email = value; } }
+        /// <summary>
+        /// Получает или задаёт номер телефона контакта.
+        /// </summary>
+        public string PhoneNumber { get; set; }
 
+        /// <summary>
+        /// Получает или задаёт адрес электронной почты контакта.
+        /// </summary>
+        public string Email { get; set; }
+
+        /// <summary>
+        /// Инициализирует новый экземпляр класса <see cref="Contact"/>. 
+        /// (Конструктор по умоляанию)
+        /// </summary>
         public Contact() { }
 
+        /// <summary>
+        /// Инициализирует новый экземпляр класса <see cref="Contact"/>
+        /// с указанными параметрами.
+        /// </summary>
+        /// <param name="name">ФИО контакта.</param>
+        /// <param name="phoneNumber">Номер телефона контакта.</param>
+        /// <param name="email">Адрес электронной почты контакта.</param>
         public Contact(string name, string phoneNumber, string email) 
         {
             Name = name;
