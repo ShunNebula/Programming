@@ -56,10 +56,6 @@ namespace View.ViewModel
         public void Execute(object parameter)
         {
             _viewModel.Contact = _serializer.LoadContact();
-
-            _viewModel.OnPropertyChanged(nameof(_viewModel.Name));
-            _viewModel.OnPropertyChanged(nameof(_viewModel.PhoneNumber));
-            _viewModel.OnPropertyChanged(nameof(_viewModel.Email));
         }
     }
 }

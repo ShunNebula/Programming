@@ -20,7 +20,7 @@ namespace View.ViewModel
         /// для уведомления об изменении свойства.
         /// </summary>
         /// <param name="propertyName">Имя изменённого свойства.</param>
-        public virtual void OnPropertyChanged(string propertyName)
+        private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, 
                 new PropertyChangedEventArgs(propertyName));
@@ -85,6 +85,9 @@ namespace View.ViewModel
             {
                 _contact = value;
                 OnPropertyChanged(nameof(Contact));
+                OnPropertyChanged(nameof(Name));
+                OnPropertyChanged(nameof(PhoneNumber));
+                OnPropertyChanged(nameof(Email));
             }
         }
 

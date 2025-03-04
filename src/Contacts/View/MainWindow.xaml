@@ -6,36 +6,42 @@
         xmlns:local="clr-namespace:View"
         xmlns:vm="clr-namespace:View.ViewModel"
         mc:Ignorable="d"
-        Title="Contacts" Height="482" Width="597" Icon="/contacts_96x96.ico" MinWidth="360" MinHeight="280">
+        Title="Contacts" Height="482" Width="597" MinWidth="360" MinHeight="280" Icon="/contacts_96x96.ico">
     <Window.DataContext>
         <vm:MainVM/>
     </Window.DataContext>
-    <Grid>
+    <Grid Margin="15,15,15,15">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100*"/>
-            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <GroupBox Header="Edit Contact" Margin="15,15,2,43">
-            <Grid>
-                <Label Content="Name:" HorizontalAlignment="Left" Margin="3,0,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="NameTextBox" Margin="3,26,3,0" TextWrapping="Wrap" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top"/>
-                <Label Content="Phone Number:" HorizontalAlignment="Left" Margin="3,44,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="PhoneTextBox" Margin="3,70,3,0" TextWrapping="Wrap" Text="{Binding PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top"/>
-                <Label Content="Email:" HorizontalAlignment="Left" Margin="3,88,0,0" VerticalAlignment="Top" Width="47"/>
-                <TextBox x:Name="EmailTextBox" Margin="3,114,3,0" TextWrapping="Wrap" Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top"/>
-            </Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <GroupBox Header="Edit Contact" Margin="0,0,1.5,3">
+            <StackPanel>
+                <TextBlock Text="Name:"/>
+                <TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,3,0,3"/>
+                <TextBlock Text="Phone Number:"/>
+                <TextBox Text="{Binding PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,3,0,3"/>
+                <TextBlock Text="Email:"/>
+                <TextBox Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,3,0,0"/>
+            </StackPanel>
         </GroupBox>
-        <GroupBox x:Name="ReadGroupBox" Header="Read Contact" Margin="2,15,15,43" Grid.Column="1">
-            <Grid>
-                <Label Content="Name:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="3,0,0,0"/>
-                <Label Content="Phone Number:" HorizontalAlignment="Left" Margin="3,44,0,0" VerticalAlignment="Top"/>
-                <Label Content="Email:" HorizontalAlignment="Left" Margin="3,88,0,0" VerticalAlignment="Top" Width="47"/>
-                <TextBlock x:Name="NameTextBlock" HorizontalAlignment="Left" Margin="8,26,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top"/>
-                <TextBlock x:Name="PhoneTextBlock" HorizontalAlignment="Left" Margin="8,70,0,0" TextWrapping="Wrap" Text="{Binding PhoneNumber}" VerticalAlignment="Top"/>
-                <TextBlock x:Name="EmailTextBlock" HorizontalAlignment="Left" Margin="8,114,0,0" TextWrapping="Wrap" Text="{Binding Email}" VerticalAlignment="Top"/>
-            </Grid>
+        <GroupBox x:Name="ReadGroupBox" Header="Read Contact" Margin="1.5,0,0,3" Grid.Column="1">
+            <StackPanel>
+                <TextBlock Text="Name:"/>
+                <TextBlock Text="{Binding Name}" Margin="0,3,0,3"/>
+                <TextBlock Text="Phone Number:"/>
+                <TextBlock Text="{Binding PhoneNumber}" Margin="0,3,0,3"/>
+                <TextBlock Text="Email:"/>
+                <TextBlock Text="{Binding Email}" Margin="0,3,0,0"/>
+            </StackPanel>
         </GroupBox>
-        <Button x:Name="LoadButton" Grid.Column="1" Content="Load" HorizontalAlignment="Right" Margin="0,0,15,15" VerticalAlignment="Bottom" Width="75" Height="25" Command="{Binding LoadCommand, Mode=OneWay}"/>
-        <Button x:Name="SaveButton" Grid.Column="1" Content="Save" HorizontalAlignment="Right" Margin="0,0,95,15" VerticalAlignment="Bottom" Width="75" Height="25" Command="{Binding SaveCommand, Mode=OneWay}"/>
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="LoadButton" Content="Load" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="75" Height="25" Command="{Binding LoadCommand, Mode=OneWay}"/>
+            <Button x:Name="SaveButton" Content="Save" HorizontalAlignment="Right" Margin="3 0 0 0" VerticalAlignment="Bottom" Width="75" Height="25" Command="{Binding SaveCommand, Mode=OneWay}"/>
+        </StackPanel>
     </Grid>
 </Window>
