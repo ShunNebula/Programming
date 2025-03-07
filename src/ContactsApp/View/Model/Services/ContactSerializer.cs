@@ -32,11 +32,13 @@ namespace View.Model.Services
         {
             string[] files = Directory.GetFiles(_folderPath);
             Contact[] contacts = new Contact[] { };
-
-            foreach (string filePath in files)
+            if (files.Length != 0)
             {
-                string json = File.ReadAllText(filePath);
-                contacts.Append(JsonConvert.DeserializeObject<Contact>(json));
+                foreach (string filePath in files)
+                {
+                    string json = File.ReadAllText(filePath);
+                    contacts.Append(JsonConvert.DeserializeObject<Contact>(json));
+                }
             }
 
             return contacts;
