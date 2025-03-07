@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,38 +11,31 @@ namespace View.Model.Services
 {
     public class ContactSerializer
     {
-        private readonly string _folderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Contacts");
+        private string _filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Contacts", "contacts.json");
 
-        public ContactSerializer() 
-        { 
-            if (!Directory.Exists(_folderPath))
+        public ContactSerializer()
+        {
+            string directoryPath = Path.GetDirectoryName(_filePath);
+            if (!Directory.Exists(directoryPath))
             {
-                Directory.CreateDirectory(_folderPath);
+                Directory.CreateDirectory(directoryPath);
             }
         }
 
-        public void SaveContact(Contact contact)
+        public void SaveContacts(ObservableCollection<Contact> contacts)
         {
-            string json = JsonConvert.SerializeObject(contact);
-            string filePath = Path.Combine(_folderPath, $"contact{contact.Name}");
-
-            File.WriteAllText(filePath, json);
+            string json = JsonConvert.SerializeObject(contacts);
+            File.WriteAllText(_filePath, json);
         }
 
-        public Contact[] LoadContact()
+        public ObservableCollection<Contact> LoadContacts()
         {
-            string[] files = Directory.GetFiles(_folderPath);
-            Contact[] contacts = new Contact[] { };
-            if (files.Length != 0)
+            if (File.Exists(_filePath))
             {
-                foreach (string filePath in files)
-                {
-                    string json = File.ReadAllText(filePath);
-                    contacts.Append(JsonConvert.DeserializeObject<Contact>(json));
-                }
+                string json = File.ReadAllText(_filePath);
+                return JsonConvert.DeserializeObject<ObservableCollection<Contact>>(json);
             }
-
-            return contacts;
+            return new ObservableCollection<Contact>();
         }
     }
 }
