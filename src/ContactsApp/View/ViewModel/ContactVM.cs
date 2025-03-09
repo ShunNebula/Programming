@@ -4,51 +4,47 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using View.Model;
 
-namespace View.Model
+namespace View.ViewModel
 {
-    public class Contact : INotifyPropertyChanged
+    public class ContactVM : INotifyPropertyChanged
     {
-        private string _name;
-        private string _phone;
-        private string _email;
+        public Contact Contact { get; }
 
-        public string Name 
+        public ContactVM(Contact contact)
         {
-            get => _name;
-            set 
-            { 
-                _name = value;
-                OnPropertyChanged(nameof(Name));
-            } 
+            Contact = contact ?? throw new ArgumentNullException(nameof(contact));
         }
-        public string Phone 
+
+        public string Name
         {
-            get => _phone; 
+            get => Contact.Name;
             set
-            { 
-                _phone = value;
+            {
+                Contact.Name = value;
+                OnPropertyChanged(nameof(Name));
+            }
+        }
+
+        public string Phone
+        {
+            get => Contact.Phone;
+            set
+            {
+                Contact.Phone = value;
                 OnPropertyChanged(nameof(Phone));
             }
         }
 
         public string Email
         {
-            get => _email;
-            set 
+            get => Contact.Email;
+            set
             {
-                _email = value;
+                Contact.Email = value;
                 OnPropertyChanged(nameof(Email));
             }
-        }
-
-        public Contact() { }
-
-        public Contact(string name, string phone, string email)
-        {
-            Name = name;
-            Phone = phone;
-            Email = email;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

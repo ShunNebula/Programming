@@ -4,8 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View"
+        xmlns:vm="clr-namespace:View.ViewModel"
         mc:Ignorable="d"
         Title="Contacts Application" Height="450" Width="800" Icon="/contacts_96x96.ico">
+    <Window.DataContext>
+        <vm:MainVM/>
+    </Window.DataContext>
+    
+    <Window.Resources>
+        <vm:BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
+    </Window.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -28,7 +37,7 @@
                 <Grid Grid.Row="0">
                     <Label Content="Find:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                     <TextBox x:Name="SearchTextBox" Margin="38,6,0,0" VerticalAlignment="Top"/>
-                    <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,29,0,0"/>
+                    <ListBox SelectedItem="{Binding SelectedContact}" DisplayMemberPath="Name" Margin="0,29,0,0" ItemsSource="{Binding Contacts}"/>
                 </Grid>
                 
                 <!-- Кнопки -->
@@ -41,9 +50,9 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <Button x:Name="AddButton" Content="Add" Grid.Column="0"/>
-                    <Button x:Name="EditButton" Content="Edit" Grid.Column="2"/>
-                    <Button x:Name="RemoveButton" Content="Remove" Grid.Column="4"/>
+                    <Button x:Name="AddButton" Command="{Binding AddCommand}" Content="Add" Grid.Column="0"/>
+                    <Button x:Name="EditButton" Command="{Binding EditCommand}" IsEnabled="{Binding SelectedContact}" Content="Edit" Grid.Column="2"/>
+                    <Button x:Name="RemoveButton" Command="{Binding RemoveCommand}" IsEnabled="{Binding SelectedContact}" Content="Remove" Grid.Column="4"/>
                 </Grid>
             </Grid>
         </Grid>
@@ -70,15 +79,15 @@
                 <!-- Инфо -->
                 <StackPanel Grid.Column="3" Grid.Row="0">
                     <TextBlock Text="Name:" Height="16"/>
-                    <TextBox Margin="0, 3, 0, 3"/>
+                    <TextBox Text="{Binding SelectedContact.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0, 3, 0, 3"/>
                     <TextBlock Text="Phone Number:" Height="16"/>
-                    <TextBox Margin="0, 3, 0, 3"/>
+                    <TextBox Text="{Binding SelectedContact.Phone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0, 3, 0, 3"/>
                     <TextBlock Text="Email" Height="16"/>
-                    <TextBox Margin="0, 3, 0, 3"/>
+                    <TextBox Text="{Binding SelectedContact.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0, 3, 0, 3"/>
                 </StackPanel>
                 
                 <!-- Кнопка Apply -->
-                <Button Grid.Column="2" Grid.Row="3" Content="Apply" Width="75" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <Button Grid.Column="2" Grid.Row="3" Visibility="{Binding IsEditMode, Converter={StaticResource BooleanToVisibility}}" Command="{Binding ApplyCommand}" Content="Apply" Width="75" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </Grid>
         </Grid>
     </Grid>

@@ -1,47 +1,151 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 using View.Model;
+using View.Model.Services;
 
 namespace View.ViewModel
 {
     public class MainVM : INotifyPropertyChanged
     {
-        private string _name;
-        private string _phone;
-        private string _email;
+        private ObservableCollection<ContactVM> _contacts;
+        private ContactVM _selectedContact;
+        private bool _isEditMode = false;
+        private ContactSerializer _serializer = new ContactSerializer();
 
-        public string Name
+        public ObservableCollection<ContactVM> Contacts
         {
-            get { return _name; }
+            get => _contacts;
             set
             {
-                OnPropertyChanged(nameof(Name));
-                _name = value;
+                _contacts = value;
+                OnPropertyChanged(nameof(Contacts));
             }
         }
 
-        public string Phone
+        public ContactVM SelectedContact
         {
-            get { return _phone; }
+            get => _selectedContact;
             set
             {
-                OnPropertyChanged(nameof(Phone));
-                _phone = value;
+                _selectedContact = value;
+                OnPropertyChanged(nameof(SelectedContact));
+
+                (EditCommand as RelayCommand)?.RaiseCanExecuteChanged();
+                (RemoveCommand as RelayCommand)?.RaiseCanExecuteChanged();
             }
         }
 
-        public string Email
+        public bool IsEditMode
         {
-            get { return _email; }
+            get => _isEditMode;
             set
             {
-                OnPropertyChanged(nameof(Email));
-                _email = value;
+                _isEditMode = value;
+                OnPropertyChanged(nameof(IsEditMode));
+                OnPropertyChanged(nameof(IsReadOnly));
+                OnPropertyChanged(nameof(ApplyButtonVisibility));
             }
+        }
+
+        public bool IsReadOnly => !IsEditMode;
+
+        public Visibility ApplyButtonVisibility => IsEditMode ? Visibility.Visible : Visibility.Collapsed;
+
+        public ICommand AddCommand { get; }
+
+        public ICommand EditCommand { get; }
+
+        public ICommand RemoveCommand { get; }
+
+        public ICommand ApplyCommand { get; }
+
+        public MainVM()
+        {
+            ObservableCollection<Contact> loadedContacts = _serializer.LoadContacts();
+            Contacts = new ObservableCollection<ContactVM>(loadedContacts.Select(c => new ContactVM(c)));
+
+            AddCommand = new RelayCommand(AddContact);
+            EditCommand = new RelayCommand(EditContact, CanEditOrRemoveContact);
+            RemoveCommand = new RelayCommand(RemoveContact, CanEditOrRemoveContact);
+            ApplyCommand = new RelayCommand(ApplyContact);
+        }
+
+        private void AddContact(object parameter)
+        {
+            IsEditMode = true;
+            SelectedContact = null;
+            var newContact = new Contact();
+            var newContactVM = new ContactVM(newContact);
+            Contacts.Add(newContactVM);
+            SelectedContact = newContactVM;
+        }
+
+        public void EditContact(object parameter)
+        {
+            IsEditMode = true;
+        }
+
+        private bool CanEditOrRemoveContact(object parameter)
+        {
+            return SelectedContact != null;
+        }
+
+        private void RemoveContact(object parameter)
+        {
+            if (SelectedContact != null)
+            {
+                int selectedIndex = Contacts.IndexOf(SelectedContact);
+                Contacts.Remove(SelectedContact);
+
+                if (Contacts.Count > 0)
+                {
+                    if (selectedIndex < Contacts.Count)
+                    {
+                        SelectedContact = Contacts[selectedIndex];
+                    }
+                    else
+                    {
+                        SelectedContact = Contacts[Contacts.Count - 1];
+                    }
+                }
+                else
+                {
+                    SelectedContact = null;
+                }
+            }
+        }
+
+        private void ApplyContact(object parameter)
+        {
+            if (SelectedContact != null)
+            {
+                var existingContact = Contacts.FirstOrDefault(c => c.Name == SelectedContact.Name);
+
+                if (existingContact != null)
+                {
+                    existingContact.Phone = SelectedContact.Phone;
+                    existingContact.Email = SelectedContact.Email;
+                }
+                else
+                {
+                    Contacts.Add(SelectedContact);
+                }
+
+                IsEditMode = false;
+                SaveContacts();
+            }
+        }
+
+        private void SaveContacts()
+        {
+            _serializer.SaveContacts(new ObservableCollection<Contact>(Contacts.Select(x => x.Contact)));
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
