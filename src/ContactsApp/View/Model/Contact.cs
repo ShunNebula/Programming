@@ -7,55 +7,30 @@ using System.Threading.Tasks;
 
 namespace View.Model
 {
-    public class Contact : INotifyPropertyChanged
+    /// <summary>
+    /// Представляет контактную информацию.
+    /// </summary>
+    public class Contact
     {
-        private string _name;
-        private string _phone;
-        private string _email;
+        /// <summary>
+        /// Получает или задаёт ФИО контакта.
+        /// </summary>
+        public string Name { get; set; }
 
-        public string Name 
-        {
-            get => _name;
-            set 
-            { 
-                _name = value;
-                OnPropertyChanged(nameof(Name));
-            } 
-        }
-        public string Phone 
-        {
-            get => _phone; 
-            set
-            { 
-                _phone = value;
-                OnPropertyChanged(nameof(Phone));
-            }
-        }
+        /// <summary>
+        /// Получает или задаёт номер телефона контакта.
+        /// </summary>
+        public string Phone { get; set; }
 
-        public string Email
-        {
-            get => _email;
-            set 
-            {
-                _email = value;
-                OnPropertyChanged(nameof(Email));
-            }
-        }
+        /// <summary>
+        /// Получает или задаёт адрес электронной почты контакта.
+        /// </summary>
+        public string Email { get; set; }
 
+        /// <summary>
+        /// Инициализирует новый экземпляр класса <see cref="Contact"/>.
+        /// (Конструктор по умолчанию)
+        /// </summary>
         public Contact() { }
-
-        public Contact(string name, string phone, string email)
-        {
-            Name = name;
-            Phone = phone;
-            Email = email;
-        }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }
