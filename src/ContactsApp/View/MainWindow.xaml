@@ -37,7 +37,7 @@
                 <Grid Grid.Row="0">
                     <Label Content="Find:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                     <TextBox x:Name="SearchTextBox" Margin="38,6,0,0" VerticalAlignment="Top"/>
-                    <ListBox SelectedItem="{Binding SelectedContact}" DisplayMemberPath="Name" Margin="0,29,0,0" ItemsSource="{Binding Contacts}"/>
+                    <ListBox SelectedItem="{Binding SelectedContact}" IsTextSearchEnabled="False" DisplayMemberPath="Name" Margin="0,29,0,0" ItemsSource="{Binding Contacts}"/>
                 </Grid>
                 
                 <!-- Кнопки -->
