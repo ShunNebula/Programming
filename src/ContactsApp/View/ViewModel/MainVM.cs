@@ -33,6 +33,11 @@ namespace View.ViewModel
         private bool _isEditMode = false;
 
         /// <summary>
+        /// Флаг, указывающий был ли создан новый контакт.
+        /// </summary>
+        private bool _isNewContact = false;
+
+        /// <summary>
         /// Сервис для сериализации и десериализации контактов.
         /// </summary>
         private ContactSerializer _serializer = new ContactSerializer();
@@ -73,6 +78,18 @@ namespace View.ViewModel
             get => _selectedContact;
             set
             {
+                if (_selectedContact != value && _selectedContact != null)
+                {
+                    IsEditMode = false;
+                }
+
+                if (_isNewContact == true)
+                {
+                    Contacts.Remove(_selectedContact);
+                    IsEditMode = true;
+                    _isNewContact = false;
+                }
+
                 _selectedContact = value;
                 OnPropertyChanged(nameof(SelectedContact));
 
@@ -139,6 +156,7 @@ namespace View.ViewModel
             var newContactVM = new ContactVM(newContact);
             Contacts.Add(newContactVM);
             SelectedContact = newContactVM;
+            _isNewContact = true;
         }
 
         /// <summary>
@@ -199,6 +217,7 @@ namespace View.ViewModel
         private void ApplyContact(object parameter)
         {
             IsEditMode = false;
+            _isNewContact = false;
             SaveContacts();
         }
 
