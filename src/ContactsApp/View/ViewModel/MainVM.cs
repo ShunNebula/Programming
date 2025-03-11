@@ -27,6 +27,8 @@ namespace View.ViewModel
         /// </summary>
         private ContactVM _selectedContact;
 
+        private bool _edited = false;
+
         /// <summary>
         /// Флаг, указывающий, находится ли приложение в режими редактрирования.
         /// </summary>
@@ -41,6 +43,8 @@ namespace View.ViewModel
         /// Сервис для сериализации и десериализации контактов.
         /// </summary>
         private ContactSerializer _serializer = new ContactSerializer();
+
+        private int _selectedIndex;
 
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="MainVM"/>.
@@ -78,12 +82,6 @@ namespace View.ViewModel
             get => _selectedContact;
             set
             {
-                if (_selectedContact != value && _selectedContact != null)
-                {
-                    IsEditMode = false;
-                }
-
-
                 _selectedContact = value;
                 OnPropertyChanged(nameof(SelectedContact));
 
@@ -159,6 +157,15 @@ namespace View.ViewModel
         /// <param name="parameter">Параметр команды (не используется).</param>
         public void EditContact(object parameter)
         {
+            var clonnedContact = new ContactVM(new Contact())
+            {
+                Email = SelectedContact.Email,
+                Phone = SelectedContact.Phone,
+                Name = SelectedContact.Name
+            };
+            _selectedIndex = Contacts.IndexOf(SelectedContact);
+            SelectedContact = clonnedContact;
+            _edited = true;
             IsEditMode = true;
         }
 
@@ -199,6 +206,8 @@ namespace View.ViewModel
                 {
                     SelectedContact = null;
                 }
+
+                SaveContacts();
             }
         }
 
@@ -212,6 +221,11 @@ namespace View.ViewModel
             if (_isNewContact)
             {
                 Contacts.Add(SelectedContact);
+            }
+            else
+            {
+                Contacts[_selectedIndex] = SelectedContact;
+                _selectedIndex = -1;
             }
 
             IsEditMode = false;

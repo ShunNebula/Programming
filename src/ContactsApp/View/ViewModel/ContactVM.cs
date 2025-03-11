@@ -25,6 +25,16 @@ namespace View.ViewModel
             Contact = contact ?? throw new ArgumentNullException(nameof(contact));
         }
 
+        public ContactVM(string name, string phone, string email)
+        {
+            Contact = new Contact()
+            {
+                Name = name,
+                Phone = phone,
+                Email = email
+        };
+        }
+
         /// <summary>
         /// Получает объект <see cref="Contact"/>, который представляет контактные данные.
         /// </summary>
