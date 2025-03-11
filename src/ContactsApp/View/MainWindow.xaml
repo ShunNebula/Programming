@@ -79,11 +79,11 @@
                 <!-- Инфо -->
                 <StackPanel Grid.Column="3" Grid.Row="0">
                     <TextBlock Text="Name:" Height="16"/>
-                    <TextBox Text="{Binding SelectedContact.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0, 3, 0, 3"/>
+                    <TextBox x:Name="___Без_имени_" Text="{Binding SelectedContact.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0, 3, 0, 3" IsReadOnly="{Binding IsReadOnly, Mode=OneWay}" />
                     <TextBlock Text="Phone Number:" Height="16"/>
-                    <TextBox Text="{Binding SelectedContact.Phone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0, 3, 0, 3"/>
+                    <TextBox Text="{Binding SelectedContact.Phone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0, 3, 0, 3" IsReadOnly="{Binding IsReadOnly, Mode=OneWay}"/>
                     <TextBlock Text="Email" Height="16"/>
-                    <TextBox Text="{Binding SelectedContact.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0, 3, 0, 3"/>
+                    <TextBox Text="{Binding SelectedContact.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0, 3, 0, 3" IsReadOnly="{Binding IsReadOnly, Mode=OneWay}"/>
                 </StackPanel>
                 
                 <!-- Кнопка Apply -->
