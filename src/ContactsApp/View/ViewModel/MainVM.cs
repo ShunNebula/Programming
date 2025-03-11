@@ -83,12 +83,6 @@ namespace View.ViewModel
                     IsEditMode = false;
                 }
 
-                if (_isNewContact == true)
-                {
-                    Contacts.Remove(_selectedContact);
-                    IsEditMode = true;
-                    _isNewContact = false;
-                }
 
                 _selectedContact = value;
                 OnPropertyChanged(nameof(SelectedContact));
@@ -150,13 +144,12 @@ namespace View.ViewModel
         /// <param name="parameter">Параметр команды (не используется).</param>
         private void AddContact(object parameter)
         {
-            IsEditMode = true;
             SelectedContact = null;
             var newContact = new Contact();
             var newContactVM = new ContactVM(newContact);
-            Contacts.Add(newContactVM);
             SelectedContact = newContactVM;
             _isNewContact = true;
+            IsEditMode = true;
         }
 
         /// <summary>
@@ -216,6 +209,11 @@ namespace View.ViewModel
         /// <param name="parameter">Параметр команды (не используется).</param>
         private void ApplyContact(object parameter)
         {
+            if (_isNewContact)
+            {
+                Contacts.Add(SelectedContact);
+            }
+
             IsEditMode = false;
             _isNewContact = false;
             SaveContacts();
