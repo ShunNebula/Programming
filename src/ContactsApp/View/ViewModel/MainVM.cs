@@ -83,8 +83,14 @@ namespace View.ViewModel
             get => _selectedContact;
             set
             {
-                _selectedContact = value;
-                OnPropertyChanged(nameof(SelectedContact));
+                if (_selectedContact != value)
+                {
+                    IsEditMode = false;
+
+                    _selectedContact = value;
+                    OnPropertyChanged(nameof(SelectedContact));
+                }
+
             }
         }
 
