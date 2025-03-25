@@ -27,8 +27,6 @@ namespace View.ViewModel
         /// </summary>
         private ContactVM _selectedContact;
 
-        private bool _edited = false;
-
         /// <summary>
         /// Флаг, указывающий, находится ли приложение в режими редактрирования.
         /// </summary>
@@ -44,6 +42,9 @@ namespace View.ViewModel
         /// </summary>
         private ContactSerializer _serializer = new ContactSerializer();
 
+        /// <summary>
+        /// Индекс, выбранного контакта.
+        /// </summary>
         private int _selectedIndex;
 
         /// <summary>
@@ -84,9 +85,6 @@ namespace View.ViewModel
             {
                 _selectedContact = value;
                 OnPropertyChanged(nameof(SelectedContact));
-
-                (EditCommand as RelayCommand)?.RaiseCanExecuteChanged();
-                (RemoveCommand as RelayCommand)?.RaiseCanExecuteChanged();
             }
         }
 
@@ -165,7 +163,6 @@ namespace View.ViewModel
             };
             _selectedIndex = Contacts.IndexOf(SelectedContact);
             SelectedContact = clonnedContact;
-            _edited = true;
             IsEditMode = true;
         }
 

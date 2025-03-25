@@ -40,7 +40,7 @@ namespace View.ViewModel
         /// равен null.</exception>
         public RelayCommand(Action<object> execute, Predicate<object> canExecute = null)
         {
-            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            _execute = execute;
             _canExecute = canExecute;
         }
 
@@ -79,14 +79,6 @@ namespace View.ViewModel
             { 
                 _canExecuteChanged -= value; CommandManager.RequerySuggested -= value;
             }
-        }
-
-        /// <summary>
-        /// Вызывает событие <see cref="CanExecuteChanged"/>.
-        /// </summary>
-        public void RaiseCanExecuteChanged()
-        {
-            CommandManager.InvalidateRequerySuggested();
         }
     }
 }
