@@ -58,7 +58,7 @@ namespace View.ViewModel
             AddCommand = new RelayCommand(AddContact);
             EditCommand = new RelayCommand(EditContact, CanEditOrRemoveContact);
             RemoveCommand = new RelayCommand(RemoveContact, CanEditOrRemoveContact);
-            ApplyCommand = new RelayCommand(ApplyContact);
+            ApplyCommand = new RelayCommand(ApplyContact, CanApplyContact);
         }
 
         /// <summary>
@@ -255,6 +255,14 @@ namespace View.ViewModel
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private bool CanApplyContact(object parameter)
+        {
+            return SelectedContact != null &&
+                   string.IsNullOrEmpty(SelectedContact[nameof(SelectedContact.Name)]) &&
+                   string.IsNullOrEmpty(SelectedContact[nameof(SelectedContact.Phone)]) &&
+                   string.IsNullOrEmpty(SelectedContact[nameof(SelectedContact.Email)]);
         }
     }
 }

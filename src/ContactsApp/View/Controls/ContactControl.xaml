@@ -29,11 +29,11 @@
             <!-- Инфо -->
             <StackPanel Grid.Column="3" Grid.Row="0">
                 <TextBlock Text="Name:" Height="16"/>
-                <TextBox x:Name="NameTextBox" Text="{Binding SelectedContact.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0, 3, 0, 3" IsReadOnly="{Binding IsReadOnly}" />
+                <TextBox x:Name="NameTextBox" Text="{Binding SelectedContact.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Margin="0, 3, 0, 3" IsReadOnly="{Binding IsReadOnly}" />
                 <TextBlock Text="Phone Number:" Height="16"/>
-                <TextBox x:Name="PhoneNumberTextBox" Text="{Binding SelectedContact.Phone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0, 3, 0, 3" IsReadOnly="{Binding IsReadOnly}"/>
+                <TextBox x:Name="PhoneNumberTextBox" Text="{Binding SelectedContact.Phone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Margin="0, 3, 0, 3" IsReadOnly="{Binding IsReadOnly}" PreviewTextInput="PhoneNumberTextBox_PreviewTextInput" DataObject.Pasting="PhoneNumberTextBox_Pasting"/>
                 <TextBlock Text="Email" Height="16"/>
-                <TextBox x:Name="EmailTextBox" Text="{Binding SelectedContact.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0, 3, 0, 3" IsReadOnly="{Binding IsReadOnly}"/>
+                <TextBox x:Name="EmailTextBox" Text="{Binding SelectedContact.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Margin="0, 3, 0, 3" IsReadOnly="{Binding IsReadOnly}"/>
             </StackPanel>
         </Grid>
     </Grid>

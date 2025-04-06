@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace View.Model
         private string _phone;
         private string _email;
 
+        [StringLength(100)]
         /// <summary>
         /// Получает или задаёт ФИО контакта.
         /// </summary>
@@ -29,6 +31,8 @@ namespace View.Model
             }
         }
 
+        [StringLength(100)]
+        [RegularExpression(@"^\+[0-9]\s?\(?\d{3}\)?\s?\d{3}[-\s]?\d{2}[-\s]?\d{2}$")]
         /// <summary>
         /// Получает или задаёт номер телефона контакта.
         /// </summary>
@@ -42,6 +46,8 @@ namespace View.Model
             }
         }
 
+        [StringLength(100)]
+        [RegularExpression(@"^[^@\s]+@[^@\s]+\.[^@\s]+$")]
         /// <summary>
         /// Получает или задаёт адрес электронной почты контакта.
         /// </summary>
@@ -61,9 +67,45 @@ namespace View.Model
         /// </summary>
         public Contact() { }
 
-        public string this[string columnName] => throw new NotImplementedException();
+        public string this[string propertyName]
+        {
+            get
+            {
+                string error = null;
 
-        public string Error => throw new NotImplementedException();
+                switch (propertyName)
+                {
+                    case nameof(Name):
+                        if (string.IsNullOrEmpty(Name))
+                            error = "Имя не может быть пустым.";
+                        else if (Name?.Length > 100)
+                            error = "Имя не должно превышать 100 символов.";
+                        break;
+                    case nameof(Phone):
+                        if (string.IsNullOrEmpty(Phone))
+                            error = "Номер телефона не может быть пустым.";
+                        else if (Phone?.Length > 100)
+                            error = "Номер телефона не должен превышать 100 символов.";
+                        else if (!System.Text.RegularExpressions.Regex.IsMatch(Phone, @"^\+[0-9]\s?\(?\d{3}\)?\s?\d{3}[-\s]?\d{2}[-\s]?\d{2}$"))
+                            error = "Номер телефона должен содержать только цифры или символы +-().";
+                        break;
+                    case nameof(Email):
+                        if (string.IsNullOrEmpty(Email))
+                            error = "Адрес почты не может быть пустым.";
+                        else if (Email?.Length > 100)
+                            error = "Адрес почты не должен превышать 100 символов.";
+                        else if (!System.Text.RegularExpressions.Regex.IsMatch(Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+                            error = "Неправильный формат адреса почты.";
+                        break;
+                }
+                return error;
+            }
+        }
+
+        public string Error
+        {
+            get { return null; }
+        }
 
         /// <summary>
         /// Возникает при изменении значения свойства.
