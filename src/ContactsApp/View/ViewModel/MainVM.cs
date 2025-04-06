@@ -20,12 +20,12 @@ namespace View.ViewModel
         /// <summary>
         /// Коллекция контактов.
         /// </summary>
-        private ObservableCollection<ContactVM> _contacts;
+        private ObservableCollection<Contact> _contacts;
 
         /// <summary>
         /// Выбранный контакт из списка.
         /// </summary>
-        private ContactVM _selectedContact;
+        private Contact _selectedContact;
 
         /// <summary>
         /// Флаг, указывающий, находится ли приложение в режими редактрирования.
@@ -53,8 +53,7 @@ namespace View.ViewModel
         /// </summary>
         public MainVM()
         {
-            ObservableCollection<Contact> loadedContacts = _serializer.LoadContacts();
-            Contacts = new ObservableCollection<ContactVM>(loadedContacts.Select(c => new ContactVM(c)));
+            Contacts = _serializer.LoadContacts();
 
             AddCommand = new RelayCommand(AddContact);
             EditCommand = new RelayCommand(EditContact, CanEditOrRemoveContact);
@@ -65,7 +64,7 @@ namespace View.ViewModel
         /// <summary>
         /// Получает или задаёт коллекцию ContactVM для отображения в списке контактов.
         /// </summary>
-        public ObservableCollection<ContactVM> Contacts
+        public ObservableCollection<Contact> Contacts
         {
             get => _contacts;
             set
@@ -78,7 +77,7 @@ namespace View.ViewModel
         /// <summary>
         /// Получает или задаёт выбранный контакт из списка.
         /// </summary>
-        public ContactVM SelectedContact
+        public Contact SelectedContact
         {
             get => _selectedContact;
             set
@@ -148,8 +147,7 @@ namespace View.ViewModel
         {
             SelectedContact = null;
             var newContact = new Contact();
-            var newContactVM = new ContactVM(newContact);
-            SelectedContact = newContactVM;
+            SelectedContact = newContact;
             _isNewContact = true;
             IsEditMode = true;
         }
@@ -161,7 +159,7 @@ namespace View.ViewModel
         /// <param name="parameter">Параметр команды (не используется).</param>
         public void EditContact(object parameter)
         {
-            var clonnedContact = new ContactVM(new Contact())
+            var clonnedContact = new Contact()
             {
                 Email = SelectedContact.Email,
                 Phone = SelectedContact.Phone,
@@ -241,7 +239,7 @@ namespace View.ViewModel
         /// </summary>
         private void SaveContacts()
         {
-            _serializer.SaveContacts(new ObservableCollection<Contact>(Contacts.Select(x => x.Contact)));
+            _serializer.SaveContacts(Contacts);
         }
 
         /// <summary>
