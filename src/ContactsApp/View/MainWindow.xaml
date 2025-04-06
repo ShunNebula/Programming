@@ -5,21 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View"
         xmlns:vm="clr-namespace:View.ViewModel"
+        xmlns:controls="clr-namespace:View.Controls"
         mc:Ignorable="d"
         Title="Contacts Application" Height="450" Width="800" Icon="/contacts_96x96.ico">
+
+    <!-- Контекст данных -->
     <Window.DataContext>
         <vm:MainVM/>
     </Window.DataContext>
 
+    <!-- Ресурсы -->
     <Window.Resources>
+        <!-- Data Template для списка контактов -->
         <DataTemplate x:Key="contactTemplate">
-            <StackPanel Margin="3">
-                <TextBlock FontSize="12" FontWeight="SemiBold" Text="{Binding Name}"/>
-                <TextBlock FontSize="10" Text="{Binding Phone}"/>
+            <StackPanel Margin="3" Orientation="Horizontal">
+                <!-- Изображение пользователя -->
+                <Image Width="40" Height="40" Source="new_contact.jpg" Margin="0,0,8,0" VerticalAlignment="Center"/>
+
+                <!-- Имя и номер телефона -->
+                <StackPanel>
+                    <TextBlock FontSize="12" FontWeight="SemiBold" Text="{Binding Name}"/>
+                    <TextBlock FontSize="10" Text="{Binding Phone}"/>
+                </StackPanel>
             </StackPanel>
         </DataTemplate>
     </Window.Resources>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -37,7 +48,7 @@
                     <RowDefinition/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                
+
                 <!-- Список и поиск -->
                 <Grid Grid.Row="0">
                     <Label Content="Find:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
@@ -49,7 +60,7 @@
                         ItemsSource="{Binding Contacts}"
                         ItemTemplate="{StaticResource contactTemplate}"/>
                 </Grid>
-                
+
                 <!-- Кнопки -->
                 <Grid Grid.Row="1" Margin="0, 3, 0, 0">
                     <Grid.ColumnDefinitions>
@@ -66,39 +77,16 @@
                 </Grid>
             </Grid>
         </Grid>
-        
+
         <!-- Правая колонка -->
         <Grid Grid.Column="2">
-            <Grid Margin="8">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="3"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                
-                <!-- Картинка -->
-                <Grid Margin="0, 19, 0, 0">
-                    <Image Width="100" Height="100" VerticalAlignment="Top" Source="/new_contact.jpg"/>
-                </Grid>
-                
-                <!-- Инфо -->
-                <StackPanel Grid.Column="3" Grid.Row="0">
-                    <TextBlock Text="Name:" Height="16"/>
-                    <TextBox Text="{Binding SelectedContact.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0, 3, 0, 3" IsReadOnly="{Binding IsReadOnly, Mode=OneWay}" />
-                    <TextBlock Text="Phone Number:" Height="16"/>
-                    <TextBox Text="{Binding SelectedContact.Phone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0, 3, 0, 3" IsReadOnly="{Binding IsReadOnly, Mode=OneWay}"/>
-                    <TextBlock Text="Email" Height="16"/>
-                    <TextBox Text="{Binding SelectedContact.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0, 3, 0, 3" IsReadOnly="{Binding IsReadOnly, Mode=OneWay}"/>
-                </StackPanel>
-                
-                <!-- Кнопка Apply -->
-                <Button Grid.Column="2" Grid.Row="3" Visibility="{Binding ApplyButtonVisibility}" Command="{Binding ApplyCommand}" Content="Apply" Width="75" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            </Grid>
+            <controls:ContactControl/>
+
+            <!-- Кнопка Apply -->
+            <Button Grid.Column="1" Content="Apply" Width="75" Height="25"
+                    Margin="103,50,8,8" HorizontalAlignment="left" 
+                    Visibility="{Binding ApplyButtonVisibility}" 
+                    Command="{Binding ApplyCommand}"/>
         </Grid>
     </Grid>
 </Window>

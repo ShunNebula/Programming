@@ -22,8 +22,4 @@
     <Resource Include="new_contact.jpg" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controls\" />
-  </ItemGroup>
-
 </Project>

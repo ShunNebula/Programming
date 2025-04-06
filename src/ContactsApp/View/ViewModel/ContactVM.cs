@@ -12,7 +12,7 @@ namespace View.ViewModel
     /// ViewModel для представления контакта в UI.
     /// Оборачивает объект Contact и реализует INotifyPropertyChanged.
     /// </summary>
-    public class ContactVM : INotifyPropertyChanged
+    public class ContactVM : INotifyPropertyChanged, IDataErrorInfo
     {
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="ContactVM"/>.
@@ -24,6 +24,8 @@ namespace View.ViewModel
         {
             Contact = contact ?? throw new ArgumentNullException(nameof(contact));
         }
+
+        public string this[string columnName] => throw new NotImplementedException();
 
         /// <summary>
         /// Получает объект <see cref="Contact"/>, который представляет контактные данные.
@@ -68,6 +70,8 @@ namespace View.ViewModel
                 OnPropertyChanged(nameof(Email));
             }
         }
+
+        public string Error => throw new NotImplementedException();
 
         /// <summary>
         /// Возникает при изменении значения свойства.
