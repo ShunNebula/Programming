@@ -13,6 +13,12 @@
     
     <Window.Resources>
         <vm:BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
+        <DataTemplate x:Key="contactTemplate">
+            <StackPanel Margin="3">
+                <TextBlock FontSize="12" FontWeight="SemiBold" Text="{Binding Name}"/>
+                <TextBlock FontSize="10" Text="{Binding Phone}"/>
+            </StackPanel>
+        </DataTemplate>
     </Window.Resources>
     
     <Grid>
@@ -41,21 +47,8 @@
                         SelectedItem="{Binding SelectedContact}" 
                         IsTextSearchEnabled="False" 
                         Margin="0,29,0,0" 
-                        ItemsSource="{Binding Contacts}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Margin="3">
-                                    <TextBlock
-                                        FontSize="12"
-                                        FontWeight="SemiBold"
-                                        Text="{Binding Name}" />
-                                    <TextBlock
-                                        FontSize="10"
-                                        Text="{Binding Phone}" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                        ItemsSource="{Binding Contacts}"
+                        ItemTemplate="{StaticResource contactTemplate}"/>
                 </Grid>
                 
                 <!-- Кнопки -->
