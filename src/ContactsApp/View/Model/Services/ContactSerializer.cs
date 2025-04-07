@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using Newtonsoft.Json;
 
 namespace View.Model.Services
 {
@@ -16,10 +11,16 @@ namespace View.Model.Services
     /// </summary>
     public class ContactSerializer
     {
+        #region Поля
+
         /// <summary>
         /// Путь к файлу, в котором хранятся контакты.
         /// </summary>
         private string _filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Contacts", "contacts.json");
+
+        #endregion
+
+        #region Конструктор
 
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="ContactSerializer"/>.
@@ -33,6 +34,10 @@ namespace View.Model.Services
                 Directory.CreateDirectory(directoryPath);
             }
         }
+
+        #endregion
+
+        #region Методы
 
         /// <summary>
         /// Сохраняет коллекцию контактов.
@@ -52,7 +57,7 @@ namespace View.Model.Services
         }
 
         /// <summary>
-        /// Хагружает коллекцию контактов из файла.
+        /// Загружает коллекцию контактов из файла.
         /// </summary>
         /// <returns>Коллекцию контактов, загруженная из файла.
         /// Возвращает новую пустую коллекцию, если файл не существует.</returns>
@@ -75,5 +80,7 @@ namespace View.Model.Services
 
             return new ObservableCollection<Contact>();
         }
+
+        #endregion
     }
 }

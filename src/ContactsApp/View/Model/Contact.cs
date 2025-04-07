@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace View.Model
 {
@@ -13,9 +8,26 @@ namespace View.Model
     /// </summary>
     public class Contact : INotifyPropertyChanged, IDataErrorInfo
     {
+        #region Поля
+
+        /// <summary>
+        /// Приватное поле для хранения имени контакта.
+        /// </summary>
         private string _name;
+
+        /// <summary>
+        /// Приватное поле для хранения номера телефона контакта.
+        /// </summary>
         private string _phone;
+
+        /// <summary>
+        /// Приватное поле для хранения адреса электронной почты контакта.
+        /// </summary>
         private string _email;
+
+        #endregion
+
+        #region Свойства
 
         [StringLength(100)]
         /// <summary>
@@ -61,12 +73,25 @@ namespace View.Model
             }
         }
 
+        #endregion
+
+        #region Конструктор
+
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="Contact"/>.
         /// (Конструктор по умолчанию)
         /// </summary>
         public Contact() { }
 
+        #endregion
+
+        #region IDataErrorInfo
+
+        /// <summary>
+        /// Возвращает сообщение об ошибке для указанного свойства.
+        /// </summary>
+        /// <param name="propertyName">Имя свойства, для которого нужно получить сообщение об ошибке.</param>
+        /// <returns>Сообщение об ошибке, если свойство недействительно, иначе <c>null</c>.</returns>
         public string this[string propertyName]
         {
             get
@@ -80,6 +105,7 @@ namespace View.Model
                             error = "Имя не может быть пустым.";
                         else if (Name?.Length > 100)
                             error = "Имя не должно превышать 100 символов.";
+
                         break;
                     case nameof(Phone):
                         if (string.IsNullOrEmpty(Phone))
@@ -88,6 +114,7 @@ namespace View.Model
                             error = "Номер телефона не должен превышать 100 символов.";
                         else if (!System.Text.RegularExpressions.Regex.IsMatch(Phone, @"^\+[0-9]\s?\(?\d{3}\)?\s?\d{3}[-\s]?\d{2}[-\s]?\d{2}$"))
                             error = "Номер телефона должен содержать только цифры или символы +-().";
+
                         break;
                     case nameof(Email):
                         if (string.IsNullOrEmpty(Email))
@@ -96,16 +123,25 @@ namespace View.Model
                             error = "Адрес почты не должен превышать 100 символов.";
                         else if (!System.Text.RegularExpressions.Regex.IsMatch(Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
                             error = "Неправильный формат адреса почты.";
+
                         break;
                 }
+
                 return error;
             }
         }
 
+        /// <summary>
+        /// Возвращает сообщение об ошибке для всего объекта.
+        /// </summary>
         public string Error
         {
             get { return null; }
         }
+
+        #endregion
+
+        #region INotifyPropertyChanged
 
         /// <summary>
         /// Возникает при изменении значения свойства.
@@ -121,5 +157,7 @@ namespace View.Model
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        #endregion
     }
 }
