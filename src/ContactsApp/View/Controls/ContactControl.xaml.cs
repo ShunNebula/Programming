@@ -7,12 +7,15 @@ using System.Windows.Input;
 namespace View.Controls
 {
     /// <summary>
-    /// Логика взаимодействия для ContactControl.xaml
+    /// Представляет пользовательский элемент управления для отображения и редактирования контактной информации.
     /// </summary>
     public partial class ContactControl : UserControl
     {
         #region Конструктор
 
+        /// <summary>
+        /// Инициализирует новый экземпляр класса <see cref="ContactControl"/>.
+        /// </summary>
         public ContactControl()
         {
             InitializeComponent();
@@ -22,6 +25,12 @@ namespace View.Controls
 
         #region Обработчики событий
 
+        /// <summary>
+        /// Обработчик события <see cref="TextBox.PreviewTextInput"/> для текстового поля PhoneNumber.
+        /// Запрещает ввод любых недопустимых символов и ограничивает длину в 100 символов.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Объект <see cref="TextCompositionEventArgs"/>, содержащий данные о событии.</param>
         private void PhoneNumberTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             string newText = (sender as TextBox).Text + e.Text;
@@ -29,6 +38,12 @@ namespace View.Controls
             e.Handled = regex.IsMatch(e.Text) || newText.Length > 100;
         }
 
+        /// <summary>
+        /// Обработчик события <see cref="DataObject.Pasting"/> для текстового поля PhoneNumber.
+        /// Предотвращает вставку недопустимых символов из буфера обмена и ограничивает длину в 100 символов.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Объект <see cref="DataObjectPastingEventArgs"/>, содержащий данные о событии.</param>
         private void PhoneNumberTextBox_Pasting(object sender, DataObjectPastingEventArgs e)
         {
             if (e.DataObject.GetDataPresent(typeof(string)))
