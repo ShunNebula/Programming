@@ -257,10 +257,7 @@ namespace View.ViewModel
         /// <returns><c>true</c>, если команда может быть выполнена, иначе <c>false</c>.</returns>
         private bool CanApplyContact(object parameter)
         {
-            return SelectedContact != null &&
-                   string.IsNullOrEmpty(SelectedContact[nameof(SelectedContact.Name)]) &&
-                   string.IsNullOrEmpty(SelectedContact[nameof(SelectedContact.Phone)]) &&
-                   string.IsNullOrEmpty(SelectedContact[nameof(SelectedContact.Email)]);
+            return SelectedContact != null && SelectedContact.HasError;
         }
 
         /// <summary>

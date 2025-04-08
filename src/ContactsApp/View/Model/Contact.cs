@@ -73,6 +73,16 @@ namespace View.Model
             }
         }
 
+        public bool HasError
+        {
+            get
+            {
+                return string.IsNullOrEmpty(this[nameof(this.Name)]) &&
+                   string.IsNullOrEmpty(this[nameof(this.Phone)]) &&
+                   string.IsNullOrEmpty(this[nameof(this.Email)]);
+            }
+        }
+
         #endregion
 
         #region Конструктор
