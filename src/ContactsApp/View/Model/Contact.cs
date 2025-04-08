@@ -101,30 +101,52 @@ namespace View.Model
                 switch (propertyName)
                 {
                     case nameof(Name):
-                        if (string.IsNullOrEmpty(Name))
-                            error = "Имя не может быть пустым.";
-                        else if (Name?.Length > 100)
-                            error = "Имя не должно превышать 100 символов.";
+                        {
+                            if (string.IsNullOrEmpty(Name))
+                            {
+                                error = "Имя не может быть пустым.";
+                            }
+                            else if (Name?.Length > 100)
+                            {
+                                error = "Имя не должно превышать 100 символов.";
+                            }
 
-                        break;
+                            break;
+                        }
                     case nameof(Phone):
-                        if (string.IsNullOrEmpty(Phone))
-                            error = "Номер телефона не может быть пустым.";
-                        else if (Phone?.Length > 100)
-                            error = "Номер телефона не должен превышать 100 символов.";
-                        else if (!System.Text.RegularExpressions.Regex.IsMatch(Phone, @"^\+[0-9]\s?\(?\d{3}\)?\s?\d{3}[-\s]?\d{2}[-\s]?\d{2}$"))
-                            error = "Номер телефона должен содержать только цифры или символы +-().";
+                        {
+                            if (string.IsNullOrEmpty(Phone))
+                            {
+                                error = "Номер телефона не может быть пустым.";
+                            }
+                            else if (Phone?.Length > 100)
+                            {
+                                error = "Номер телефона не должен превышать 100 символов.";
+                            }
+                            else if (!System.Text.RegularExpressions.Regex.IsMatch(Phone, @"^\+[0-9]\s?\(?\d{3}\)?\s?\d{3}[-\s]?\d{2}[-\s]?\d{2}$"))
+                            {
+                                error = "Номер телефона должен содержать только цифры или символы +-().";
+                            }
 
-                        break;
+                            break;
+                        }
                     case nameof(Email):
-                        if (string.IsNullOrEmpty(Email))
-                            error = "Адрес почты не может быть пустым.";
-                        else if (Email?.Length > 100)
-                            error = "Адрес почты не должен превышать 100 символов.";
-                        else if (!System.Text.RegularExpressions.Regex.IsMatch(Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
-                            error = "Неправильный формат адреса почты.";
+                        {
+                            if (string.IsNullOrEmpty(Email))
+                            {
+                                error = "Адрес почты не может быть пустым.";
+                            }
+                            else if (Email?.Length > 100)
+                            {
+                                error = "Адрес почты не должен превышать 100 символов.";
+                            }
+                            else if (!System.Text.RegularExpressions.Regex.IsMatch(Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+                            {
+                                error = "Неправильный формат адреса почты.";
+                            }
 
-                        break;
+                            break;
+                        }
                 }
 
                 return error;
