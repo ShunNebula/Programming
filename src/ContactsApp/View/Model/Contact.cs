@@ -73,6 +73,9 @@ namespace View.Model
             }
         }
 
+        /// <summary>
+        /// Возвращает наличие ошибки
+        /// </summary>
         public bool HasError
         {
             get
