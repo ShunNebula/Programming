@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using View.Model;
@@ -17,23 +12,25 @@ namespace View.ViewModel
     /// </summary>
     public class MainVM : INotifyPropertyChanged
     {
+        #region Поля
+
         /// <summary>
         /// Коллекция контактов.
         /// </summary>
-        private ObservableCollection<ContactVM> _contacts;
+        private ObservableCollection<Contact> _contacts;
 
         /// <summary>
         /// Выбранный контакт из списка.
         /// </summary>
-        private ContactVM _selectedContact;
+        private Contact _selectedContact;
 
         /// <summary>
-        /// Флаг, указывающий, находится ли приложение в режими редактрирования.
+        /// Флаг, указывающий, находится ли приложение в режиме редактирования.
         /// </summary>
         private bool _isEditMode = false;
 
         /// <summary>
-        /// Флаг, указывающий был ли создан новый контакт.
+        /// Флаг, указывающий, был ли создан новый контакт.
         /// </summary>
         private bool _isNewContact = false;
 
@@ -43,29 +40,18 @@ namespace View.ViewModel
         private ContactSerializer _serializer = new ContactSerializer();
 
         /// <summary>
-        /// Индекс, выбранного контакта.
+        /// Индекс выбранного контакта.
         /// </summary>
         private int _selectedIndex;
 
-        /// <summary>
-        /// Инициализирует новый экземпляр класса <see cref="MainVM"/>.
-        /// Загружает контакты из файла, создаёт ContactVM и инициализирует команды.
-        /// </summary>
-        public MainVM()
-        {
-            ObservableCollection<Contact> loadedContacts = _serializer.LoadContacts();
-            Contacts = new ObservableCollection<ContactVM>(loadedContacts.Select(c => new ContactVM(c)));
+        #endregion
 
-            AddCommand = new RelayCommand(AddContact);
-            EditCommand = new RelayCommand(EditContact, CanEditOrRemoveContact);
-            RemoveCommand = new RelayCommand(RemoveContact, CanEditOrRemoveContact);
-            ApplyCommand = new RelayCommand(ApplyContact);
-        }
+        #region Свойства
 
         /// <summary>
-        /// Получает или задаёт коллекцию ContactVM для отображения в списке контактов.
+        /// Получает или задаёт коллекцию Contact для отображения в списке контактов.
         /// </summary>
-        public ObservableCollection<ContactVM> Contacts
+        public ObservableCollection<Contact> Contacts
         {
             get => _contacts;
             set
@@ -78,7 +64,7 @@ namespace View.ViewModel
         /// <summary>
         /// Получает или задаёт выбранный контакт из списка.
         /// </summary>
-        public ContactVM SelectedContact
+        public Contact SelectedContact
         {
             get => _selectedContact;
             set
@@ -90,7 +76,6 @@ namespace View.ViewModel
                     _selectedContact = value;
                     OnPropertyChanged(nameof(SelectedContact));
                 }
-
             }
         }
 
@@ -119,6 +104,10 @@ namespace View.ViewModel
         /// </summary>
         public Visibility ApplyButtonVisibility => IsEditMode ? Visibility.Visible : Visibility.Collapsed;
 
+        #endregion
+
+        #region Команды
+
         /// <summary>
         /// Получает команду для добавления нового контакта.
         /// </summary>
@@ -139,47 +128,58 @@ namespace View.ViewModel
         /// </summary>
         public ICommand ApplyCommand { get; }
 
+        #endregion
+
+        #region Конструктор
+
+        /// <summary>
+        /// Инициализирует новый экземпляр класса <see cref="MainVM"/>.
+        /// Загружает контакты из файла и инициализирует команды.
+        /// </summary>
+        public MainVM()
+        {
+            Contacts = _serializer.LoadContacts();
+
+            AddCommand = new RelayCommand(AddContact);
+            EditCommand = new RelayCommand(EditContact, CanEditOrRemoveContact);
+            RemoveCommand = new RelayCommand(RemoveContact, CanEditOrRemoveContact);
+            ApplyCommand = new RelayCommand(ApplyContact, CanApplyContact);
+        }
+
+        #endregion
+
+        #region Обработчики команд
+
         /// <summary>
         /// Обработчик команды AddCommand.
-        /// Создаёт новый контакт и добавляет его в коллекцию.
+        /// Создаёт новый контакт и подготавливает ViewModel к редактированию.
         /// </summary>
         /// <param name="parameter">Параметр команды (не используется).</param>
         private void AddContact(object parameter)
         {
             SelectedContact = null;
             var newContact = new Contact();
-            var newContactVM = new ContactVM(newContact);
-            SelectedContact = newContactVM;
+            SelectedContact = newContact;
             _isNewContact = true;
             IsEditMode = true;
         }
 
         /// <summary>
         /// Обработчик команды EditCommand.
-        /// Переводи приложение в режим редактирования.
+        /// Переводит приложение в режим редактирования выбранного контакта.
         /// </summary>
         /// <param name="parameter">Параметр команды (не используется).</param>
         public void EditContact(object parameter)
         {
-            var clonnedContact = new ContactVM(new Contact())
+            var clonedContact = new Contact()
             {
                 Email = SelectedContact.Email,
                 Phone = SelectedContact.Phone,
                 Name = SelectedContact.Name
             };
             _selectedIndex = Contacts.IndexOf(SelectedContact);
-            SelectedContact = clonnedContact;
+            SelectedContact = clonedContact;
             IsEditMode = true;
-        }
-
-        /// <summary>
-        /// Определяет, может ли быть выполнена команда EditCommand или RemoveCommand.
-        /// </summary>
-        /// <param name="parameter">Параметр команды (не используется).</param>
-        /// <returns>true, если команда может быть выполнена, иначе false.</returns>
-        private bool CanEditOrRemoveContact(object parameter)
-        {
-            return SelectedContact != null;
         }
 
         /// <summary>
@@ -236,27 +236,56 @@ namespace View.ViewModel
             SaveContacts();
         }
 
+        #endregion
+
+        #region Вспомогательные методы
+
+        /// <summary>
+        /// Определяет, может ли быть выполнена команда EditCommand или RemoveCommand.
+        /// </summary>
+        /// <param name="parameter">Параметр команды (не используется).</param>
+        /// <returns><c>true</c>, если команда может быть выполнена, иначе <c>false</c>.</returns>
+        private bool CanEditOrRemoveContact(object parameter)
+        {
+            return SelectedContact != null;
+        }
+
+        /// <summary>
+        /// Определяет, может ли быть выполнена команда ApplyCommand.
+        /// </summary>
+        /// <param name="parameter">Параметр команды (не используется).</param>
+        /// <returns><c>true</c>, если команда может быть выполнена, иначе <c>false</c>.</returns>
+        private bool CanApplyContact(object parameter)
+        {
+            return SelectedContact != null && SelectedContact.HasError;
+        }
+
         /// <summary>
         /// Сохраняет коллекцию контактов в файл.
         /// </summary>
         private void SaveContacts()
         {
-            _serializer.SaveContacts(new ObservableCollection<Contact>(Contacts.Select(x => x.Contact)));
+            _serializer.SaveContacts(Contacts);
         }
 
+        #endregion
+
+        #region INotifyPropertyChanged
+
         /// <summary>
-        /// Возникает при изменениии значения свойства.
+        /// Возникает при изменении значения свойства.
         /// </summary>
         public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>
-        /// Вызывает событие <see cref="PropertyChanged"/>
-        /// для уведомления об изменении свойства.
+        /// Вызывает событие <see cref="PropertyChanged"/> для уведомления об изменении свойства.
         /// </summary>
         /// <param name="propertyName">Имя изменённого свойства.</param>
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        #endregion
     }
 }

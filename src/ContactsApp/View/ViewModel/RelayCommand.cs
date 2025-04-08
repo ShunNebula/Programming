@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace View.ViewModel
 {
@@ -13,6 +8,8 @@ namespace View.ViewModel
     /// </summary>
     public class RelayCommand : ICommand
     {
+        #region Поля
+
         /// <summary>
         /// Делегат, представляющий метод для выполнения.
         /// </summary>
@@ -30,6 +27,10 @@ namespace View.ViewModel
         /// </summary>
         private event EventHandler _canExecuteChanged;
 
+        #endregion
+
+        #region Конструктор
+
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="RelayCommand"/>.
         /// </summary>
@@ -40,9 +41,13 @@ namespace View.ViewModel
         /// равен null.</exception>
         public RelayCommand(Action<object> execute, Predicate<object> canExecute = null)
         {
-            _execute = execute;
+            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
             _canExecute = canExecute;
         }
+
+        #endregion
+
+        #region Методы ICommand
 
         /// <summary>
         /// Определяет, может ли команда выполняться в текущем состоянии.
@@ -66,19 +71,25 @@ namespace View.ViewModel
             _execute(parameter);
         }
 
+        #endregion
+
+        #region Событие CanExecuteChanged
+
         /// <summary>
         /// Возникает при изменении условий, влияющих на возможность выполнения команды.
         /// </summary>
         public event EventHandler CanExecuteChanged
         {
-            add 
-            { 
+            add
+            {
                 _canExecuteChanged += value; CommandManager.RequerySuggested += value;
             }
-            remove 
-            { 
+            remove
+            {
                 _canExecuteChanged -= value; CommandManager.RequerySuggested -= value;
             }
         }
+
+        #endregion
     }
 }
