@@ -1,9 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Windows;
 
-namespace View.Model.Services
+namespace ContactsApp.Model.Services
 {
     /// <summary>
     /// Предоставляет методы для сериализации и десериализации
@@ -52,7 +50,7 @@ namespace View.Model.Services
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка при сериализации контактов: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                Console.WriteLine($"Ошибка при сериализации контактов: {ex.Message}");
             }
         }
 
@@ -73,7 +71,7 @@ namespace View.Model.Services
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка при десериализации контактов: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                Console.WriteLine($"Ошибка при десериализации контактов: {ex.Message}");
 
                 return new ObservableCollection<Contact>();
             }

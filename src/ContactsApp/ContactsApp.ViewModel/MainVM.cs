@@ -2,28 +2,38 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
-using View.Model;
-using View.Model.Services;
+using ContactsApp.Model;
+using ContactsApp.Model.Services;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Newtonsoft.Json.Linq;
 
-namespace View.ViewModel
+namespace ContactsApp.ViewModel
 {
     /// <summary>
     /// ViewModel для главного окна приложения.
     /// </summary>
-    public class MainVM : INotifyPropertyChanged
+    public partial class MainVM : ObservableObject
     {
         #region Поля
 
+        [ObservableProperty]
         /// <summary>
         /// Коллекция контактов.
         /// </summary>
         private ObservableCollection<Contact> _contacts;
 
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(EditContactCommand))]
+        [NotifyCanExecuteChangedFor(nameof(RemoveContactCommand))]
+        [NotifyCanExecuteChangedFor(nameof(ApplyContactCommand))]
         /// <summary>
         /// Выбранный контакт из списка.
         /// </summary>
         private Contact _selectedContact;
 
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(IsReadOnly))]
         /// <summary>
         /// Флаг, указывающий, находится ли приложение в режиме редактирования.
         /// </summary>
@@ -49,60 +59,9 @@ namespace View.ViewModel
         #region Свойства
 
         /// <summary>
-        /// Получает или задаёт коллекцию Contact для отображения в списке контактов.
-        /// </summary>
-        public ObservableCollection<Contact> Contacts
-        {
-            get => _contacts;
-            set
-            {
-                _contacts = value;
-                OnPropertyChanged(nameof(Contacts));
-            }
-        }
-
-        /// <summary>
-        /// Получает или задаёт выбранный контакт из списка.
-        /// </summary>
-        public Contact SelectedContact
-        {
-            get => _selectedContact;
-            set
-            {
-                if (_selectedContact != value)
-                {
-                    IsEditMode = false;
-
-                    _selectedContact = value;
-                    OnPropertyChanged(nameof(SelectedContact));
-                }
-            }
-        }
-
-        /// <summary>
-        /// Получает или задаёт значение, указывающее, находится ли приложение в режиме редактирования.
-        /// </summary>
-        public bool IsEditMode
-        {
-            get => _isEditMode;
-            set
-            {
-                _isEditMode = value;
-                OnPropertyChanged(nameof(IsEditMode));
-                OnPropertyChanged(nameof(IsReadOnly));
-                OnPropertyChanged(nameof(ApplyButtonVisibility));
-            }
-        }
-
-        /// <summary>
         /// Получает значение, указывающее, находится ли приложение в режиме только для чтения.
         /// </summary>
         public bool IsReadOnly => !IsEditMode;
-
-        /// <summary>
-        /// Получает значение, указывающее видимость кнопки "Apply".
-        /// </summary>
-        public Visibility ApplyButtonVisibility => IsEditMode ? Visibility.Visible : Visibility.Collapsed;
 
         #endregion
 
@@ -138,18 +97,15 @@ namespace View.ViewModel
         /// </summary>
         public MainVM()
         {
-            Contacts = _serializer.LoadContacts();
-
-            AddCommand = new RelayCommand(AddContact);
-            EditCommand = new RelayCommand(EditContact, CanEditOrRemoveContact);
-            RemoveCommand = new RelayCommand(RemoveContact, CanEditOrRemoveContact);
-            ApplyCommand = new RelayCommand(ApplyContact, CanApplyContact);
+            _serializer = new ContactSerializer();
+            Contacts = new ObservableCollection<Contact>(_serializer.LoadContacts());
         }
 
         #endregion
 
         #region Обработчики команд
 
+        [RelayCommand]
         /// <summary>
         /// Обработчик команды AddCommand.
         /// Создаёт новый контакт и подготавливает ViewModel к редактированию.
@@ -162,8 +118,10 @@ namespace View.ViewModel
             SelectedContact = newContact;
             _isNewContact = true;
             IsEditMode = true;
+            SelectedContact.PropertyChanged += SelectedContanctChanged;
         }
 
+        [RelayCommand(CanExecute = nameof(CanEditOrRemoveContact))]
         /// <summary>
         /// Обработчик команды EditCommand.
         /// Переводит приложение в режим редактирования выбранного контакта.
@@ -171,6 +129,12 @@ namespace View.ViewModel
         /// <param name="parameter">Параметр команды (не используется).</param>
         public void EditContact(object parameter)
         {
+            if (IsEditMode)
+            {
+                IsEditMode = false;
+                return;
+            }
+
             var clonedContact = new Contact()
             {
                 Email = SelectedContact.Email,
@@ -178,10 +142,19 @@ namespace View.ViewModel
                 Name = SelectedContact.Name
             };
             _selectedIndex = Contacts.IndexOf(SelectedContact);
+            var newIndex = _selectedIndex;
             SelectedContact = clonedContact;
+            SelectedContact.PropertyChanged += SelectedContanctChanged;
             IsEditMode = true;
+            _selectedIndex = newIndex;
         }
 
+        private void SelectedContanctChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            ApplyContactCommand.NotifyCanExecuteChanged();
+        }
+
+        [RelayCommand(CanExecute = nameof(CanEditOrRemoveContact))]
         /// <summary>
         /// Обработчик команды RemoveCommand.
         /// Удаляет выбранный контакт из коллекции.
@@ -191,14 +164,17 @@ namespace View.ViewModel
         {
             if (SelectedContact != null)
             {
-                int selectedIndex = Contacts.IndexOf(SelectedContact);
+                _selectedIndex = Contacts.IndexOf(SelectedContact);
                 Contacts.Remove(SelectedContact);
 
                 if (Contacts.Count > 0)
                 {
-                    if (selectedIndex < Contacts.Count)
+                    if (_selectedIndex < Contacts.Count)
                     {
-                        SelectedContact = Contacts[selectedIndex];
+                        if (_selectedIndex > -1)
+                        { 
+                            SelectedContact = Contacts[_selectedIndex]; 
+                        }
                     }
                     else
                     {
@@ -210,10 +186,12 @@ namespace View.ViewModel
                     SelectedContact = null;
                 }
 
+                IsEditMode = false;
                 SaveContacts();
             }
         }
 
+        [RelayCommand(CanExecute = nameof(CanApplyContact))]
         /// <summary>
         /// Обработчик команды ApplyCommand.
         /// Применяет изменения к контакту и сохраняет их в файл.
@@ -221,6 +199,7 @@ namespace View.ViewModel
         /// <param name="parameter">Параметр команды (не используется).</param>
         private void ApplyContact(object parameter)
         {
+            SelectedContact.PropertyChanged -= SelectedContanctChanged;
             if (_isNewContact)
             {
                 Contacts.Add(SelectedContact);
@@ -268,22 +247,14 @@ namespace View.ViewModel
             _serializer.SaveContacts(Contacts);
         }
 
-        #endregion
-
-        #region INotifyPropertyChanged
-
-        /// <summary>
-        /// Возникает при изменении значения свойства.
-        /// </summary>
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        /// <summary>
-        /// Вызывает событие <see cref="PropertyChanged"/> для уведомления об изменении свойства.
-        /// </summary>
-        /// <param name="propertyName">Имя изменённого свойства.</param>
-        private void OnPropertyChanged(string propertyName)
+        partial void OnSelectedContactChanging(Contact oldValue, Contact newValue)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            if(oldValue != null)
+            {
+                oldValue.PropertyChanged -= SelectedContanctChanged;
+            }
+
+            IsEditMode = false;
         }
 
         #endregion
