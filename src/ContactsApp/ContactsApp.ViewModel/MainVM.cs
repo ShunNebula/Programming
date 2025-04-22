@@ -118,6 +118,7 @@ namespace ContactsApp.ViewModel
             SelectedContact = newContact;
             _isNewContact = true;
             IsEditMode = true;
+            SelectedContact.PropertyChanged += SelectedContanctChanged;
         }
 
         [RelayCommand(CanExecute = nameof(CanEditOrRemoveContact))]
