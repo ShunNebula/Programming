@@ -128,6 +128,12 @@ namespace ContactsApp.ViewModel
         /// <param name="parameter">Параметр команды (не используется).</param>
         public void EditContact(object parameter)
         {
+            if (IsEditMode)
+            {
+                IsEditMode = false;
+                return;
+            }
+
             var clonedContact = new Contact()
             {
                 Email = SelectedContact.Email,
@@ -164,7 +170,10 @@ namespace ContactsApp.ViewModel
                 {
                     if (_selectedIndex < Contacts.Count)
                     {
-                        SelectedContact = Contacts[_selectedIndex];
+                        if (_selectedIndex > -1)
+                        { 
+                            SelectedContact = Contacts[_selectedIndex]; 
+                        }
                     }
                     else
                     {
@@ -245,11 +254,6 @@ namespace ContactsApp.ViewModel
             }
 
             IsEditMode = false;
-        }
-
-        partial void OnSelectedContactChanged(Contact oldValue, Contact newValue)
-        {
-            var a = Contacts.IndexOf(newValue);
         }
 
         #endregion
