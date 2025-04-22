@@ -4,7 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View"
-        xmlns:vm="clr-namespace:View.ViewModel"
+        xmlns:conv="clr-namespace:View.Converters"
+        xmlns:vm="clr-namespace:ContactsApp.ViewModel;assembly=ContactsApp.ViewModel"
         xmlns:controls="clr-namespace:View.Controls"
         mc:Ignorable="d"
         Title="Contacts Application" Height="450" Width="800" Icon="/contacts_96x96.ico">
@@ -40,6 +41,8 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+
+        <conv:BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
     </Window.Resources>
 
     <Grid>
@@ -82,9 +85,9 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <Button x:Name="AddButton" Command="{Binding AddCommand}" Content="Add" Grid.Column="0"/>
-                    <Button x:Name="EditButton" Command="{Binding EditCommand}" IsEnabled="{Binding SelectedContact}" Content="Edit" Grid.Column="2"/>
-                    <Button x:Name="RemoveButton" Command="{Binding RemoveCommand}" IsEnabled="{Binding SelectedContact}" Content="Remove" Grid.Column="4"/>
+                    <Button x:Name="AddButton" Command="{Binding AddContactCommand}" Content="Add" Grid.Column="0"/>
+                    <Button x:Name="EditButton" Command="{Binding EditContactCommand}" IsEnabled="{Binding SelectedContact}" Content="Edit" Grid.Column="2"/>
+                    <Button x:Name="RemoveButton" Command="{Binding RemoveContactCommand}" IsEnabled="{Binding SelectedContact}" Content="Remove" Grid.Column="4"/>
                 </Grid>
             </Grid>
         </Grid>
@@ -96,8 +99,8 @@
             <!-- Кнопка Apply -->
             <Button Grid.Column="1" Content="Apply" Width="75" Height="25"
                     Margin="103,50,8,8" HorizontalAlignment="left" 
-                    Visibility="{Binding ApplyButtonVisibility}" 
-                    Command="{Binding ApplyCommand}"/>
+                    Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVisibility}}"  
+                    Command="{Binding ApplyContactCommand}"/>
         </Grid>
     </Grid>
 </Window>

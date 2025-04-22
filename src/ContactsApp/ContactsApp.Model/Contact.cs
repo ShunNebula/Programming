@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace View.Model
+namespace ContactsApp.Model
 {
     /// <summary>
     /// Представляет контактную информацию.
